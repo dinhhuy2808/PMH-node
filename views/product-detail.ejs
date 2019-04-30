@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include /partials/index_Header.ejs %>
+<body>
+<div class="container body-content" id="mobile">
+    <div class="row ">
+        <ol class="breadcrumb font-mobile">
+            <a href="/"><i class="icon fa fa-home"></i> Home</a> / <a
+                    href="/maintenance-prd/<%= result[0].catflt==null?'All':result[0].catflt.replace(/ /g, '-') %>"> <%= result[0].catflt==null?'All':result[0].catflt.replace(/ /g, '-') %></a> / <a
+                    href="#"><%= result[0].name %></a>
+        </ol>
+
+    </div>
+    <div class="row product-info thumbnail">
+        <%if (result[0].catflt != 'Tin Tức'){%>
+        <div class="col-md-5">
+            <div class="row">
+                <div class="col-md-2" style="position: absolute; background-color: #cf69f9; opacity: 1; z-index: 5;">
+                    <h4 style="color: white;">MỚI</h4>
+                </div>
+                <div class="col-md-4 col-md-offset-2" id="freeshipicon"
+                     style="position: absolute; background-color: #69d9f9;  z-index: 5;">
+                    <h4 style="color: white;">FREESHIP</h4>
+                </div>
+                <%for(i = 0;i < image.length;i++){%>
+                    <% for(j = 0;j < image[i].url.split(";").length;j++){ %>
+                    <div class="Slide-product">
+                        <img onclick="zoomImg()" class="list-image img-responsive fade center-block"
+                             src="/assets/img/<%= image[i].url.split(";")[j] %>" alt="">
+                    </div>
+                    <% } }%>
+
+
+                <div style="position: relative;overflow-x: scroll;overflow-y:hidden;height: 150px" class = "scrollmenu">
+                    <%for(i = 0;i < image.length;i++){%>
+                    <% for(j = 0;j < image[i].url.split(";").length;j++){ %>
+                    <div style="; width: 25%;height: 150px">
+                        <img onclick="currentSlide(<%= j+1 %>)" class="img-responsive cursor item-product-detail"
+                             src="/assets/img/<%= image[i].url.split(";")[j] %>" alt="image">
+                    </div>
+                    <% }} %>
+                    <a class="prev" onclick="plusSlides(-1)">❮</a>
+                    <a class="next" onclick="plusSlides(1)">❯</a>
+                </div>
+
+                <!-- <div class="col-md-12 col-xs-12">
+                    <div class="carousel js-flickity">
+                        <%for(i = 0;i < image.length;i++){%>
+                            <% for(j = 0;j < image[i].url.split(";").length;j++){ %>
+                                <div class="carousel-cell">
+                                    <img class="center-block" src="/assets/img/<%= image[i].url.split(";")[j] %>" alt="...">
+                                </div>
+                            <% } %>
+                        <% } %>
+                    </div>
+                </div> -->
+            </div>
+            <div id="myModal" class="modal">
+                <span id="closeImg" class="close">&times;</span>
+                <img class="modal-content" id="img01">
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="row">
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 style="" class="font-mobile"><b><%= result[0].name %></b></h2>
+                </div>
+                <%if(result[0].code.trim() != ''){%>
+                <div class="col-md-4 col-md-offset-2">
+                    <h3 style="" class="font-mobile">Mã SP: <a href="#" style="color: red;"><%= result[0].code %></a></h3>
+                </div>
+                <%}%>
+            </div>
+            <%if(result[0].price != 0){%>
+            <div class="row">
+                <div class="col-md-10">
+                    <%if(result[0].menh.trim() != ''){%>
+                    <h3 style="color: #2b70fc;" class="font-mobile">Hợp với mệnh:
+                        <%if(result[0].menh.split(';')[result[0].menh.split(';').length-2].trim() == 'All'){%>
+                        <a href="#"
+                           style="color: black;">Tất cả mệnh</a>
+                        <%} else {%>
+                        <a href="#"
+                           style="color: black;"><%= result[0].menh.substring(0, result[0].menh.length - 1).replace(/;/g, ', ') %></a>
+                        <%}%>
+                    </h3>
+                    <%}%>
+
+                    <%if(result[0].tuoi.trim() != ''){%>
+                    <h3 style="color: #2b70fc;" class="font-mobile">Hợp với tuổi:
+                        <%if(result[0].tuoi.split(';')[result[0].tuoi.split(';').length-2].trim() == 'All'){%>
+                        <a href="#"
+                           style="color: black;">Tất cả tuổi</a>
+                        <%} else {%>
+                        <a href="#"
+                           style="color: black;"><%= result[0].tuoi.substring(0, result[0].tuoi.length - 1).replace(/;/g, ', ') %></a>
+                        <%}%>
+
+                    </h3>
+                    <%}%>
+                    <%if(result[0].mau.trim() != ''){%>
+                    <h3 style="color: #2b70fc;">Màu sắc:
+
+                        <%if(result[0].mau.split(';')[result[0].mau.split(';').length-2].trim() == 'All'){%>
+                        <a href="#"
+                           style="color: black;">Tất cả màu</a>
+                        <%} else {%>
+                        <a href="#"
+                           style="color: black;"><%= result[0].mau.substring(0, result[0].mau.length - 1).replace(/;/g, ', ') %></a>
+                        <%}%>
+                    </h3>
+                    <%}%>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-xs-offset-3 col-md-6 col-md-offset-3">
+                    <div style="position: relative; min-height: 100px;">
+                        <select class="form-control" id="idselect" onchange="optionSelected()" style="font-size: 200%; min-height: 70px;">
+                            <% for(i = 0;i < result.length;i++){ %>
+                            <option onclick="optionSelected()" class="dropdown-content1"
+                                    value="<%= result[i].product_id %>" style="font-size: 150%;"><%= result[i].size %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h2 class="currency font-mobile" style="color: red; font-weight: bold; float: left;" id="dictprice"
+                                value='0'>210.000</h2>
+                            <h2 class="font-mobile"><a href="" style="font-weight: normal; color: #6b6b6c;">&nbspVNĐ</a></h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <% if(result[0].disct_price != null && result[0].disct_price != 0){ %>
+                            <h3 style="color:  #6b6b6c; float: left;">Giá cũ là </h3>
+                            <% } %>
+                            <h3 class="currency" style="color:  #6b6b6c; text-decoration: line-through;"
+                                id="price"></h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-md-offset-1">
+                    <h4 style="text-align: center;" class="font-mobile">Số lượng: </h4>
+                    <div class="row">
+                        <div class="col-xs-offset-4 col-xs-4 col-md-offset-2 col-md-8">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="minus">-</button>
+                                </span>
+                                <input class="form-control" id="quantity"
+                                       style="font-weight: bold; font-size: 200%; text-align: center;" value="1">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="plus">+</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <h4 style="color: #6b6b6c; font-style: italic; text-align: center;" class="font-mobile">Thành tiền: <a href=""
+                                                                                                                           style="color: red; font-style: italic"
+                                                                                                                           id="thanhtien">0</a> vnđ</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-md-6">
+                    <button onclick="muangay()" class="button-image col-xs-12"><img src="/img/muangay.png" class="img-responsive col-xs-12"></button>
+                </div>
+                <div class="col-xs-6 col-md-6">
+                    <button class="button-image col-xs-12"><img src="/img/themvaogio.png" class="img-responsive col-xs-12"
+                                                                onclick="AddCart()"></button>
+                </div>
+
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-offset-3 col-xs-offset-3 col-xs-6 col-md-6">
+                    <a href="/maintenance-prd/<%=(keyword==undefined || keyword=='undefined'||keyword.trim()=='')?result[0].catflt==null?'All':result[0].catflt.replace(/ /g, '-'):'Search?'+keyword %>" class="button-image col-xs-12 center-block">
+                        <img src="/img/xemthem.png" class="img-responsive col-xs-12" style="margin-left: 8px;">
+                    </a>
+                </div>
+            </div>
+            <div class="row" style="position: relative;height: 100%">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="font-mobile" style="background-color: #f3e6e6; height: 100%;" >
+                            <p id="information" style="word-wrap: break-word;">Không có thông tin
+                                thêm</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%}%>
+
+        </div>
+        <%} else {%>
+        <div class="col-md-12">
+            <h2 style="" class="font-mobile"><b><%= result[0].name %></b></h2>
+        </div>
+        <%}%>
+
+    </div>
+
+    <div class="row">
+        <br>
+        <br>
+        <br>
+        <div class="col-xs-12">
+            <p id='descriptionArea' name='descriptionArea' style="font-size: 20px;">
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+<% include /partials/index_Footer.ejs %>
+
+<script>
+
+    <%if(keyword != undefined && keyword.split('&')[0].split('=')[1] != undefined){%>
+    document.getElementById('keyword-search').value = '<%=keyword.split('&')[0].split('=')[1]%>'
+
+    <%}%>
+    var element = '<%= description %>';
+    var str = element.replace(/&#39;/g, "\"").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "\"");
+
+    document.getElementById('descriptionArea').innerHTML = str;
+
+</script>
+<script>
+
+    function AddCart(idx) {
+        if(parseInt($("#quantity").val()) == 0){
+            alert('Xin mời nhập số lượng !!!')
+        } else {
+            var formdata1 = new FormData();
+            var sizes = new Array();
+            var quantities = new Array();
+            var input = document.getElementsByClassName('booking-item-title size_id');
+            sizes.push(document.getElementById('idselect').value);
+            quantities.push(parseInt($("#quantity").val()));
+            formdata1.append('size_id', sizes);
+            formdata1.append('quantity', quantities);
+            $.ajax({
+                url: "/PetMart/add-to-cart",
+                type: 'POST',
+                dataType: 'JSON',
+                data: JSON.stringify({size_id: sizes, quantity: quantities}),
+                async: false,
+                cache: false,
+                contentType: 'application/json; charset=UTF-8',
+                enctype: 'multipart/form-data',
+                processData: false,
+                success: function (response) {
+                    $("#quantity").val('1');
+                    ThanhTien();
+                    alert("Sản phẩm quý vị chọn đã được thêm vào giỏ hàng. ")
+                    location.reload();
+                }
+            });
+        }
+
+    }
+</script>
+
+<!-- image slide -->
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("Slide-product");
+        var dots = document.getElementsByClassName("item-product-detail");
+        var captionText = document.getElementById("caption");
+        var listImg = document.getElementsByClassName("list-image");
+
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = slides.length
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+            listImg[i].id = "";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        listImg[slideIndex - 1].id = "myImg";
+        dots[slideIndex - 1].className += " active";
+    }
+
+    function zoomImg() {
+        var modal = document.getElementById("myModal");
+        var img = document.getElementById('myImg');
+        var modalImg = document.getElementById("img01");
+        /*$(".list-image")*/
+        $(".Slide-product").on('click', function () {
+            modal.style.display = "block";
+            modalImg.src = img.src;
+        });
+        var span = document.getElementById("closeImg");
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+    }
+</script>
+<!-- quantity -->
+<script type="text/javascript">
+
+    <% if(result[0].disct_price == null || result[0].disct_price == 0){ %>
+        $("#dictprice").html('<%= result[0].price %>');
+        document.getElementById('dictprice').value = '<%= result[0].price %>';
+        $("#price").html('');
+        <%if(result[0].price > result[0].freeship){%>
+            document.getElementById('freeshipicon').style.display='block';
+        <%} else {%>
+            document.getElementById('freeshipicon').style.display='none';
+        <%}%>
+
+    <% } else { %>
+        $("#dictprice").html('<%= result[0].disct_price %>');
+        $("#price").html('<%= result[0].price %>');
+        document.getElementById('dictprice').value = '<%= result[0].disct_price %>'
+        <%if(result[0].disct_price > result[0].freeship){%>
+        document.getElementById('freeshipicon').style.display='block';
+        <%} else {%>
+        document.getElementById('freeshipicon').style.display='none';
+        <%}%>
+    <% } %>
+    $("#thanhtien").html($("#dictprice").html());
+
+    document.getElementById('information').innerHTML = '<%= result[0].information %>';
+    if (document.getElementById('information').innerHTML == ''){
+        document.getElementById('information').style.display = 'none';
+    }
+
+    function optionSelected() {
+        var n = document.getElementById('idselect').value;
+        <% for(i = 0;i < result.length;i++){ %>
+        if ('<%= result[i].product_id %>' == ('' + n)) {
+            <% if(result[i].disct_price == null || result[i].disct_price == 0){ %>
+            $("#dictprice").html('<%= result[i].price %>');
+            document.getElementById('dictprice').value = '<%= result[i].price %>';
+            $("#price").html('');
+            <%if(result[i].price > result[0].freeship){%>
+            document.getElementById('freeshipicon').style.display='block';
+            <%} else {%>
+            document.getElementById('freeshipicon').style.display='none';
+            <%}%>
+            ThanhTien();
+            document.getElementById('information').innerHTML = '<%= result[i].information %>'
+            <% } else { %>
+            document.getElementById('dictprice').value = '<%= result[i].disct_price %>';
+
+            document.getElementById('dictprice').innerHTML = '<%= result[i].disct_price %>'
+            document.getElementById('price').innerHTML = '<%= result[i].price %>';
+            <%if(result[i].disct_price > result[0].freeship){%>
+            document.getElementById('freeshipicon').style.display='block';
+            <%} else {%>
+            document.getElementById('freeshipicon').style.display='none';
+            <%}%>
+            ThanhTien();
+            document.getElementById('information').innerHTML = '<%= result[i].information %>'
+            <% } %>
+        }
+        
+        <% } %>
+        if (document.getElementById('information').innerHTML.trim() == '') {
+            document.getElementById('information').style.backgroundColor = "transparent";
+            document.getElementById('information').style.display = "none";
+        } else{
+            document.getElementById('information').style.backgroundColor = "#f3e6e6";
+            document.getElementById('information').style.display = "block";
+        }
+
+        var currents = document.getElementsByClassName("currency");
+        var decimals = 0;
+        for (i = 0; i < currents.length; i++) {
+            var pnumber = currents[i].innerHTML;
+            if (isNaN(pnumber)) {
+                result = 0
+            }
+            ;
+            if (pnumber == '') {
+                result = 0
+            }
+            ;
+            var snum = new String(pnumber);
+            var result = '';
+            j = snum.length - 1;
+            dem = 1;
+            while (j >= 0) {
+                if (dem % 4 != 0) {
+                    result = snum[j] + result;
+                    j--;
+                    dem++;
+                } else {
+                    result = '.' + result;
+                    dem = 1;
+                }
+            }
+            if (currents[i].id == "dictprice") {
+                currents[i].innerHTML = result;
+            } else {
+                currents[i].innerHTML = "&nbsp;" + result + "&nbsp";
+            }
+
+        }
+
+    }
+
+    $(document).ready(function () {
+        $("#plus").click(function () {
+            var value = $("#quantity").val();
+            value = Number(value) + 1;
+            document.getElementById('quantity').value = value;
+            /* $("#quantity").val(value);*/
+            ThanhTien();
+        });
+        $("#minus").click(function () {
+            var value = $("#quantity").val() - 1;
+            if (value >= 1) {
+                document.getElementById('quantity').value = value;
+                /* $("#quantity").val(value);*/
+                ThanhTien();
+            }
+        });
+
+
+    });
+
+    function ThanhTien() {
+        var n = document.getElementById('idselect').value;
+        var total = $("#quantity").val() * parseInt(document.getElementById('dictprice').value);
+        $("#thanhtien").html(total);
+    }
+</script>
+<!-- Menu size -->
+<script>
+    function displaySize() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+</script>
+<script type="text/javascript">
+    var currents = document.getElementsByClassName("currency");
+    var decimals = 0;
+    for (i = 0; i < currents.length; i++) {
+        var pnumber = currents[i].innerHTML;
+        if (isNaN(pnumber)) {
+            result = 0
+        }
+        ;
+        if (pnumber == '') {
+            result = 0
+        }
+        ;
+        var snum = new String(pnumber);
+        var result = '';
+        j = snum.length - 1;
+        dem = 1;
+        while (j >= 0) {
+            if (dem % 4 != 0) {
+                result = snum[j] + result;
+                j--;
+                dem++;
+            } else {
+                result = '.' + result;
+                dem = 1;
+            }
+        }
+        if (currents[i].id == "dictprice") {
+            currents[i].innerHTML = result;
+        } else {
+            currents[i].innerHTML = "&nbsp;" + result + "&nbsp";
+        }
+
+    }
+
+</script>
+<style>
+    div.scrollmenu {
+        background-color: white;
+        overflow: auto;
+        white-space: nowrap;
+    }
+
+    div.scrollmenu div {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 5px;
+        text-decoration: none;
+    }
+
+    div.scrollmenu a:hover {
+        background-color: white;
+    }
+</style>
+<script>
+
+    function muangay(){
+        /*window.location.href = "/checkout/"+document.getElementById('idselect').value+"/"+document.getElementById('quantity').value;*/
+        AddCart();
+        window.location.href = "/checkout/cart/0";
+    }
+</script>
+</html>

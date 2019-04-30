@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html>
+<% include partials/index_Header.ejs %>
+<body>
+    <div class="container" style="min-width: 970px;">
+    	<% if(status == "init"){ %>
+    	<div class="row" style="position: relative;">
+    		<img class="img-responsive" src="assets/img/app-in.jpg" >
+    		<!-- <p class="font-custom" style="position: absolute; top: 0px; font-size: 50px; padding: 15px;">
+    			Liên Hoa Các rất hân hạnh xem tuổi và mệnh cho quý vị,
+				Xin quý vị vui lòng nhập năm sinh (âm lịch) vào khung bên dưới:
+    		</p> -->
+    		<form class="" role="search" style="position: absolute; top: 40%; left: 10%" action="/app-phongthuy" method="GET">
+    			<input name="year" type="text" class="form-control" placeholder="Năm sinh" style="border: double; background-color: transparent; color: black; font-size: 40px; min-height: 100px; max-width: 320px; border-radius:10px;" required>
+                </input>
+    			<br>
+                <div class="col-md-8">
+    			<button type="submit" class="" style="background-color: transparent; border: 0px; padding: 0px;">
+    				<img src="img/hien.png" class="img-responsive">
+    			</button>
+                </div>
+    		</form>
+    	</div>
+    	<% } else {%>
+    	<div class="row" style="position: relative;">
+    		<img class="img-responsive" src="assets/img/app-out.jpg" >
+    		<div class="row" style="position: absolute; top: 150px; left: 15%;">
+    			<p style="font-size: 70px;padding-left: 15px; font-family: arial;"><b><%=year %></b></p>
+    		</div>
+    	</div>
+        <div class="row">
+            <div class="col-md-8">
+                <br><br>
+                <p class="font-custom" style="font-size: 100px; text-align: center;">
+                    Mệnh cách:
+                </p>
+            </div>
+            <div class="col-md-4 center-block">
+                <img class="img-responsive center-block" src="img/nguhanh/<%=c%>.svg">
+            </div>
+        </div>
+        <div class="row">
+            <div class=".col-xs-6 col-md-4">
+                <img class="img-responsive center-block" src="img/12giap/<%=b%>.png">
+            </div>
+            <div class=".col-xs-12 col-md-8">
+                <p style="font-size: 100px; text-align: center;">
+                    Tuổi:<br> <b id="tuoi"><%=tuoi%></b>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <!-- <div class="col-md-6" style="background-image: url(img/background.jpg);">
+                <p class="font-custom" style="font-size: 92px; text-align: justify;">
+                    Quý vị được <%=phathomenh%> bảo vệ và che chở!
+                </p>
+                <img class="center-block" src="/img/logo.png" alt="LienHoaCac" style="width: 150px;padding: 0px;">
+            </div> -->
+            <div class="col-md-12">
+                <img class="img-responsive" src="img/phatbanmenh/<%=b%>.jpg">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+
+            <div class="col-md-6">
+                <a href="/maintenance-prd/Search?keyword=<%=tuoi.split(" ")[1].toLowerCase()%>,<%=mang.toLowerCase()%>" src="img/phatbanmenh/<%=b%>.jpg" id="search">
+                    <button type="submit" class="" style="background-color: transparent; border: 0px; padding: 0px;">
+                        <img src="img/xemsp.png" class="img-responsive">
+                    </button>
+                </a>                
+            </div>
+        </div>
+        <script type="text/javascript">
+    var tuoi = document.getElementById('tuoi').innerHTML;
+    var tuois = tuoi.split(" ");
+    <% if(mang!=undefined) {%>
+    var mang = "<%=mang.toLowerCase()%>";
+    <% } %>
+    switch (mang){
+        case 'kim' :{
+            mang = 'kim';
+            break;
+        }
+        case 'moc' :{
+            mang = 'mộc';
+            break;
+        }
+        case 'thuy' :{
+            mang = 'thủy';
+            break;
+        }
+        case 'hoa' :{
+            mang = 'hỏa';
+            break;
+        }
+        case 'tho' :{
+            mang = 'thổ';
+            break;
+        }
+    }
+    switch (tuois[0]){
+        case 'CANH' : {
+            tuois[0] = 'CANH';
+            break;
+        }
+        case 'TAN' : {
+            tuois[0] = 'TÂN';
+            break;
+        }
+        case 'NHAM' : {
+            tuois[0] = 'NHÂM';
+            break;
+        }
+        case 'QUY' : {
+            tuois[0] = 'QUÝ';
+            break;
+        }
+        case 'GIAP' : {
+            tuois[0] = 'GIÁP';
+            break;
+        }
+        case 'AT' : {
+            tuois[0] = 'ẤT';
+            break;
+        }
+        case 'BINH' : {
+            tuois[0] = 'BÍNH';
+            break;
+        }
+        case 'DINH' : {
+            tuois[0] = 'ĐINH';
+            break;
+        }
+        case 'MAU' : {
+            tuois[0] = 'MẬU';
+            break;
+        }
+        case 'KY' : {
+            tuois[0] = 'KỶ';
+            break;
+        }
+    }
+    switch (tuois[1]){
+        case 'TI' : {
+            tuois[1] = 'TÝ';
+            break;
+        }
+        case 'SUU' : {
+            tuois[1] = 'SỬU';
+            break;
+        }
+        case 'DAN' : {
+            tuois[1] = 'DẦN';
+            break;
+        }
+        case 'MAO' : {
+            tuois[1] = 'MÃO';
+            break;
+        }
+        case 'THIN' : {
+            tuois[1] = 'THÌN';
+            break;
+        }
+        case 'TY' : {
+            tuois[1] = 'TỴ';
+            break;
+        }
+        case 'NGO' : {
+            tuois[1] = 'NGỌ';
+            break;
+        }
+        case 'MUI' : {
+            tuois[1] = 'MÙI';
+            break;
+        }
+        case 'THAN' : {
+            tuois[1] = 'THÂN';
+            break;
+        }
+        case 'DAU' : {
+            tuois[1] = 'DẬU';
+            break;
+        }
+        case 'TUAT' : {
+            tuois[1] = 'TUẤT';
+            break;
+        }
+        case 'HOI' : {
+            tuois[1] = 'HỢI';
+            break;
+        }
+    }
+    document.getElementById('tuoi').innerHTML = tuois[0] + ' ' +tuois[1];
+    document.getElementById('search').href = '/maintenance-prd/Search?keyword=' + tuois[1].toLowerCase() + ','+ mang;
+</script>
+    	<% } %>
+    </div>
+</body>
+<% include partials/index_Footer.ejs %>
+
+</html>
+
+

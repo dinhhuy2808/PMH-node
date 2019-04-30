@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include partials/index_Header.ejs %>
+<body>
+<div class="container">
+    <div class="row ">
+        <ol class="breadcrumb">
+            <a href="/"><i class="icon fa fa-home"></i> Home</a> / <a
+                    href="/show-payment">Đơn Hàng</a> / <a href="#">Chi Tiết Đơn Hàng</a>
+        </ol>
+
+    </div>
+    <div class="container solid-content">
+        <div class="row">
+
+            <div  class="col-md-2">
+                <h3>Mã đơn Hàng : </h3>
+            <input class="form-control" id = 'title' name = 'title' value='<%=title%>'>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group form-group-icon-left">
+                    <h3>Status : </h3>
+                    <div class="form-group">
+                        <select name="status" id="status" class="form-control">
+                            <option value="none" selected="">----Selected-----</option>
+
+                            <option value="0" >Đặt hàng </option>
+
+                            <option value="1" >Chốt Gửi </option>
+
+                            <option value="2">Đang Giao Hàng </option>
+
+                            <option value="3" >Thành Công </option>
+
+                            <option value="4" >Boom </option>
+
+                            <option value="5" >Chuyển Hoàn </option>
+                            <option value="6" >Hủy </option>
+
+
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3>Thông tin sản phẩm</h3>
+
+        <div id="cartdetail" class="row">
+            <table class="table table-bordered">
+                <thead>
+                <th class="text-right" style="text-align: center;"><h4>Mã sản phẩm</h4></th>
+                <th class="text-right" style="text-align: center;"><h4>Tên sản phẩm</h4></th>
+                <th class="text-right" style="text-align: center;"><h4>Size</h4></th>
+                <th class="text-right" style="text-align: center;"><h4>Giá sản phẩm</h4></th>
+                <th class="text-right" style="text-align: center;"><h4>Số Lượng</h4></th>
+                <th class="text-right" style="text-align: center;"><h4>Thành Tiền</h4></th>
+                </thead>
+                <tbody class = "body-prd">
+
+                <tr id = 'rowInsertBtn'></tr>
+                </tbody>
+            </table>
+        </div>
+        <button class="btn btn-success" id="insertBtn" onclick="insert()">+</button>
+
+        <div class="row" style="padding-left: 20px;">
+            <div class="col-md-6">
+                <h4>Phí vận chuyển</h4>
+                <div class="row" >
+                    <div class="col-sm-8">
+
+                        <%if(type == 1){%>
+                        <input class="form-control" id = 'shipfee' value = '0' >
+                        <%} else {%>
+                        <input class="form-control" id = 'shipfee' value = '0' disabled>
+                        <%}%>
+
+                    </div>
+                    <%if(type == 1){%>
+                    <div class="col-sm-4">
+                        <button class=" btn btn-success" onclick="ChangeShipFee()">Áp dụng</button>
+                    </div>
+                    <%}%>
+                </div>
+                <br>
+                <h4>Voucher</h4>
+                <div class="row"  >
+                    <div class="col-sm-8 ">
+                        <%if(type == 1){%>
+                        <input type="text" class="form-control"  id="voucher" placeholder="Mã giảm giá" value = '' >
+                        <%} else {%>
+                        <input type="text" class="form-control"  id="voucher" placeholder="Mã giảm giá" value = '' disabled>
+                        <%}%>
+
+                    </div>
+                    <%if(type == 1){%>
+                    <div class="col-sm-4">
+                        <button class=" btn btn-success" onclick="CheckVoucher()">Áp dụng</button>
+                    </div>
+                    <%}%>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row" style="padding-left: 20px;">
+                    <div class="col-xs-4 col-md-4">
+                        <h4>Ghi chú</h4>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div>
+                        <textarea class="form-control" style="width: 90%; height: 200%;" id="note" name="note"></textarea>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+
+    </div>
+    <input id="prd-id" style="display: none" value=''>
+
+    <input id="ship" style="display: none" value='0'>
+    <input id="type" style="display: none" value='0'>
+    <div class="col-sm-7">
+
+        <div class="row solid-content">
+            <h3>Hình thức giao hàng</h3>
+            <div class="col-xs-3 col-md-3" id='ghtk'>
+                <a class="thumbnail" >
+                    <img onclick="Ship(1)" class="dilivery" src="img/delivery_form/giaohangtietkiem.png" alt="...">
+                </a>
+            </div>
+            <div class="col-xs-3 col-md-3" id='ghn'>
+                <a class="thumbnail">
+                    <img onclick="Ship(2)" class="dilivery" src="img/delivery_form/giaohangnhanh.png" alt="...">
+                </a>
+            </div>
+            <div class="col-xs-3 col-md-3" id='vtp'>
+                <a class="thumbnail">
+                    <img onclick="Ship(3)" class="dilivery" src="img/delivery_form/viettel_post.jpg" alt="...">
+                </a>
+            </div>
+            <div class="col-xs-3 col-md-3" id='bd'>
+                <a class="thumbnail">
+                    <img onclick="Ship(4)" class="dilivery" src="img/delivery_form/vnpost.png" alt="...">
+                </a>
+            </div>
+        </div>
+        <div class="row solid-content">
+
+            <h3>Hình thức thanh toán</h3>
+            <div class="col-xs-3 col-md-3" id="tm">
+                <a class="thumbnail" onclick="Type(1)">
+                    <img class="type-payment" src="img/payment_method/cash.jpg" alt="...">
+                </a>
+            </div>
+            <div class="col-xs-3 col-md-3" id="COD">
+                <a class="thumbnail" onclick="Type(2)">
+                    <img class="type-payment" src="img/payment_method/cod.png" alt="...">
+                </a>
+            </div>
+            <div class="col-xs-3 col-md-3" id="ck">
+                <a class="thumbnail" onclick="Type(3)">
+                    <img class="type-payment" src="img/payment_method/transfer.jpg" alt="...">
+                </a>
+            </div>
+            <div class="col-xs-3 col-md-3" id="ttd">
+                <a class="thumbnail" onclick="Type(4)">
+                    <img class="type-payment" src="img/payment_method/credit.png" alt="...">
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-4 solid-content">
+        <h2>Thông tin đơn hàng</h2>
+
+
+        <h4>Tên: </h4><input id="name">
+        <h4>Số điện thoại: </h4><input id="phone" onkeyup="CheckPhone()"> <label id = 'fs'> </label>
+
+        <h4>Địa Chỉ: </h4><input id="address">
+
+        <h3>Tổng giá sản phẩm: </h3>
+        <h2 id="totalLabel" class="fa-money currency">0</h2>
+        <h3>Tổng giá đơn hàng: </h3>
+        <h2 id="totalship" class="fa-money currency">0</h2>
+    </div>
+    <div class="row">
+        <button class="btn btn-info col-sm-2" type="button" onclick="Add()">
+            Tạo Đơn Hàng
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div id="idSuccess" class="modal">
+        <div class="container popup animate">
+            <div style="padding-top: 75px;">
+                <span onclick="document.getElementById('id03').style.display='none'" class="close"
+                      title="Close Modal">&times;</span>
+                <img src="/img/LOGO.svg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
+            </div>
+            <div style="padding-top: 75px;">
+                <span onclick="document.getElementById('id03').style.display='none'" class="close"
+                      title="Close Modal">&times;</span>
+                <img src="assets/img/success.jpg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
+            </div>
+            <a href="/" class="btn btn-success col-sm-2">
+                OK
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+</script>
+<script>
+    
+    var type = '';
+    var ship = '';
+    function Ship(idx) {
+        ship = idx;
+        document.getElementById("ship").value = idx;
+        var dilivery = document.getElementsByClassName("dilivery");
+        for (i=0; i<dilivery.length; i++){
+            var ind = i+1;
+            if (ind==ship){
+                dilivery[i].className += " selected";
+            } else{
+                dilivery[i].className = "dilivery";
+            }
+        }
+    }
+
+    function Type(idx) {
+        type = idx;
+        document.getElementById("type").value = idx;
+        var dilivery = document.getElementsByClassName("type-payment");
+        for (i=0; i<dilivery.length; i++){
+            var ind = i+1;
+            if (ind==type){
+                dilivery[i].className += " selected";
+            } else{
+                dilivery[i].className = "type-payment";
+            }
+        }
+    }
+
+    function CheckPhone() {
+        var obj = $("#phone");
+        $(".error").remove();
+        $.ajax({
+            type: "POST",
+            url: "./ajax/checkPhone",
+            data: "phone=" + obj.val(),
+            success: function (msg) {
+                //alert(msg);
+                data = msg;
+                if (data.status == 'success') {
+                    document.getElementById('name').value = data.detail[0].firstname
+                    document.getElementById('email').value = data.detail[0].email;
+                    document.getElementById('address').value = data.detail[0].address;
+
+                    if( data.detail[0].checked = 'Y'){
+                        document.getElementById('fs').innerHTML = data.fail +' đơn Thất Bại / ' + data.success+' đơn  ' +'<img src="assets/img/success.jpg" alt="Avatar" id = "checked" class="icon center-block" style="max-width: 75px;display: block">';
+                    }else {
+                        document.getElementById('fs').innerHTML = data.fail +' đơn Thất Bại / ' + data.success+' đơn   ';
+                    }
+                }
+            }
+        });
+    }
+    function CheckCode(idx) {
+        var obj = $("#code"+idx);
+        $(".error").remove();
+        if(obj.val() != ''){
+            $.ajax({
+                type: "POST",
+                url: "./ajax/checkCode",
+                data: "code=" + obj.val(),
+                success: function (msg) {
+                    //alert(msg);
+                    data = msg;
+                    if (data.status == 'success') {
+                        document.getElementById('name-prd'+idx).value = data.detail[0].name;
+                        document.getElementById('size'+idx).value = data.detail[0].size;
+                        if(data.detail[0].disct_price == 'NULL' || data.detail[0].disct_price == '0' || data.detail[0].disct_price == undefined)
+                        {
+                            document.getElementById('price'+idx).value = data.detail[0].price;
+                        } else {
+                            document.getElementById('price'+idx).value = data.detail[0].disct_price;
+                        }
+                        document.getElementById('id'+idx).value = data.detail[0].product_id;
+
+
+                    }
+                }
+            });
+        } else {
+            document.getElementById('name-prd'+idx).value = '';
+            document.getElementById('size'+idx).value = '';
+            document.getElementById('price'+idx).value = '';
+        }
+
+    }
+    function Add() {
+        var formdata1 = new FormData();
+        var sizes = new Array();
+        var quantities = new Array();
+        var names = new Array();
+        var codes = new Array();
+        var prices = new Array();
+        var size_products = new Array();
+       /* sizes.push(document.getElementById('prd-id').value);
+        quantities.push(parseInt($("#amount").val()));*/
+
+        for(var i = 0 ; i < document.getElementsByName('id-input').length;i++){
+            if(document.getElementsByName('id-input')[i].value.trim() == ''){
+                sizes.push('0');
+            } else {
+                sizes.push(document.getElementsByName('id-input')[i].value);
+            }
+
+        }
+        for(var i = 0 ; i < document.getElementsByName('amount-input').length;i++){
+            quantities.push(document.getElementsByName('amount-input')[i].value);
+        }
+        for(var i = 0 ; i < document.getElementsByName('name-prd-input').length;i++){
+            names.push(document.getElementsByName('name-prd-input')[i].value);
+        }
+        for(var i = 0 ; i < document.getElementsByName('code-input').length;i++){
+            codes.push(document.getElementsByName('code-input')[i].value);
+        }
+        for(var i = 0 ; i < document.getElementsByName('price-input').length;i++){
+            prices.push(document.getElementsByName('price-input')[i].value);
+        }
+        for(var i = 0 ; i < document.getElementsByName('size-input').length;i++){
+            size_products.push(document.getElementsByName('size-input')[i].value);
+        }
+
+        formdata1.append('size_id',sizes);
+        formdata1.append('quantity',quantities);
+        formdata1.append('firstname',$("#name").val());
+        formdata1.append('email',$("#email").val());
+        formdata1.append('phone',$("#phone").val());
+        formdata1.append('address',$("#address").val());
+        formdata1.append('voucher',$("#voucher").val());
+        formdata1.append('mode','pay');
+        formdata1.append('title',$("#title").val());
+
+        $.ajax({
+            url: "/PetMart/signup",
+            type: 'POST',
+            data: formdata1,
+            async: false,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                if(response.code == '200'){
+                    $.ajax({
+                        url: "/PetMart/add-to-cart",
+                        type: 'POST',
+                        dataType : 'JSON',
+                        data: JSON.stringify({size_id:sizes,quantity:quantities,userId:response.user_id,name:names,code:codes,price:prices,mode:'create-payment',size:size_products}),
+                        async: false,
+                        cache: false,
+                        contentType: 'application/json; charset=UTF-8',
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        success: function (response1) {
+                            var formdata = new FormData();
+                            formdata.append('ship', ship);
+                            formdata.append('type', type);
+                            formdata.append('user', response.user_id);
+                            if (document.getElementsByClassName('error').length == 0) {
+                                formdata.append('voucher', $("#voucher").val());
+                            }
+                            formdata.append('shipfee', $("#shipfee").val());
+                            formdata.append('note', $("#note").val());
+                            formdata.append('address', $("#address").val());
+                            formdata.append('name', $("#name").val());
+                            formdata.append('phone', $("#phone").val());
+                            formdata.append('mode', 'create-payment');
+                            $.ajax({
+                                url: '/PetMart/add-to-payment',
+                                type: 'POST',
+                                data: formdata,
+                                async: false,
+                                cache: false,
+                                contentType: false,
+                                enctype: 'multipart/form-data',
+                                processData: false,
+                                success: function (response2) {
+                                    if (response2.code == '200') {
+                                        window.location = "/payment-detail?id="+response2.payment_id+"&user="+response.user_id;
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
+
+    }
+    var total = 0;
+    function Calc(idx){
+        var obj = $("#amount"+idx);
+        if(obj.val() != '0' && obj.val().trim() != ''){
+            $("#sum"+idx).html(''+(parseInt(obj.val())*parseInt($("#price"+idx).val())))
+            total += parseInt($("#sum"+idx).html());
+            $("#totalLabel").html(''+total);
+        }
+    }
+    var index = 0;
+    function insert(){
+        var element = " <tr>\n" +
+            "                    <td class=\"text-center\" style='display:none;'>\n" +
+            "                        <input id='id"+index+"' name = 'id-input'  \n" +
+            "                               value=\"\">\n" +
+            "                    </td>\n" +
+            "                    <td class=\"text-center\">\n" +
+            "                        <input id='code"+index+"' name = 'code-input'\n" +
+            "                               value=\"\" onkeyup=\"CheckCode("+index+")\">\n" +
+            "                    </td>\n" +
+            "                    <td class=\"text-center\">\n" +
+            "                        <input id='name-prd"+index+"' name = 'name-prd-input'\n" +
+            "                               value=\"\">\n" +
+            "                    </td>\n" +
+            "                    <td class=\"text-center\">\n" +
+            "                        <input id='size"+index+"' name = 'size-input'\n" +
+            "                               value=\"\">\n" +
+            "                    </td>\n" +
+            "                    <td>\n" +
+            "                        <input id='price"+index+"' name = 'price-input'\n" +
+            "                               value=\"\">\n" +
+            "\n" +
+            "                    </td>\n" +
+            "                    <td>\n" +
+            "                        <input id='amount"+index+"' name = 'amount-input'\n" +
+            "                               value=\"\" onkeyup=\"Calc("+index+")\">\n" +
+            "\n" +
+            "                    </td>\n" +
+            "                    <td class=\"text-center \">\n" +
+            "                        <h4 class=\"font-custom currency\" id = 'sum"+index+"'></h4>\n" +
+            "\n" +
+            "\n" +
+            "                    </td>\n" +
+            "                </tr>";
+        index++;
+        $(element).insertBefore($('#rowInsertBtn'));
+    }
+    function ChangeShipFee(){
+        var result = parseFloat(document.getElementById('totalLabel').innerHTML);
+        if(document.getElementById('totalLabel').childNodes[0].localName == 'label'){
+            result  = parseFloat(document.getElementById('total-after-promote').innerHTML.replace('-&gt;',''));
+            document.getElementById('totalship').innerHTML = parseFloat(document.getElementById("shipfee").value) + result;
+        } else {
+            document.getElementById('totalship').innerHTML = parseFloat(document.getElementById("shipfee").value) + result;
+        }
+    }
+    function CheckVoucher() {
+        var obj = $("#voucher");
+        $(".error").remove();
+        $.ajax({
+            type: "POST",
+            url: "/../PetMart/get-voucher",
+            data: "mode=check_email&voucher=" + obj.val() + "&total="+$("#totalLabel").val(),
+            success: function (msg) {
+                //alert(msg);
+                data = msg;
+                if (data.code == '404') {
+                    obj.after("<label class='error'>Voucher chưa hợp lệ, hoặc giá trị đơn hàng chưa đủ để hưởng khuyến mãi này!</label>");
+                    document.getElementById("totalLabel").innerHTML = $("#totalLabel").val();
+                    document.getElementById('totalship').innerHTML =$("#totalLabel").val();
+                    document.getElementById("shipfee").value = '0';
+                    var result = parseFloat($("#totalLabel").val());
+                    if(result < parseFloat('<%=setting[0].freeShip%>')){
+                        document.getElementById("shipfee").value = '<%=setting[0].defaultShip%>';
+                        document.getElementById('totalship').innerHTML = parseFloat(document.getElementById("shipfee").value) + result
+                    }
+                }
+                else {
+                    var result = parseFloat($("#totalLabel").val()) - parseFloat(data.totalAfter);
+                    if(result < parseFloat('<%=setting[0].freeShip%>')){
+                        document.getElementById("shipfee").value = '<%=setting[0].defaultShip%>';
+                        document.getElementById('totalship').innerHTML = parseFloat(document.getElementById("shipfee").value) + result
+                    }
+                    document.getElementById("totalLabel").innerHTML = "<label style='text-decoration: line-through'><font color='black'> "+$("#totalLabel").val()+"</font></lable><label><font color='red' id = 'total-after-promote'> -> " + result + "</lable>";
+                }
+            }
+        });
+    }
+</script>
+<% include partials/index_Footer.ejs %>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/slimmenu.js"></script>
+<script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/js/bootstrap-timepicker.js"></script>
+<script type="text/javascript" src="/js/nicescroll.js"></script>
+<script type="text/javascript" src="/js/dropit.js"></script>
+<script type="text/javascript" src="/js/ionrangeslider.js"></script>
+<script type="text/javascript" src="/js/icheck.js"></script>
+<script type="text/javascript" src="/js/fotorama.js"></script>
+<script type="text/javascript" src="/js/typeahead.js"></script>
+<script type="text/javascript" src="/js/card-payment.js"></script>
+<script type="text/javascript" src="/js/magnific.js"></script>
+<script type="text/javascript" src="/js/owl-carousel.js"></script>
+<script type="text/javascript" src="/js/fitvids.js"></script>
+<script type="text/javascript" src="/js/tweet.js"></script>
+<script type="text/javascript" src="/js/countdown.js"></script>
+<script type="text/javascript" src="/js/gridrotator.js"></script>
+<script type="text/javascript" src="/js/custom.js"></script>
+</html>

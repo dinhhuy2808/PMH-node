@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include partials/index_Header.ejs %>
+<body>
+<div class="container">
+    <div class="row ">
+        <ol class="breadcrumb">
+            <a href="/"><i class="icon fa fa-home"></i> Home</a> / <a
+                    href="/show-payment">Đơn Hàng</a> / <a href="#">Chi Tiết Đơn Hàng</a>
+        </ol>
+
+    </div>
+    <div class="solid-content" style="padding-left: 20px;">
+        <div class="row">
+
+            <div  class="col-md-2">
+                <h3>Mã đơn Hàng : </h3>
+                <input class="form-control" id = 'title' name = 'title' value='<%=result[0].title%>' disabled>
+            </div>
+
+            <div  class="col-md-3">
+                <h3>Mã Vận Chuyển : </h3>
+                <%if(type == 1){%>
+                <input class="form-control" id = 'shipcode' name = 'shipcode' value='<%=result[0].shipcode==undefined?'':result[0].shipcode%>' >
+
+                <%} else {%>
+                <input class="form-control" id = 'shipcode' name = 'shipcode' value='<%=result[0].shipcode==undefined?'':result[0].shipcode%>'  disabled>
+
+                <%}%>
+            </div>
+        </div>
+        <%if (type == '1'){%>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group form-group-icon-left">
+                    <h3>Status : </h3>
+                    <select name="status" id="status" class="form-control">
+                        <option value="none" selected>----Selected-----</option>
+                       <%for(var i = result[0].status_id ; i < status.length; i++){%>
+
+                            <option value="<%=i%>" selected><%=status[i]%> </option>
+                        <%}%>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <%}%>
+
+        <h3>Thông tin sản phẩm</h3>
+
+        <div id="cartdetail" style="max-width: 100%;" class="row">
+            <table class="table table-bordered">
+                <thead>
+                <th class="text-right" style="text-align: center;"><h4>Mã sản phẩm</h4></th>
+                <th class="text-right" style="text-align: center;"><h4>Tên sản phẩm</h4></th>
+                <th class="text-right" style="text-align: center;"><h4>Phân Loại</h4></th>
+                <th class="text-right" style="text-align: center;"><h4>Giá sản phẩm</h4></th>
+                <th class="text-right" style="text-align: center;"><h4>Số Lượng</h4></th>
+                <th class="text-right" style="text-align: center;"><h4>Thành Tiền</h4></th>
+                <!-- <td ><h4 style="text-align: center;">Size</h4></td>
+                <td class="text-right"><h4 style="text-align: center;"></h4></td>
+                <td class="text-right"><h4 style="text-align: center;"></h4></td>
+                <td class="text-right"><h4 style="text-align: center;"></h4></td> -->
+                </thead>
+                <tbody>
+                <% for (var i = 0; i < result.length; i++) { %>
+
+                <% for (var j = 0; j < result[i].sizes.split(';').length; j++) { %>
+                <tr>
+                    <td class="text-center">
+                        <%= result[i].codes.split(';')[j] %>
+                        <!-- <input id='size_id' class="booking-item-title size_id_header"
+                                   style="text-align: center; background-color: transparent" disabled
+                                   value="<%= result[i].code %>"></input> -->
+                    </td>
+                    <td class="text-center">
+                        <%= result[i].name %>
+                        <!-- <input id='size_id' class="booking-item-title size_id_header"
+                                   style="text-align: center; background-color: transparent" disabled
+                                   value="<%= result[i].name %>"></input> -->
+                    </td>
+                    <td class="text-center">
+                        <%= result[i].sizes.split(';')[j] %>
+                        <!-- <input id='size_id' class="booking-item-title size_id_header"
+                                   style="text-align: center; background-color: transparent" disabled
+                                   value="<%= result[i].sizes.split(';')[j] %>"></input> -->
+                    </td>
+
+                    <td class="text-center">
+                        <% if(result[i].discount_prices== null || result[i].discount_prices.split(';')[j] == null || result[i].discount_prices.split(';')[j] == '0') { %>
+
+                        <label style=" text-align: center"><font
+                                    color="black"><%= result[i].prices.split(';')[j] %> </font></label>
+                        <% }else { %>
+
+                        <label style="text-decoration:line-through ; text-align: center"><font
+                                    color="black"><%= result[i].prices.split(';')[j] %></font></label>-><label
+                                style=" text-align: center"><font
+                                    color="red"><%= result[i].discount_prices.split(';')[j] %></font></label>
+                        <% } %>
+                    </td>
+                    <td>
+                        <%if(type == '1'){%>
+                            <input id="quantity" class="center-block form-control booking-item-title quantity_header"
+                                   value="<%= result[i].quantities.split(';')[j].trim() %>" type="number" min="1" max=""
+                                   step="1" autocomplete="off" style="width: 50%;">
+                        <%} else {%>
+                        <h4 ><%= result[i].quantities.split(';')[j].trim() %></h4>
+
+                        <%}%>
+
+
+                    </td>
+                  <!--  <td >
+                        <input id="quantity" class="center-block form-control booking-item-title quantity_header"
+                               value="<%=result[i].quantities.split(';')[j].trim()%>" type="number" min="1" max=""
+                               step="1" autocomplete="off" style="width: 50%;" disabled>
+
+                    </td>-->
+                    <td class="text-center ">
+                        <h4 class="font-custom currency"><%= result[i].sums.split(';')[j] %></h4>
+
+                        <!-- <input class="booking-item-title"
+                               style="text-align: center; background-color: transparent" disabled
+                               value=""> -->
+
+                    </td>
+                </tr>
+                <% } %>
+                <!--                     <tr>
+                        <td class="text-center"><h4 style="text-align: center;"></h4></td>
+                        <td class="text-center"><h4 style="text-align: center;"></h4></td>
+                        <td class="text-center"><h4 style="text-align: center;"></h4></td>
+                        <td class="text-center"><h4 style="text-align: center;">Tổng Tiền</h4></td>
+                        <td class="text-center"><h4 style="text-align: center;"><%= result[i].total %></h4></td>
+                    </tr> -->
+
+                <% } %>
+                <tr id = 'rowInsertBtn'></tr>
+                </tbody>
+            </table>
+        </div>
+        <% if(type == '1'){%>
+        <button class="btn btn-success" id="insertBtn" onclick="insert()">+</button>
+        <button class="btn btn-success" id="insertBtn" onclick="Add()">OK</button>
+        <%}%>
+        <div class="row" style="padding-left: 20px;">
+            <div class="col-md-6">
+                <h4>Phí vận chuyển</h4>
+                <div class="row" >
+                    <div class="col-sm-8">
+
+                        <%if(type == 1){%>
+                        <input class="form-control" id = 'shipfee' value = '<%=result[0].shipfee%>' >
+                        <%} else {%>
+                        <input class="form-control" id = 'shipfee' value = '<%=result[0].shipfee%>' disabled>
+                        <%}%>
+
+                    </div>
+                    <%if(type == 1){%>
+                    <div class="col-sm-4">
+                        <button class=" btn btn-success" onclick="ChangeShipFee()">Áp dụng</button>
+                    </div>
+                    <%}%>
+                </div>
+                <br>
+                <h4>Voucher</h4>
+                <div class="row"  >
+                    <div class="col-sm-8 ">
+                        <%if(type == 1){%>
+                        <input type="text" class="form-control"  id="voucher" placeholder="Mã giảm giá" value = '<%=result[0].voucher=='undefined'?'':result[0].voucher%>' >
+                        <%} else {%>
+                        <input type="text" class="form-control"  id="voucher" placeholder="Mã giảm giá" value = '<%=result[0].voucher=='undefined'?'':result[0].voucher%>' disabled>
+                        <%}%>
+
+                    </div>
+                    <%if(type == 1){%>
+                    <div class="col-sm-4">
+                        <button class=" btn btn-success" onclick="CheckVoucher()">Áp dụng</button>
+                    </div>
+                    <%}%>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row" style="padding-left: 20px;">
+                    <div class="col-xs-4 col-md-4">
+                        <h4>Ghi chú</h4>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div>
+                        <textarea class="form-control" style="width: 90%; height: 200%;" id="note" name="note"> <%=result[0].note=='undefined'?'':result[0].note%></textarea>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+
+
+    </div>
+    <input id = "ship" style="display: none" value = '<%=result[0].ship%>'>
+    <input id = "type" style="display: none" value = '<%=result[0].pay_type%>'>
+    <div class="col-sm-7">
+
+        <div class="row solid-content">
+            <h3>Hình thức giao hàng</h3>
+            <div class="col-xs-3 col-md-3" id = "ship1" style="display: none">
+                <a  class="thumbnail" onclick="Ship('1')">
+                    <img class="dilivery" src="img/delivery_form/giaohangtietkiem.png" alt="...">
+                </a>
+            </div>
+            <div class="col-xs-3 col-md-3" id = "ship2" style="display: none">
+                <a  class="thumbnail" onclick="Ship('2')">
+                    <img class="dilivery" src="img/delivery_form/giaohangnhanh.png" alt="...">
+                </a>
+            </div>
+            <div class="col-xs-3 col-md-3" id = "ship3" style="display: none">
+                <a  class="thumbnail" onclick="Ship('3')">
+                    <img class="dilivery" src="img/delivery_form/viettel_post.jpg" alt="...">
+                </a>
+            </div>
+            <div class="col-xs-3 col-md-3" id = "ship4" style="display: none">
+                <a  class="thumbnail" onclick="Ship('4')">
+                    <img class="dilivery" src="img/delivery_form/vnpost.png" alt="...">
+                </a>
+            </div>
+        </div>
+        <div class="row solid-content">
+
+            <h3>Hình thức thanh toán</h3>
+            <div class="col-xs-3 col-md-3" id = "type1" style="display: none">
+                <a  class="thumbnail"  onclick="Type('1')">
+                    <img class="type-payment" src="img/payment_method/cash.jpg" alt="...">
+                </a>
+            </div>
+            <div class="col-xs-3 col-md-3" id = "type2" style="display: none">
+                <a  class="thumbnail"  onclick="Type('2')">
+                    <img class="type-payment" src="img/payment_method/transfer.jpg" alt="...">
+                </a>
+            </div>
+            <div class="col-xs-3 col-md-3" id = "type3" style="display: none">
+                <a  class="thumbnail"  onclick="Type('3')">
+                    <img class="type-payment" src="img/payment_method/cod.png" alt="...">
+                </a>
+            </div>
+            <div class="col-xs-3 col-md-3" id = "type4" style="display: none">
+                <a  class="thumbnail"  onclick="Type('4')">
+                    <img class="type-payment" src="img/payment_method/credit.png" alt="...">
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <% if(type == '1'){%>
+            <div class="col-xs-2 col-md-3"></div>
+            <button class="btn btn-info col-xs-4 col-md-3" type="button" onclick="UpdateCart()">
+                Cập Nhật Đơn Hàng
+            </button>
+            <a class="btn btn-success col-xs-4 col-md-3" type="button" href="/bill/<%=result[0].payment_id%>">
+                Hóa Đơn
+            </a>
+            <%}%>
+
+            <!--<button onclick="CheckOut()"  class="btn btn-success col-sm-2">
+                Thanh Toán
+            </button>-->
+        </div>
+    </div>
+    <div class="col-sm-4 solid-content">
+        <h2>Thông tin đơn hàng</h2>
+        <%if(userdetail != undefined){%>
+        <h4>Tên: <%=userdetail[0].firstname%></h4>
+        <h4>Số điện thoại: <%=userdetail[0].phone%></h4>
+        <h4>Địa Chỉ: <%=userdetail[0].address%></h4>
+        <%}%>
+
+        <h3>Tổng giá sản phẩm: </h3>
+        <h2 id="totalLabel" class="fa-money"><%= totalAll %></h2>
+        <h3>Tổng giá đơn hàng: </h3>
+        <h2 id="totalship" class="fa-money"></h2>
+        <%if(result[0].voucher != 'undefined' && result[0].voucher != '') {%>
+        <h2> (<%=result[0].voucher%>)</h2>
+        <%}%>
+    </div>
+
+</div>
+
+<div class="row">
+    <div id="idSuccess" class="modal">
+        <div class="container popup animate">
+            <div style="padding-top: 75px;">
+                <span onclick="document.getElementById('id03').style.display='none'" class="close"
+                      title="Close Modal">&times;</span>
+                <img src="img/LOGO.svg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
+            </div>
+            <div style="padding-top: 75px;">
+                <span onclick="document.getElementById('id03').style.display='none'" class="close"
+                      title="Close Modal">&times;</span>
+                <img src="assets/img/success.jpg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
+            </div>
+            <a href="/" class="btn btn-success col-sm-2">
+                OK
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var total = '<%=result[0].paymentTotal%>';
+    var ship = document.getElementById('shipfee').value;
+    document.getElementById('totalship').innerHTML = parseFloat(total) + parseFloat(ship)
+    $('#status').val("<%=result[0].status_id%>")
+
+    <%if ( result[0].status_id == 3){%>
+        $("#status option[value=4]").remove();
+        $("#status option[value=5]").remove();
+    <% } else if (result[0].status_id == 4) {%>
+    $("#status option[value=3]").remove();
+    $("#status option[value=5]").remove();
+    <% } else if (result[0].status_id == 5) {%>
+    $("#status option[value=3]").remove();
+    $("#status option[value=4]").remove();
+    <%}%>
+
+    <% if(type == '1'){%>
+    $('#status').change(function (e) {
+        var value = document.getElementById('status').value;
+        $.ajax({
+            type: "POST",
+            url: "./PetMart/update-payment",
+            data: "mode=update&payment_id=" + "<%= result[0].payment_id %>" + "&status=" + value + "&seen_flag=N",
+            success: function (msg) {
+                //alert(msg);
+                data = msg;
+                if(value == '6'){
+                    window.location.href = '/show-payment';
+                } else {
+                    location.reload();
+                }
+
+
+            }
+        });
+
+    });
+    <%}%>
+
+</script>
+<script>
+    <%if(result[0].promotion!=0){%>
+    document.getElementById("totalLabel").innerHTML = "<label style='text-decoration: line-through'><font color='black'> "+"<%=result[0].paymentSum%>"+"</font></lable><label><font color='red' id = 'total-after-promote'> -> "+"<%=result[0].paymentTotal%>"+"</lable>";
+    <%}%>
+    <% if(type == '1'){%>
+        document.getElementById("ship1").style.display = 'block';
+        document.getElementById("ship2").style.display = 'block';
+        document.getElementById("ship3").style.display = 'block';
+        document.getElementById("ship4").style.display = 'block';
+        document.getElementById("type1").style.display = 'block';
+        document.getElementById("type2").style.display = 'block';
+        document.getElementById("type3").style.display = 'block';
+        document.getElementById("type4").style.display = 'block';
+    <%if(result[0].ship != 0) {%>
+        document.getElementById("ship<%=result[0].ship%>").childNodes[1].childNodes[1].className = document.getElementById("ship<%=result[0].ship%>").childNodes[1].childNodes[1].className +' selected'
+        <%}%>
+        document.getElementById("type<%=result[0].pay_type%>").childNodes[1].childNodes[1].className = document.getElementById("type<%=result[0].ship%>").childNodes[1].childNodes[1].className+' selected'
+
+    <% }else {%>
+        <%if(result[0].ship != 0) {%>
+        document.getElementById("ship<%=result[0].ship%>").style.display = 'block'
+        <%}%>
+        <%if(result[0].pay_type != 0) {%>
+        document.getElementById("type<%=result[0].pay_type%>").style.display = 'block'
+        <%}%>
+
+
+    <%}%>
+     <% if(type == '1'){%>
+    document.getElementById("ship").value = '<%=result[0].ship%>';
+    document.getElementById("type").value = '<%=result[0].pay_type%>';
+    var type = '';
+    var ship = '';
+    function Ship(idx){
+        ship = idx;
+        document.getElementById("ship").value = idx;
+        var dilivery = document.getElementsByClassName("dilivery");
+        for (i=0; i<dilivery.length; i++){
+            var ind = i+1;
+            if (ind==ship){
+                dilivery[i].className += " selected";
+            } else{
+                dilivery[i].className = "dilivery";
+            }
+        }
+    }
+    function Type(idx){
+        type = idx;
+        document.getElementById("type").value = idx;
+        var dilivery = document.getElementsByClassName("type-payment");
+        for (i=0; i<dilivery.length; i++){
+            var ind = i+1;
+            if (ind==type){
+                dilivery[i].className += " selected";
+            } else{
+                dilivery[i].className = "type-payment";
+            }
+        }
+    }
+    function CheckVoucher(){
+        var obj =$("#voucher");
+        $(".error").remove();
+        $.ajax({
+            type: "POST",
+            url: "./PetMart/get-voucher",
+            data: "mode=check_email&voucher=" + obj.val()+"&total=<%=totalAll%>",
+            success: function (msg) {
+                //alert(msg);
+                data = msg;
+                if (data.code == '404') {
+                    obj.after("<label class='error'>Voucher Hết Hạn Hoặc Không Tồn Tại Hoăc Hóa Đơn Không Đủ Số Tiền Tối Thiểu</label>");
+                    document.getElementById("totalLabel").innerHTML = "<%= totalAll %>";
+                    document.getElementById('totalship').innerHTML ="<%= totalAll %>";
+                    document.getElementById("shipfee").value = '0';
+                    var result = parseFloat('<%=totalAll%>');
+                    if(result < parseFloat('<%=setting[0].freeShip%>')){
+                        document.getElementById("shipfee").value = '<%=setting[0].defaultShip%>';
+                        document.getElementById('totalship').innerHTML = parseFloat(document.getElementById("shipfee").value) + result
+                    }
+                }
+                else {
+                    var result = parseFloat('<%=totalAll%>') - parseFloat(data.totalAfter);
+                    if(result < parseFloat('<%=setting[0].freeShip%>')){
+                        document.getElementById("shipfee").value = '<%=setting[0].defaultShip%>';
+                        document.getElementById('totalship').innerHTML = parseFloat(document.getElementById("shipfee").value) + result
+                    }
+                    document.getElementById("totalLabel").innerHTML = "<label style='text-decoration: line-through'><font color='black'> <%= totalAll %></font></lable><label><font color='red' id = 'total-after-promote'> -> " + result + "</lable>";
+                }
+            }
+        });
+    }
+    function ChangeShipFee(){
+        var result = parseFloat(document.getElementById('totalLabel').innerHTML);
+        if(document.getElementById('totalLabel').childNodes[0].localName == 'label'){
+            result  = parseFloat(document.getElementById('total-after-promote').innerHTML.replace('-&gt;',''));
+            document.getElementById('totalship').innerHTML = parseFloat(document.getElementById("shipfee").value) + result;
+        } else {
+            document.getElementById('totalship').innerHTML = parseFloat(document.getElementById("shipfee").value) + result;
+        }
+    }
+    function CheckOut(){
+        var formdata = new FormData();
+        formdata.append('ship', ship);
+        formdata.append('type', type);
+        if(document.getElementsByClassName('error').length == 0){
+            formdata.append('voucher', $("#voucher").val());
+        }
+        formdata.append('name', $("#name").val());
+        formdata.append('phone', $("#phone").val());
+        $.ajax({
+            url: './PetMart/add-to-payment',
+            type: 'POST',
+            data: formdata,
+            async: false,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                if(response.code == '200'){
+                    document.getElementById('idSuccess').style.display = 'block';
+                }
+            }
+        });
+
+    }
+    function UpdateCart() {
+        var formdata1 = new FormData();
+        var sizes = new Array();
+        var quantities = new Array();
+        var input = document.getElementsByClassName('booking-item-title size_id_header');
+        <% for (var i = 0; i < result.length; i++) { %>
+        <% for (var j = 0; j < result[i].size_ids.split(";").length; j++) { %>
+        sizes.push(<%= result[i].size_ids.split(";")[j] %>);
+        <% } %>
+        <% } %>
+        input = document.getElementsByClassName('form-control booking-item-title quantity_header');
+        for (var i = 0; i < input.length; i++) {
+            quantities.push(input[i].value);
+        }
+        formdata1.append('size_id', sizes);
+        formdata1.append('quantity', quantities);
+        formdata1.append('userpayment', '<%= result[0].user_id%>');
+        formdata1.append('payment', '<%= result[0].payment_id%>');
+        formdata1.append('voucher',$("#voucher").val());
+        formdata1.append('note',$("#note").val());
+        formdata1.append('shipfee',$("#shipfee").val());
+        formdata1.append('shipcode',$("#shipcode").val());
+        formdata1.append('ship',$("#ship").val());
+        formdata1.append('type',$("#type").val());
+        $.ajax({
+            url: "./PetMart/update-cart",
+            type: 'POST',
+            dataType: 'JSON',
+            data: JSON.stringify({size_id: sizes, quantity: quantities, userpayment: '<%= result[0].user_id%>', payment:'<%= result[0].payment_id%>'}),
+            async: false,
+            cache: false,
+            contentType: 'application/json; charset=UTF-8',
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                $.ajax({
+                    url: "./PetMart/update-payment",
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: JSON.stringify({ mode: 'pay', userpayment: '<%= result[0].user_id%>', payment_id:'<%= result[0].payment_id%>',voucher :$("#voucher").val() ,shipcode:$("#shipcode").val(),shipfee:$("#shipfee").val(),note:$("#note").val(),ship:$("#ship").val(),type:$("#type").val()}),
+                    async: false,
+                    cache: false,
+                    contentType: 'application/json; charset=UTF-8',
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    success: function (response) {
+                        document.getElementById('id03').style.display = 'none';
+                        window.location.reload();
+                    }
+                });
+
+                document.getElementById('id03').style.display = 'none';
+                window.location.reload();
+            }
+        });
+
+    }
+    var index = 0;
+
+    function insert(){
+        var element = " <tr>\n" +
+            "                    <td class=\"text-center\" style='display:none;'>\n" +
+            "                        <input id='id"+index+"' name = 'id-input'  \n" +
+            "                               value=\"\">\n" +
+            "                    </td>\n" +
+            "                    <td class=\"text-center\">\n" +
+            "                        <input id='code"+index+"' name = 'code-input'\n" +
+            "                               value=\"\" onkeyup=\"CheckCode("+index+")\">\n" +
+            "                    </td>\n" +
+            "                    <td class=\"text-center\">\n" +
+            "                        <input id='name-prd"+index+"' name = 'name-prd-input'\n" +
+            "                               value=\"\">\n" +
+            "                    </td>\n" +
+            "                    <td class=\"text-center\">\n" +
+            "                        <input id='size"+index+"' name = 'size-input'\n" +
+            "                               value=\"\">\n" +
+            "                    </td>\n" +
+            "                    <td>\n" +
+            "                        <input id='price"+index+"' name = 'price-input'\n" +
+            "                               value=\"\">\n" +
+            "\n" +
+            "                    </td>\n" +
+            "                    <td>\n" +
+            "                        <input id='amount"+index+"' name = 'amount-input'\n" +
+            "                               value=\"\" onkeyup=\"Calc("+index+")\">\n" +
+            "\n" +
+            "                    </td>\n" +
+            "                    <td class=\"text-center \">\n" +
+            "                        <h4 class=\"font-custom currency\" id = 'sum"+index+"'></h4>\n" +
+            "\n" +
+            "\n" +
+            "                    </td>\n" +
+            "                </tr>";
+        index++;
+        $(element).insertBefore($('#rowInsertBtn'));
+    }
+    function CheckCode(idx) {
+        var obj = $("#code"+idx);
+        $(".error").remove();
+        if(obj.val() != ''){
+            $.ajax({
+                type: "POST",
+                url: "./ajax/checkCode",
+                data: "code=" + obj.val(),
+                success: function (msg) {
+                    //alert(msg);
+                    data = msg;
+                    if (data.status == 'success') {
+                        document.getElementById('name-prd'+idx).value = data.detail[0].name;
+                        document.getElementById('size'+idx).value = data.detail[0].size;
+                        if(data.detail[0].disct_price == 'NULL' || data.detail[0].disct_price == '0' || data.detail[0].disct_price == undefined)
+                        {
+                            document.getElementById('price'+idx).value = data.detail[0].price;
+                        } else {
+                            document.getElementById('price'+idx).value = data.detail[0].disct_price;
+                        }
+                        document.getElementById('id'+idx).value = data.detail[0].product_id;
+
+
+                    }
+                }
+            });
+        } else {
+            document.getElementById('name-prd'+idx).value = '';
+            document.getElementById('size'+idx).value = '';
+            document.getElementById('price'+idx).value = '';
+        }
+
+    }
+    function Calc(idx){
+        var obj = $("#amount"+idx);
+        if(obj.val() != '0' || obj.val().trim() != ''){
+            $("#sum"+idx).html(''+(parseInt(obj.val())*parseInt($("#price"+idx).val())))
+        }
+    }
+    function Add() {
+        var formdata1 = new FormData();
+        var sizes = new Array();
+        var quantities = new Array();
+        var prices = new Array();
+        var names = new Array();
+        var codes = new Array();
+        var sizesIpt = new Array();
+        /* sizes.push(document.getElementById('prd-id').value);
+         quantities.push(parseInt($("#amount").val()));*/
+
+        for(var i = 0 ; i < document.getElementsByName('id-input').length;i++){
+            sizes.push(document.getElementsByName('id-input')[i].value);
+        }
+        for(var i = 0 ; i < document.getElementsByName('price-input').length;i++){
+            prices.push(document.getElementsByName('price-input')[i].value);
+        }
+        for(var i = 0 ; i < document.getElementsByName('amount-input').length;i++){
+            quantities.push(document.getElementsByName('amount-input')[i].value);
+        }
+        for(var i = 0 ; i < document.getElementsByName('code-input').length;i++){
+            codes.push(document.getElementsByName('code-input')[i].value);
+        }
+        for(var i = 0 ; i < document.getElementsByName('name-prd-input').length;i++){
+            names.push(document.getElementsByName('name-prd-input')[i].value);
+        }
+        for(var i = 0 ; i < document.getElementsByName('size-input').length;i++){
+            sizesIpt.push(document.getElementsByName('size-input')[i].value);
+        }
+        formdata1.append('size_id',sizes);
+        formdata1.append('quantity',quantities);
+        formdata1.append('firstname',$("#name").val());
+        formdata1.append('email',$("#email").val());
+        formdata1.append('phone',$("#phone").val());
+        formdata1.append('address',$("#address").val());
+        formdata1.append('voucher',$("#voucher").val());
+        formdata1.append('note',$("#note").val());
+        formdata1.append('shipfee',$("#shipfee").val());
+        formdata1.append('shipcode',$("#shipcode").val());
+        formdata1.append('ship',$("#ship").val());
+        formdata1.append('type',$("#type").val());
+        formdata1.append('mode','pay');
+        formdata1.append('name',names);
+        formdata1.append('code',codes);
+        $.ajax({
+            url: "/PetMart/add-to-cart",
+            type: 'POST',
+            dataType : 'JSON',
+            data: JSON.stringify({price:prices,size_id:sizes,quantity:quantities,name:names,code:codes,size:sizesIpt,payment_id:'<%= result[0].payment_id%>',userId: '<%= result[0].user_id%>'}),
+            async: false,
+            cache: false,
+            contentType: 'application/json; charset=UTF-8',
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response1) {
+                $.ajax({
+                    url: "./PetMart/update-payment",
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: JSON.stringify({ mode: 'pay', userpayment: '<%= result[0].user_id%>', payment_id:'<%= result[0].payment_id%>',voucher :$("#voucher").val() ,shipcode:$("#shipcode").val(),shipfee:$("#shipfee").val(),note:$("#note").val(),ship:$("#ship").val(),type:$("#type").val()}),
+                    async: false,
+                    cache: false,
+                    contentType: 'application/json; charset=UTF-8',
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    success: function (response) {
+
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+
+    }
+    <%}%>
+
+</script>
+<% include partials/index_Footer.ejs %>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript"  src="/js/bootstrap.js"></script>
+<script  type="text/javascript" src="/js/slimmenu.js"></script>
+<script type="text/javascript"  src="/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript"  src="/js/bootstrap-timepicker.js"></script>
+<script type="text/javascript"  src="/js/nicescroll.js"></script>
+<script type="text/javascript"  src="/js/dropit.js"></script>
+<script  type="text/javascript" src="/js/ionrangeslider.js"></script>
+<script  type="text/javascript" src="/js/icheck.js"></script>
+<script type="text/javascript"  src="/js/fotorama.js"></script>
+<script type="text/javascript"  src="/js/typeahead.js"></script>
+<script  type="text/javascript" src="/js/card-payment.js"></script>
+<script type="text/javascript"  src="/js/magnific.js"></script>
+<script type="text/javascript"  src="/js/owl-carousel.js"></script>
+<script  type="text/javascript" src="/js/fitvids.js"></script>
+<script type="text/javascript"  src="/js/tweet.js"></script>
+<script  type="text/javascript" src="/js/countdown.js"></script>
+<script type="text/javascript"  src="/js/gridrotator.js"></script>
+<script type="text/javascript"  src="/js/custom.js"></script>
+</html>

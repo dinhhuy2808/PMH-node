@@ -1,0 +1,247 @@
+﻿<!DOCTYPE HTML>
+<html>
+<% include partials/index_Header.ejs %>
+<body>
+
+<!-- FACEBOOK WIDGET -->
+<div id="fb-root"></div>
+<script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<!-- /FACEBOOK WIDGET -->
+<div class="global-wrap">
+    
+    <div class="container">
+        <div class="row">
+            <ol class="breadcrumb">
+                <a href="/"><i class="icon fa fa-home"></i> Home</a> / <a href="/maintenance">Account Maintenance</a>
+            </ol>
+            <%if (data.status == 'success'){%>
+            <div class="alert alert-success">
+                <strong>Success!</strong>
+            </div>
+            <%}%>
+        </div>
+
+        <form action = '/maintenance' method = 'get' style="display: none">
+            <h2><span class="label label-primary">Filtered By </span></h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <h3><span class="label label-success">First Name :</span></h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <h3><span class="label label-success">Last Name: </span></h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <h3><span class="label label-success">Email:</span></h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <h3><span class="label label-success">Type:</span></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <input  class=" form-control" name = 'fname' id = 'fname' value="<%=data.fnameflt==undefined?"":data.fnameflt%>"  type="text" />
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+                    <div >
+                        <input class="form-control" name = 'lname' id = 'lname' value="<%=data.lnameflt==undefined?"":data.lnameflt%>"  type="text" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <select class=" form-control" name = 'email' id = 'email'>
+                            <option value = ''>------Select-------</option>
+                            <%for (i = 0;i<users.length;i++){%>
+                            <%if(users[i].email == data.emailflt){%>
+                                <option value = '<%=users[i].email%>' selected><%=users[i].email%></option>
+                            <%}else{%>
+                                <option value = '<%=users[i].email%>' ><%=users[i].email%></option>
+                            <%}%>
+
+                            <%}%>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <select class=" form-control" name = 'type' id = 'type'>
+                            <option value = '0'selected>------Select-------</option>
+                            <option value = '1'>Admin</option>
+                            <option value = '2'>Customer</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class = "row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input class="btn btn-primary" value = 'Search' type = 'submit'></input>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                           <!-- <div class="form-group">
+                                <a class="btn btn-primary" id = "export" name = "export">Export Excel</a>
+                            </div>-->
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+        <br/>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <th class="text-right" style="text-align: center;"><h4>Số điện thoại</h4></th>
+                        <th class="text-right" style="text-align: center;"><h4>Họ Tên</h4></th>
+                        <th class="text-right" style="text-align: center;"><h4>Năm Sinh</h4></th>
+                        <th class="text-right" style="text-align: center;"><h4>Giới Tính</h4></th>
+                        <th class="text-right" style="text-align: center;"><h4>Địa chỉ</h4></th>
+                        <th class="text-right" style="text-align: center;"><h4>Admin</h4></th>
+                        <th class="text-right" style="text-align: center;"><h4>Tỉ lệ</h4></th>
+                    </thead>
+                    <tbody>
+                        <% for(i = 0;i < users.length;i++){ %>
+                        
+                            <tr>
+                                <td>
+                                    <%= users[i].phone %>
+                                </td>
+                                <td>
+                                    <%= users[i].firstname %>
+                                </td>
+                                <td>
+                                    <%= parseInt(users[i].dob/10000)%>
+                                </td>
+                                <td>
+                                    <%= users[i].gender=="M"?"Quý Ông":"Quý Bà" %>
+                                </td>
+                                <td>
+                                    <%= users[i].address %>
+                                </td>
+                                <td>
+                                    <%if(data.type == 1){%>
+                                    <!-- <td>
+                                        <a class="btn btn-primary" href="/reset-password?id=<%= users[i].user_id%>">Reset Password</a>
+                                    </td> -->
+                                    <button class="btn btn-primary" onclick="GetCart(<%=users[i].user_id%>)">Cart</button>
+<!--                                <td>
+                                        <a class="btn btn-primary" href="/noti-maintenance?id=<%= users[i].user_id%>">Notification</a>
+                                    </td> -->                                                
+                                    <a class="booking-item" href="/edit-account?phone=<%=users[i].phone%>"><button class="btn btn-primary">Edit</button></a>
+                                    <%if(users[i].checked == 'Y'){%>
+                                    <img src="assets/img/success.jpg" alt="Avatar" onclick="Check(<%=users[i].user_id%>)" class="icon center-block" style="max-width: 75px">
+                                    <%} else {%>
+                                    <button class="btn btn-primary" onclick="Check(<%=users[i].user_id%>)">Check</button>
+                                    <%}%>
+                                </td>
+                                <td>
+                                    <%= users[i].fail %> / <%= users[i].success %>
+                                </td>
+                                <td>
+                                    <a class="glyphicon glyphicon-remove" href="/deleteAccount/<%=users[i].user_id %>">
+
+                                    </a>
+                                </td>
+                            </tr>
+                        <% } }%>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2">
+                
+            </div>
+        </div>
+
+        <div class="gap"></div>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/slimmenu.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/bootstrap-timepicker.js"></script>
+    <script src="js/nicescroll.js"></script>
+    <script src="js/dropit.js"></script>
+    <script src="js/ionrangeslider.js"></script>
+    <script src="js/icheck.js"></script>
+    <script src="js/fotorama.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script src="js/typeahead.js"></script>
+    <script src="js/card-payment.js"></script>
+    <script src="js/magnific.js"></script>
+    <script src="js/owl-carousel.js"></script>
+    <script src="js/fitvids.js"></script>
+    <script src="js/tweet.js"></script>
+    <script src="js/countdown.js"></script>
+    <script src="js/gridrotator.js"></script>
+    <script src="js/custom.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('#export').click(function () {
+                var fnameVal = document.getElementById('fname').value;
+                var lnameVal = document.getElementById('lname').value;
+                var emailVal = document.getElementById('email').value;
+                var typeVal = document.getElementById('type').value;
+                window.location.href="/export-excel/user?fname=" + fnameVal+"&lname="+lnameVal+"&email="+emailVal+"&type="+typeVal;
+
+            });
+
+        });
+
+        <%if (data.typeflt == 1){%>
+             $("#type").val("1").change();
+        <% } else if (data.typeflt == 2){%>
+            $("#type").val("2").change();
+        <% } else if (data.typeflt == 3){%>
+             $("#type").val("3").change();
+        <%}%>
+
+        function Check(idx) {
+            $.ajax({
+                url: 'ajax/checkeduser?id='+idx,
+                type: 'GET',
+                dataType: 'JSON',
+                async: false,
+                cache: false,
+                contentType: 'application/json; charset=UTF-8',
+                enctype: 'multipart/form-data',
+                processData: false,
+                success: function (response) {
+                    window.location.reload();
+                }
+            });
+        }
+
+    </script>
+</div>
+</body>
+<% include partials/index_Footer.ejs %>
+</html>
+
+

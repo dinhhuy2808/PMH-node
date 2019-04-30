@@ -1,0 +1,114 @@
+﻿<!DOCTYPE HTML>
+<html>
+<% include partials/index_Header.ejs %>
+<body>
+
+<div class="container">
+    <div class="row">
+        <ol class="breadcrumb">
+            <a href="/">Home</a>/<a href="#">Khuyến mãi</a>
+        </ol>
+
+    </div>
+ <%if (type == '1'){%>
+          <div class="row">
+        <div class="col-md-3">
+            <a class="btn btn-primary" href="/create-promotion">Tạo Khuyến Mãi</a>
+        </div>
+    </div>
+    <%}%>
+    <br>
+    <div class="row">
+        <% for(j = 0;j < result.length;j++){ %>
+
+        <div class="col-xs-offset-2 col-md-offset-2 col-xs-8 col-md-8 folder<%= result[j].folder_ids %> ">
+            <a href="/promotion-detail/<%=result[j].title.replace(/ /g, "-")%>" >
+                <div class="promotion">
+
+                    <div class="col-xs-3 col-md-2" style="position: absolute; padding: 0px;">
+                        <img class="shake img-responsive" src="/img/moi.svg">
+                    </div>
+
+                    <div class="center-block" style="">
+                        <img src="/assets/img/<%= result[j].image==null?result[j].image:result[j].image.split(";")[0]%>" class="img-responsive center-block">
+
+                    </div>
+
+                </div>
+            </a>
+            <%if (type == 1){%>
+            <div class="col-md-3">
+
+                <a class="btn btn-primary" href="/edit-promote/<%=result[j].title.replace(/ /g, '-')%>">Edit</a>
+
+            </div>
+            <div class="col-md-3">
+
+                <a class="btn btn-primary" href="/delete-promote/<%=result[j].title.replace(/ /g, '-')%>">Delete</a>
+
+            </div>
+            <%}%>
+        </div>
+        <% } %>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript"  src="/js/bootstrap.js"></script>
+<script  type="text/javascript" src="/js/slimmenu.js"></script>
+<script type="text/javascript"  src="/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript"  src="/js/bootstrap-timepicker.js"></script>
+<script type="text/javascript"  src="/js/nicescroll.js"></script>
+<script type="text/javascript"  src="/js/dropit.js"></script>
+<script  type="text/javascript" src="/js/ionrangeslider.js"></script>
+<script  type="text/javascript" src="/js/icheck.js"></script>
+<script type="text/javascript"  src="/js/fotorama.js"></script>
+<script type="text/javascript"  src="/js/typeahead.js"></script>
+<script  type="text/javascript" src="/js/card-payment.js"></script>
+<script type="text/javascript"  src="/js/magnific.js"></script>
+<script type="text/javascript"  src="/js/owl-carousel.js"></script>
+<script  type="text/javascript" src="/js/fitvids.js"></script>
+<script type="text/javascript"  src="/js/tweet.js"></script>
+<script  type="text/javascript" src="/js/countdown.js"></script>
+<script type="text/javascript"  src="/js/gridrotator.js"></script>
+<script type="text/javascript"  src="/js/custom.js"></script>
+<script>
+
+</script>
+<script type="text/javascript">
+    var currents = document.getElementsByClassName("currency");
+    var decimals = 0;
+    for (i=0; i<currents.length; i++){
+        var pnumber = currents[i].innerHTML;
+        if (isNaN(pnumber)) { result = 0};
+        if (pnumber=='') { result = 0};
+        var snum = new String(pnumber);
+        var result = '';
+        j=snum.length-1;
+        dem = 1;
+        while(j>=0){
+            if (dem%4!=0){
+                result = snum[j] + result;
+                j--;
+                dem++;
+            }else{
+                result = '.' + result;
+                dem=1;
+            }
+        }
+        if (currents[i].id == "dictprice"){
+            currents[i].innerHTML = result;
+        } else{
+            currents[i].innerHTML = "&nbsp;" +result+ "&nbsp";
+        }
+
+    }
+
+</script>
+
+</body>
+<% include partials/index_Footer.ejs %>
+</html>
+
+

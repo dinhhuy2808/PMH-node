@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<% include partials/index_Header.ejs %>
+<link type="text/css" href="css/sample.css" rel="stylesheet" media="screen" />
+
+<body>
+<div class="container body-content">
+    <div class="row">
+        <ol class="breadcrumb">
+            <a href="/"><i class="icon fa fa-home"></i> Home</a> / <a href="/maintenance-prd/<%=catflt.replace(/ /g,'-')%>"> <%=catflt%></a> / <a href="#">Tạo Sản Phẩm</a>
+        </ol>
+
+    </div>
+    <div class="row product-info">
+        <div class="col-md-4">
+            <a href="#" class="thumbnail">
+                <img class="img-responsive" src="assets/img/3x4.png" alt="">
+            </a>
+        </div>
+        <div class="col-md-8">
+            <div class="ditem">
+                <div class="bs-example bs-example-tabs">
+                    <ul id="myTab" class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#home" role="tab" data-toggle="tab">Sản Phẩm</a></li>
+                        <li class=""><a href="#profile" role="tab" data-toggle="tab">Dịch Vụ</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+
+                        <div class="tab-pane fade active in" id="home">
+                            <div class="row">
+                                <div class="col-md-8"><h3>Tên Sản Phẩm</h3></div>
+                            </div>
+                            <div class="row center-block">
+                                <input class="col-md-8 form-control" type="text" id="name" onkeyup="CheckPrd()" value=""></input>
+                            </div>
+                            <!--<div class="row">
+                                <div class="col-md-8"><h3>Mã sản phẩm</h3></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input class="form-control" type="text" id="newCode" value=""></input>
+                                </div>
+                            </div>-->
+                            <div class="row">
+                                <div class="col-md-8"><h3>Hợp mệnh</h3></div>
+                            </div>
+                            <div class="row center-block">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmenh" id="mang0" value="Kim"> Kim
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmenh" id="mang1" value="Mộc"> Mộc
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmenh" id="mang2" value="Thủy"> Thủy
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmenh"  id="mang3" value="Hỏa"> Hỏa
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmenh"  id="mang4" value="Thổ"> Thổ
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmenh"  id="mang5" value="All" onclick="selectAll('checkmenh')"> Tất cả các mệnh
+                                    </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8"><h3>Hợp Tuổi</h3></div>
+                            </div>
+                            <div class="row center-block">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checktuoi"  id="Tuoi0" value="Tý"> Tý
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checktuoi" id="Tuoi1" value="Sửu"> Sửu
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checktuoi" id="Tuoi2" value="Dần"> Dần
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checktuoi" id="Tuoi3" value="Mẹo"> Mẹo
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checktuoi" id="Tuoi4" value="Thìn"> Thìn
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checktuoi" id="Tuoi5" value="Tỵ"> Tỵ
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checktuoi" id="Tuoi6" value="Ngọ"> Ngọ
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checktuoi" id="Tuoi7" value="Mùi"> Mùi
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checktuoi" id="Tuoi8" value="Thân"> Thân
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checktuoi" id="Tuoi9" value="Dậu"> Dậu
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checktuoi" id="Tuoi10" value="Tuất"> Tuất
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checktuoi" id="Tuoi11" value="Hợi"> Hợi
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checktuoi" id="Tuoi12" value="All" onclick="selectAll('checktuoi')"> Tất cả các tuổi
+                                    </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8"><h3>Màu sắc</h3></div>
+                            </div>
+                            <div class="row center-block">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmau" id="mau0" value="Đỏ"> Đỏ
+                                    </label>                                
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmau" id="mau1" value="Tím"> Tím
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmau" id="mau2" value="Hồng"> Hồng
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmau" id="mau3" value="Vàng"> Vàng
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmau" id="mau4" value="Nâu"> Nâu
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmau" id="mau5" value="Cam"> Cam
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmau" id="mau6" value="Xám"> Xám
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmau" id="mau7" value="Ánh vàng"> Ánh vàng
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmau" id="mau8" value="Ánh bạc"> Ánh bạc
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmau" id="mau9" value="Xanh biển"> Xanh biển
+                                    </label>                                    
+                            </div>
+                            <div class="row center-block">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmau" id="mau10" value="Đen"> Đen
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmau" id="mau11" value="Xanh lá"> Xanh lá
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmau" id="mau12" value="Xanh ngọc"> Xanh ngọc
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmau" id="mau13" value="Trong suốt"> Trong suốt
+                                    </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" class="checkmau" id="mau14" value="Trắng"> Trắng
+                                </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" class="checkmau" id="mau14" value="All" onclick="selectAll('checkmau')"> Tất cả các màu
+                                    </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8"><h3>Size</h3></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="row">
+                                        <label class="col-md-4">
+                                            Từ: 
+                                        </label>
+                                        <div class="col-md-8"><input class="form-control" id = "minsize" value = ""></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="row">
+                                        <label class="col-md-4">
+                                            Đến: 
+                                        </label>
+                                        <div class="col-md-8"><input class="form-control" id = "maxsize" value = ""></div>                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>    
+                            
+                            <div class="row">
+                                <div class="col-md-8"><h3>Phân loại sản phẩm</h3></div>
+                            </div>
+                            <div class="row center-block">
+                                <div class="col-xs-2 col-md-2"><h4 style="text-align: center;">Phân Loại</h4></div>
+                                <div class="col-xs-2 col-md-2"><h4 style="text-align: center;">Giá</h4></div>
+                                <div class="col-xs-2 col-md-2"><h4 style="text-align: center;">Giá sau giảm</h4></div>
+                                <div class="col-xs-2 col-md-2"><h4 style="text-align: center;">Tồn kho</h4></div>
+                                <div class="col-xs-2 col-md-2"><h4 style="text-align: center;">Thông tin loại hàng</h4></div>
+                                <div class="col-xs-2 col-md-2"><h4 style="text-align: center;">Mã Sản Phẩm</h4></div>
+                            </div>                                                
+                            <div class="row" id="rowInsertBtn">
+                                <div class="col-md-2">
+                                    <button class="btn btn-danger" id='insertBtn' onclick='insert()'>+</button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div  class="col-md-3">
+                                    <input class="form-control newImg"  id = "newImg" type = "file" value = "" multiple>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <button class="btn btn-primary" id = "add" onclick="Add()">Add</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <a class="btn btn-primary" href = "/" >Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="profile">
+                            <div class="col-md-8"><h3>Tên Dịch Vụ</h3></div>
+                            <div class="row center-block">
+                                <div class="col-md-8">
+                                    <input class="col-md-8 form-control" type="text" id="nameDV" onkeyup="CheckPrdDV()" value=""></input>
+                                </div>
+                                <div class="col-md-4">
+                                    <input class="form-control newImgDv"  id = 'newImgDv' type = 'file' value = '' multiple>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row center-block">
+                                <div class="col-md-8"><h3>Mã Dịch Vụ</h3></div>
+                            </div>
+                            <div class="row center-block">
+                                <div class="col-md-3">
+                                    <input class="form-control" type="text" id="newCodeDV" value=""></input>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row center-block">
+                                <div class="col-md-2">
+                                    <button class="btn btn-primary" id = "add" onclick="AddDV()">Add</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <a class="btn btn-primary" href = "/" >Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <br>
+    <!--<button  onclick="OpenModal()">
+        <i class="fa fa-image" ></i></button>
+-->
+    <a type="button" onclick="document.getElementById('id02').style.display='block'" style="width:auto;">
+        <span class="glyphicon glyphicon-upload"></span>
+    </a>
+    <!-- Modal -->
+    <div id="id02" class="modal">
+        <div class="container popup animate">
+            <div style="padding-top: 75px;">
+                    <span onclick="document.getElementById('id02').style.display='none'" class="close"
+                          title="Close Modal">&times;
+                    </span>
+                <img src="img/LOGO.svg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
+            </div>
+            <form class="form-horizontal" role="form" action="/login" method="POST">
+                <div class="">
+                    <h4 class="modal-title">Thêm Hình</h4>
+                    <input class="form-control newImgModal"  id = 'newImgModal' type = 'file' value = ''>
+                </div>
+                <br>
+                <button class="center-block btn btn-primary" onclick="CloseModal()" data-dismiss="modal" type="button">Ok</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="modalExpired" class="modal-dialog" style="display: none" role="dialog">
+
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Ngày Hết Hạn Khuyến Mãi</h4>
+            </div>
+            <div class="modal-body">
+                <input class="form-control"  id = 'expiredDate' type = 'date' value = ''>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="CloseModalExpired()" class="btn btn-default" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="row product-info center-block">
+       <!-- <div>
+            <textarea style="width: 100%; min-height: 300px;" id="description" name="description"></textarea>
+        </div>-->
+        <div class = "center">
+            <textarea  id="editor">
+                ABC
+
+            </textarea >
+        </div>
+
+    </div>
+
+    </div>
+
+
+</body>
+<% include partials/index_Footer.ejs %>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/slimmenu.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/bootstrap-timepicker.js"></script>
+<script src="js/nicescroll.js"></script>
+<script src="js/dropit.js"></script>
+<script src="js/ionrangeslider.js"></script>
+<script src="js/icheck.js"></script>
+<script src="js/fotorama.js"></script>
+<script src="js/typeahead.js"></script>
+<script src="js/card-payment.js"></script>
+<script src="js/magnific.js"></script>
+<script src="js/owl-carousel.js"></script>
+<script src="js/fitvids.js"></script>
+<script src="js/tweet.js"></script>
+<script src="js/countdown.js"></script>
+<script src="js/gridrotator.js"></script>
+<script src="js/custom.js"></script>
+
+<script src="ckeditor/ckeditor.js"></script>
+<script>
+CKEDITOR.replace('editor')
+</script>
+<script>
+    function selectAll(name){
+        var properties = document.getElementsByClassName(name);
+        if (properties[properties.length-1].checked){
+            for (i=0; i < properties.length; i++){
+                properties[i].checked = true;
+            }
+        } else {
+            for (i=0; i < properties.length; i++){
+                properties[i].checked = false;
+            }
+        }
+        
+    }
+    function TickMenh(indx){
+        menh += indx+";";
+    }
+    function TickTuoi(indx){
+        tuoi += indx+";";
+    }
+    function TickMau(indx){
+        mau += indx+";";
+    }
+    function CloseModalExpired(){
+        document.getElementById('modalExpired').style.display = 'none';
+    }
+
+    function CloseModal(){
+
+        var formdata1 = new FormData()
+        var input = document.getElementsByClassName("form-control newImgModal")
+        for (var i = 0; i < input.length; i++) {
+            formdata1.append('images', input[i].files[0]);
+
+        }
+        $.ajax({
+            url: './ajax/addProductImages',
+            type: 'POST',
+            data: formdata1,
+            async: false,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                $.ajax({
+                    type: "POST",
+                    url: "./PetMart/remove",
+                    data: "path=" + response.path,
+                    success: function (msg) {
+                        //alert(msg);
+                        data = msg;
+                        /*var description = document.getElementById("description").value;
+                        description +=  '<br>'+'<img border=0 hspace="0" alt="" src="/assets/img/'+response.image+'" align="baseline" class="img-responsive">' + '<br>';
+                        document.getElementById("description").value = description;
+                        document.getElementById("id02").style.display = 'none';*/
+                        CKEDITOR.instances.editor.insertHtml("<figure class=\"image image-style-side\"><img src=\"/assets/img/"+response.image+"\">\n" +
+                            "\t\t\t\t<figcaption></figcaption>\n" +
+                            "\t\t\t</figure>");
+                        document.getElementById("id02").style.display = 'none';
+
+                    }
+                });
+
+            }
+        });
+
+    }
+    function insert() {
+        var element = '<div class="row center-block">\n' +
+            '                            \n' +
+            '                            <div class="col-xs-2 col-md-2"><input class="form-control" id = \'newSize\' value = \'\'>\n' +
+            '\n' +
+            '                            </input></div>\n' +
+            '\n' +
+            '                            <div class="col-xs-2 col-md-2"><input class="form-control" id = \'newPrice\' value = \'0\'>\n' +
+            '\n' +
+            '                            </input></div>\n' +
+            '                            <div class="col-xs-2 col-md-2" ><input class="form-control" id = \'newDisc\' value = \'0\'>\n' +
+            '\n' +
+            '                            </input></div>\n' +
+            '\n' +
+            '                           <div class="col-xs-2 col-md-2"><input class="form-control" id = \'remaining\' value = \'0\'>\n' +
+            '\n' +
+            '                            </input></div>\n' +
+            '\n' +
+            '                            <div  class="col-xs-2 col-md-2"><input class="form-control"  id = \'infor\' value = \'\'>\n' +
+            '\n' +
+            '                            </input></div>\n' +
+            '\n' +
+            '                            <div  class="col-xs-2 col-md-2"><input class="form-control"  id = \'newCode\' value = \'\'>\n' +
+            '\n' +
+            '                            </input></div>\n' +
+            '                        </div><br>';
+        $(element).insertBefore($('#rowInsertBtn'));
+    }
+
+
+    function Add() {
+        var allElements = document.getElementsByTagName("input");
+        var flag = true;
+        for (var i = 0; i < allElements.length; i++) {
+
+            if (allElements[i].id == 'newDisc') {
+                if(allElements[i].value.trim()!='0' && (parseFloat(allElements[i].value) >= parseFloat(allElements[i-1].value))){
+                    flag = false;
+                    alert('Giá sau khuyến mãi phải nhỏ hơn giá sản phẩm !!!')
+                }
+            }
+        }
+
+        if(flag == true){
+            var formdata = new FormData();
+            var obj =$("#name");
+            $(".error").remove();
+            $.ajax({
+                type: "POST",
+                url: "./ajax/checkProduct",
+                data: "mode=check_email&name=" + obj.val(),
+                success: function (msg) {
+                    //alert(msg);
+                    data = msg;
+                    if (data.status == 'exist') {
+                        obj.after("<label class='error'>Product Name Aleady Exist</label>");
+                        document.getElementById('add').style.display = 'none'
+                        return;
+                    }
+                    else {
+                        document.getElementById('add').style.display = 'block'
+                    }
+                }
+            });
+
+            var input = document.getElementsByClassName("form-control newImg")
+            for (var i = 0; i < input[0].files.length; i++) {
+                formdata.append('upfiles', input[0].files[i]);
+
+            }
+            var sizes = new Array();
+            var prices = new Array();
+            var disct_prices = new Array();
+            var codes = new Array();
+            var entities = new Array();
+            var infos = new Array();
+            var description = CKEDITOR.instances.editor.getData();
+            formdata.append('description', description);
+            var name = document.getElementById("name").value;
+            formdata.append('name', name);
+            var category = '<%= catId %>';
+            formdata.append('category', category);
+            for (var i = 0; i < allElements.length; i++) {
+                if (allElements[i].id == 'newSize') {
+                    sizes.push(allElements[i].value);
+                }
+                if (allElements[i].id == 'newPrice') {
+                    prices.push(allElements[i].value);
+                }
+                if (allElements[i].id == 'newDisc') {
+                    if(allElements[i].value.trim()=='0' || allElements[i].value.trim()==''){
+                        disct_prices.push(allElements[i].value);
+                    }else{
+                        if(document.getElementById('expiredDate').value.trim() == ''){
+                            document.getElementById('modalExpired').style.display = 'block';
+                            return false;
+                        }else{
+                            disct_prices.push(allElements[i].value);
+                        }
+                    }
+
+                }
+                if (allElements[i].id == 'newCode') {
+                    codes.push(allElements[i].value);
+                }
+                if (allElements[i].id == 'remaining') {
+                    entities.push(allElements[i].value);
+                }
+                if (allElements[i].id == 'infor') {
+                    infos.push(allElements[i].value);
+                }
+            }
+            var expd = '';
+            if(disct_prices[0]=='0'){
+                expd = '9999-99-99'
+            }else{
+                expd = document.getElementById('expiredDate').value;
+            }
+            formdata.append('expired_date', expd.replace(/-/g, ""));
+            formdata.append('Sizes', sizes);
+            formdata.append('Prices', prices);
+            formdata.append('Discounts', disct_prices);
+            formdata.append('Codes', codes);
+            formdata.append('Entities', entities);
+            formdata.append('Infos', infos);
+            var menh = '';
+            var tuoi = '';
+            var mau = '';
+            var menhs = document.getElementsByClassName("checkmenh");
+            for (var i = 0; i < menhs.length; i++) {
+                if(menhs[i].checked){
+                    menh +=menhs[i].value +";";
+                }
+            }
+            var tuois = document.getElementsByClassName("checktuoi");
+            for (var i = 0; i < tuois.length; i++) {
+                if(tuois[i].checked){
+                    tuoi +=tuois[i].value +";";
+                }
+            }
+            var maus = document.getElementsByClassName("checkmau");
+            for (var i = 0; i < maus.length; i++) {
+                if(maus[i].checked){
+                    mau +=maus[i].value +";";
+                }
+            }
+            formdata.append('Menh', menh);
+            formdata.append('Tuoi', tuoi);
+            formdata.append('Mau', mau);
+            formdata.append('SizeFrom', document.getElementById('minsize').value);
+            formdata.append('SizeTo', document.getElementById('maxsize').value);
+            $.ajax({
+                url: './ajax/addProduct',
+                type: 'POST',
+                data: formdata,
+                async: false,
+                cache: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                processData: false,
+                success: function (response) {
+                    $.ajax({
+                        type: "POST",
+                        url: "./PetMart/remove",
+                        data: "path=" + response.path,
+                        success: function (msg) {
+                            //alert(msg);
+                            data = msg;
+                            window.location.href = '/maintenance-prd/<%= catflt.replace(/ /g,'-') %>';
+                        }
+                    });
+                }
+            });
+
+
+            /*$.ajax({
+                type: "POST",
+                url: "./ajax/addProduct",
+                data: "mode=data&Sizes=" + sizes+"&Prices="+prices+"&Discounts="+disct_prices+"&description="+description+"&name="+name+"&category="+category+"&Codes="+codes+"&Images="+images,
+                success: function (msg) {
+                    //alert(msg);
+                    data = msg;
+                    $.ajax({
+                        type: "POST",
+                        url: "./ajax/addProduct",
+                        data: "mode=data&Ids="+data.ids+"&Images="+images,
+                        success: function (msg) {
+                            //alert(msg);
+                            data = msg;
+
+                            location.reload();
+
+                        }
+                    });
+                    location.reload();
+
+                }
+            });*/
+        }
+    }
+    function OpenModal(){
+        document.getElementById('myModal').style.display = 'block';
+    }
+    function AddDV() {
+        var formdata = new FormData();
+        var obj =$("#name");
+        $(".error").remove();
+        $.ajax({
+            type: "POST",
+            url: "./ajax/checkProduct",
+            data: "mode=check_email&name=" + obj.val(),
+            success: function (msg) {
+                //alert(msg);
+                data = msg;
+                if (data.status == 'exist') {
+                    obj.after("<label class='error'>Product Name Aleady Exist</label>");
+                    document.getElementById('add').style.display = 'none'
+                    return;
+                }
+                else {
+                    document.getElementById('add').style.display = 'block'
+                }
+            }
+        });
+
+        var input = document.getElementsByClassName("form-control newImgDv")
+        for (var i = 0; i < input[0].files.length; i++) {
+            formdata.append('upfiles', input[0].files[i]);
+
+        }
+        var allElements = document.getElementsByTagName("input");
+        var sizes = new Array();
+        var prices = new Array();
+        var disct_prices = new Array();
+        var codes = new Array();
+        var description = CKEDITOR.instances.editor.getData();
+        formdata.append('description', description);
+        var name = document.getElementById("nameDV").value;
+        formdata.append('name', name);
+        var category = '<%= catId %>';
+        formdata.append('category', category);
+        for (var i = 0; i < allElements.length; i++) {
+            if (allElements[i].id == 'newSize') {
+                sizes.push(allElements[i].value);
+            }
+            if (allElements[i].id == 'newPrice') {
+                prices.push(allElements[i].value);
+            }
+            if (allElements[i].id == 'newDisc') {
+                if(allElements[i].value.trim()=='0'){
+                    disct_prices.push(allElements[i].value);
+                }else{
+                    if(document.getElementById('expiredDate').value.trim() == ''){
+                        document.getElementById('modalExpired').style.display = 'block';
+                        return false;
+                    }else{
+                        disct_prices.push(allElements[i].value);
+                    }
+                }
+
+            }
+            if (allElements[i].id == 'newCodeDV') {
+                codes.push(allElements[i].value);
+            }
+        }
+        var expd = document.getElementById('expiredDate').value;
+        formdata.append('expired_date', expd.replace(/-/g, ""));
+        formdata.append('Sizes', sizes);
+        formdata.append('Prices', prices);
+        formdata.append('Discounts', disct_prices);
+        formdata.append('Codes', codes);
+        formdata.append('mode', 'dv');
+
+        $.ajax({
+            url: './ajax/addProduct',
+            type: 'POST',
+            data: formdata,
+            async: false,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                $.ajax({
+                    type: "POST",
+                    url: "./PetMart/remove",
+                    data: "path=" + response.path,
+                    success: function (msg) {
+                        //alert(msg);
+                        data = msg;
+                        window.location.href = '/maintenance-prd/<%= catflt.replace(/ /g,'-') %>';
+
+                    }
+                });
+            }
+        });
+
+
+        /*$.ajax({
+            type: "POST",
+            url: "./ajax/addProduct",
+            data: "mode=data&Sizes=" + sizes+"&Prices="+prices+"&Discounts="+disct_prices+"&description="+description+"&name="+name+"&category="+category+"&Codes="+codes+"&Images="+images,
+            success: function (msg) {
+                //alert(msg);
+                data = msg;
+                $.ajax({
+                    type: "POST",
+                    url: "./ajax/addProduct",
+                    data: "mode=data&Ids="+data.ids+"&Images="+images,
+                    success: function (msg) {
+                        //alert(msg);
+                        data = msg;
+
+                        location.reload();
+
+                    }
+                });
+                location.reload();
+
+            }
+        });*/
+    }
+</script>
+<script>
+
+     function CheckPrd() {
+            var obj =$("#name");
+         $(".error").remove();
+            $.ajax({
+                type: "POST",
+                url: "./ajax/checkProduct",
+                data: "mode=check_email&name=" + obj.val(),
+                success: function (msg) {
+                    //alert(msg);
+                    data = msg;
+                    if (data.status == 'exist') {
+                        obj.after("<label class='error'>Product Name Aleady Exist</label>");
+                        document.getElementById('add').style.display = 'none'
+                    }
+                    else {
+                        document.getElementById('add').style.display = 'block'
+                    }
+                }
+            });
+        }
+
+     function CheckPrdDV() {
+         var obj =$("#nameDV");
+         $(".error").remove();
+         $.ajax({
+             type: "POST",
+             url: "./ajax/checkProduct",
+             data: "mode=check_email&name=" + obj.val(),
+             success: function (msg) {
+                 //alert(msg);
+                 data = msg;
+                 if (data.status == 'exist') {
+                     obj.after("<label class='error'>Product Name Aleady Exist</label>");
+                     document.getElementById('add').style.display = 'none'
+                 }
+                 else {
+                     document.getElementById('add').style.display = 'block'
+                 }
+             }
+         });
+     }
+
+
+</script>
+</html>

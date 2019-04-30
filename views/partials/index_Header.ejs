@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Liên Hoa Các - Nghệ thuật tâm linh</title>
+    <meta charset="utf-8">
+    <title>HOME</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/flickity.css" media="screen">
+    <script src="/js/flickity.pkgd.min.js"></script>
+</head>
+
+
+<div class="container-fuild" id="headerMobile" style="display: none;">
+    <div class="row">        
+        <div class="col-xs-3">
+            <a href="/"><img src="/img/logo.png" alt="LienHoaCac" style="width: 100%;padding: 0px;"></a>
+        </div>
+        <div class="col-xs-7">
+            <div class="row">
+                <div class="col-xs-12" style="padding: 30px;">
+                    <form class="search" method="GET" action="/maintenance-prd/Search">
+                        <div class="form-group">
+                            <input style="background-color: white; width: 80%; min-height: 70px;" type="text" name="keyword" id="keyword-search" placeholder="Tìm kiếm trên Liên Hoa Các..." value="">
+                        </div>
+                        <button type="submit" class="" style="width: 20%; min-height: 70px;"><span class="glyphicon glyphicon-search"></span></button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <button class="cursor" onclick="GetCart(0)" style="background-color: transparent; border: 0px; padding: 0px; position: relative;">
+                        <img src="/img/cart.png" class="img-responsive cursor shopping-cart" style="max-width: 100px; margin: 15px 10px 15px 0px;">
+                        <h4 id ='cartIcon' style="color: red; background-color: transparent; position: absolute; top: 0px; right: 0px;"></h4>
+                    </button>
+                </div>
+                <div class="col-xs-4" style="padding: 30px 0px 30px 0px">
+                    <% if(fname != undefined){ %>
+                        <div class="dropdown" style="">
+                            <ul class="nav navbar-nav navbar-left sm menu-hover" style="">
+                                <li> <h4>Kính chào <%=fname%>!<span class="glyphicon glyphicon-triangle-bottom"></span></h4>
+                                    <ul class="dropdown-menu">
+                                        <li> <a href="/show-payment"><h3>Đơn Hàng</h3></a>
+                                        </li>
+                                        <li> <a href="/edit-account"><h3>Chỉnh Sửa Thông Tin</h3></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    <% } %>
+                </div>
+                <div class="col-xs-4" style="padding: 30px">
+                    <% if(type != undefined){%>
+                    <a href="/logout">
+                        <button class="btn btn-success" style="min-width: 100px; min-height: 70px;">
+                            Đăng Xuất
+                        </button>
+                    </a>
+                    
+                        <!-- <a class="btn btn-success" style="min-width: 100px; min-height: 70px;" href="/logout"><p style="color: white;">Đăng Xuất</p></a> -->
+                    <% } %>
+
+                    <% if(type == undefined){%>
+                        <a onclick="document.getElementById('id01').style.display='block'">
+                            <button class="btn btn-success" style="min-width: 100px; min-height: 70px;"> 
+                                Đăng Nhập
+                            </button>
+                        </a>
+                        <!-- <a class="btn btn-success " onclick="document.getElementById('id01').style.display='block'"><p style="color: white;">Đăng nhập</p></a> -->
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <a onclick="openNav()" style="background-color: transparent; border: 0px; padding: 30px; position: relative;">
+                <img src="/img/align-justify.png" class="img-responsive cursor shopping-cart" style="max-width: 90px; margin: 15px 10px 15px 0px;">
+            </a>
+            <div class="container-fuild large-menu" id="menu-mobile" >
+                <div class="row" style="margin: 50px;">
+                    <div class="col-xs-offset-10 col-xs-1"><a href="javascript:void(0)" class="closebtn font-menu-mobile" onclick="closeNav()">&times;</a></div>
+                    <%for(var i = 0 ; i < treefolder.length ;i++){%>
+                        <%if (treefolder[i].folder_name == 'VIP') {%>
+                            <div class="col-xs-12">
+                                <div class="" style="border-bottom: 1px solid #000000;">
+                                    <a class="font-menu-mobile" href="/maintenance-prd/VIP">VIP</a>
+                                </div>
+                            </div>
+                        <%} else if (treefolder[i].folder_name == 'Tin Tức'){%>
+                            <div class="col-xs-12">
+                                <div class="" style="border-bottom: 1px solid #000000;">
+                                    <a class="font-menu-mobile" href="/maintenance-prd/Tin-Tức">Tin Tức</a>
+                                </div>
+                            </div>
+                        <%} else if (treefolder[i].folder_name == 'Khuyến Mãi'){%>
+                            <div class="col-xs-12">
+                                <div class="" style="border-bottom: 1px solid #000000;">
+                                    <a class="font-menu-mobile" ref="/promotions">Khuyến Mãi</a>
+                                </div>
+                            </div>
+                        <%} else if (treefolder[i].folder_name == 'Xem Tuổi'){%>
+                            <div class="col-xs-12">
+                                <div class="" style="border-bottom: 1px solid #000000;">
+                                    <a class="font-menu-mobile" href="/app-phongthuy" data-filter=".folder2" >Xem tuổi</a>
+                                </div>
+                            </div>
+                         <%} else {%>
+                            <div class="col-xs-12">
+                                    <div class="selected-menu" style="border-bottom: 1px solid #000000;">
+                                        <a class="font-menu-mobile" data-filter=".folder2" onclick="display('<%=treefolder[i].folder_name%>')"><%=treefolder[i].folder_name%></a>
+                                    </div>
+                                    
+                                    <a class="font-menu-mobile display-menu" style="font-weight: bold; position: absolute; right: 50px; top: 0px;" onclick="display('<%=treefolder[i].folder_name%>')">+</a>
+                                    <a class=" font-menu-mobile hide-menu" style="font-weight: bold; display: none; position: absolute; right: 0px; top: 0px;">-</a>
+                                    <div class="small-menu" id="<%=treefolder[i].folder_name%>" style="display: none;">
+                                        <%for(var j = 0 ; j < treefolder[i].cat_names.split(";").length ; j++){%>
+                                        <a class="font-menu-mobile col-xs-12" href="/maintenance-prd/<%=treefolder[i].cat_names.split(";")[j].trim().replace(/ /g,"-")%>" style="border-bottom: 1px solid #000000; padding-left: 50px;">
+                                            <%=treefolder[i].cat_names.split(";")[j]%>
+                                        </a>
+                                        <%}%>
+                                    </div>    
+                            </div>
+                        <%}%>
+
+                    <%}%>
+
+                    <%if(type == '1'){%>
+                    <div class="col-xs-12">
+                        <div class="selected-menu" style="border-bottom: 1px solid #000000;">
+                            <a class="font-menu-mobile selected-menu" onclick="display('Administrator')">Administrator</a>
+                        </div>
+                        
+                        <a class="font-menu-mobile display-menu" style="font-weight: bold; position: absolute; right: 50px; top: 0px;" onclick="display('Administrator')">+</a>                        
+                        <div class="small-menu" id="Administrator" style="display: none;">
+                            <a class="font-menu-mobile col-xs-12" href="/maintenance" style="border-bottom: 1px solid #000000; padding-left: 50px;">Tài Khoản</a>
+                            <a class="font-menu-mobile col-xs-12" href="/show-payment" style="border-bottom: 1px solid #000000; padding-left: 50px;">Đơn Hàng</a>
+                            <a class="font-menu-mobile col-xs-12" href="/maintenance-cat" style="border-bottom: 1px solid #000000; padding-left: 50px;">Thư Mục</a>
+                            <a class="font-menu-mobile col-xs-12" href="/voucher" style="border-bottom: 1px solid #000000; padding-left: 50px;">Voucher</a>
+                            <a class="font-menu-mobile col-xs-12" href="/maintenance-prd/All" style="border-bottom: 1px solid #000000; padding-left: 50px;">Kho</a>    
+                        </div>
+                    </div>
+                    <%}%>                
+                </div>
+            </div>
+            <div id="close-area" onclick="closeNav()" class="close-area"></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fuild" id="menu-pc"  style="display: none;">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-3 col-md-2" style="text-align: center;">
+                <a href="/"><img src="/img/logo.png" alt="LienHoaCac" style="width: 120px;padding: 0px;"></a>
+            </div>
+        
+            <div class="col-xs-9 col-md-6">
+                <form class="search" method="GET" action="/maintenance-prd/Search">
+                    <div class="form-group">
+                        <input style="background-color: white;" type="text" name="keyword" id="keyword-search" placeholder="Tìm kiếm trên Liên Hoa Các..." value="">
+                    </div>
+                    <button type="submit" class=""><span class="glyphicon glyphicon-search"></span></button>
+                </form>
+            </div>
+            <div class="col-xs-2 col-md-1 cursor">
+                <button class="cursor" onclick="GetCart(0)" style="background-color: transparent; border: 0px; padding: 0px; position: relative;">
+                    <img src="/img/cart.png" class="img-responsive cursor shopping-cart" style="max-width: 50px; margin: 15px 10px 15px 0px;">
+                    <h4 id ='cartIcon' style="color: red; background-color: transparent; position: absolute; top: 0px; right: 0px;"></h4>
+                </button>
+            </div>
+            <div class="col-xs-4 col-md-2" style="max-width: 200px; margin: 15px 0px 0px 0px; text-align: right;">
+                <% if(fname != undefined){ %>
+                <div class="dropdown" style="">
+                    <!-- <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" style="background-color: transparent;">
+                    <span class="glyphicon glyphicon-th-list"></span> Menu
+                    </button> -->
+                    <ul class="nav navbar-nav navbar-left sm menu-hover" style="position: absolute; right: 0px;">
+
+                        <li> <h5>Kính chào <%=fname%>! &nbsp<span class="glyphicon glyphicon-triangle-bottom"></span></h5>
+                            <ul class="dropdown-menu">
+                                <li> <a href="/show-payment"><h4>Đơn Hàng</h4></a>
+                                </li>
+                                <li> <a href="/edit-account"><h4>Chỉnh Sửa Thông Tin</h4></a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+                    </ul>
+
+
+                </div>
+
+                <% } %>
+            </div>
+            <div class="col-xs-2 col-md-1" style="max-width: 50px; margin: 15px 0px 15px 0px;">
+                <% if(type != undefined){%>
+                    <a class="btn btn-success" style="min-width: 100px;" href="/logout"><p style="color: white;">Đăng Xuất</p></a>
+                <% } %>
+
+                <% if(type == undefined){%>
+                    <a class="btn btn-success " onclick="document.getElementById('id01').style.display='block'"><p style="color: white;">Đăng nhập</p></a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <%for(var i = 0 ; i < treefolder.length ;i++){%>
+            <%if (treefolder[i].folder_name == 'VIP') {%>
+                <div class="dropdown">
+                    <ul class="nav navbar-nav navbar-left sm">
+                        <li class="menu-hover"> <a href="/maintenance-prd/VIP"><h3 style="color: black;">VIP</h3></a>
+                        </li>
+                    </ul>
+                </div>
+            <%} else if (treefolder[i].folder_name == 'Tin Tức'){%>
+                <div class="dropdown">
+                    <ul class="nav navbar-nav navbar-left sm">
+                        <li class="menu-hover"> <a href="/maintenance-prd/Tin-Tức" ><h3><font color="black">Tin Tức</font></h3></a>
+                        </li>
+                    </ul>
+                </div>
+            <%} else if (treefolder[i].folder_name == 'Khuyến Mãi'){%>
+                <div class="dropdown">
+                    <ul class="nav navbar-nav navbar-left sm">
+                        <li class="menu-hover"> <a href="/promotions" ><h3><font color="black">Khuyến Mãi</font></h3></a>
+                        </li>
+                    </ul>
+                </div>
+            <%} else if (treefolder[i].folder_name == 'Xem Tuổi'){%>
+                <div class="dropdown">
+                    <ul class="nav navbar-nav navbar-left sm">
+                        <li class="menu-hover"> <a href="/app-phongthuy" data-filter=".folder2" ><h3><font color="black">Xem tuổi</font></h3></a>
+                        </li>
+                    </ul>
+                </div>
+            <%} else {%>
+            <div class="dropdown">
+                <ul class="nav navbar-nav navbar-left sm">
+
+                    <li class="menu-hover"> <a data-filter=".folder2" ><h3><font color="black"><%=treefolder[i].folder_name%></font></h3></a>
+                        <ul class="dropdown-menu">
+                            <%for(var j = 0 ; j < treefolder[i].cat_names.split(";").length ; j++){%>
+                            <li> <a href="/maintenance-prd/<%=treefolder[i].cat_names.split(";")[j].trim().replace(/ /g,"-")%>"><h3><%=treefolder[i].cat_names.split(";")[j]%></h3></a></li>
+                            <%}%>
+
+                        </ul>
+                    </li>
+
+
+                </ul>
+
+
+            </div>
+            <%}%>
+
+            <%}%>
+
+            <%if(type == '1'){%>
+            <div class="dropdown">
+                <ul class="nav navbar-nav navbar-left sm">
+                    <li class="menu-hover"> <a><h3><font color="black">Administrator</font></h3></a>
+                        <ul class="dropdown-menu">
+                            <li> <a href="/maintenance"><h4>Tài Khoản</h4></a></li>
+                            <li> <a href="/show-payment"><h4>Đơn Hàng</h4></a></li>
+                            <li> <a href="/maintenance-cat"><h4>Thư Mục</h4></a></li>
+                            <li> <a href="/voucher"><h4>Voucher</h4></a></li>
+                            <li> <a href="/maintenance-prd/All"><h4>Kho</h4></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <%}%>
+
+        </div>
+    </nav>
+</div>
+
+<div class="row">
+    <div id="id01" class="modal">
+        <div class="container popup animate">
+            <div style="padding-top: 75px;">
+                    <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                          title="Close Modal">&times;</span>
+                <img src="/img/LOGO.svg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
+            </div>
+                <div class="form-group has-success" style="text-align: center;">
+                    <label for="inputEmail3" class="control-label center-block">Tài khoản</label>
+                    <input type="text" placeholder="Enter Username" required  class="form-control center-block" id = "email" name="email" style="width: 300px;">
+                </div>
+                <div class="form-group has-success" style="text-align: center;">
+                    <label for="inputPassword3" class="control-label">Mật khẩu</label>
+                    <input type="password" placeholder="Enter Password" class="form-control center-block" id = "password" name="password" style="width: 300px;">
+                </div>
+                <!-- <input type="checkbox" checked="checked" name="remember"> Remember me -->
+            <div class="row">
+                <div class="col-xs-16 col-md-12">
+                    <button class="center-block btn btn-primary" onclick="Submit()" style="width: 100px;">Đăng nhập</button>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-16 col-md-12">
+                    <a href="/register">
+                        <button class="center-block btn btn-success" style="width: 100px;">Đăng kí</button>
+                    </a>
+                </div>
+            </div>
+            <!--<br>
+            <div class="row">
+                <div class="col-xs-20 col-md-12">
+
+                        <button class="center-block btn btn-danger" onclick="ForgetPass()" style="width: 120px;">Quên Mật Khẩu</button>
+
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="col-xs-18 col-md-12">
+
+                    <button class="center-block btn btn-light" onclick="ChangePass()" style="width: 100px;">Đổi Mật Khẩu</button>
+
+                </div>
+            </div>-->
+        </div>
+    </div>
+</div>
+<!--<div class="row">
+    <div id="ChangePassword" class="modal">
+        <div class="container popup animate">
+            <div style="padding-top: 75px;">
+                    <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                          title="Close Modal">&times;</span>
+                <img src="/img/LOGO.svg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
+            </div>
+            <div class="form-group has-success" style="text-align: center;">
+                <label for="inputEmail3" class="control-label center-block">Tài khoản</label>
+                <input type="text" placeholder="Enter Username" required  class="form-control center-block" id = "emailchange" name="emailchange" style="width: 300px;">
+            </div>
+            <div class="form-group has-success" style="text-align: center;">
+                <label for="inputPassword3" class="control-label">Mật khẩu cũ</label>
+                <input type="password" placeholder="Enter Password" class="form-control center-block" id = "oldpassword" name="oldpassword" style="width: 300px;">
+            </div>
+            <div class="form-group has-success" style="text-align: center;">
+                <label for="inputPassword3" class="control-label">Mật khẩu mới</label>
+                <input type="password" placeholder="Enter Password" class="form-control center-block" id = "newpassword" name="newpassword" style="width: 300px;">
+            </div>
+            <div class="form-group has-success" style="text-align: center;">
+                <label for="inputPassword3" class="control-label">Nhập lại mật khẩu mới</label>
+                <input type="password" placeholder="Enter Password" class="form-control center-block" id = "verifiedpassword" name="verifiedpassword" style="width: 300px;">
+            </div>
+            &lt;!&ndash; <input type="checkbox" checked="checked" name="remember"> Remember me &ndash;&gt;
+            <div class="row">
+                <div class="col-xs-16 col-md-12">
+                    <button class="center-block btn btn-primary"  style="width: 100px;" onclick="UpdatePass()">Đổi</button>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-16 col-md-12">
+
+                        <button class="center-block btn btn-success" style="width: 150px;" onclick="ToLogIn()">Đến trang đăng nhập</button>
+
+                </div>
+            </div>
+            <br>
+
+        </div>
+    </div>
+</div>-->
+<script>
+    var count = 0;
+    function Submit() {
+        $(".error").remove();
+        if(count > 5){
+            $("#password").after("<label class='error' style='color: red'>Nếu bạn quên mật khẩu, hãy gọi ngay cho Tổng đài chăm sóc khách hàng Liên Hoa Các: 0868.240.120 để nhận mật khẩu mới!</label>");
+        }
+        $.ajax({
+            url: '/login?email='+$("#email").val()+'&password='+$("#password").val(),
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            cache: false,
+            contentType: 'application/json; charset=UTF-8',
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                if(response.code == '404'){
+                    if(count <= 5){
+                        $("#password").after("<label class='error'>Tài Khoản hoặc Mật Khẩu không đúng</label>");
+                    }
+
+                    count++;
+                } else {
+                    window.location.href = '/';
+                }
+            }
+        });
+    }
+
+    function  ForgetPass() {
+        alert('Xin vui lòng liên hệ bộ phận chăm sóc khách hàng qua số điện thoại 08.6614.6613 hoặc 0868.240.120 để được cấp lại mật khẩu.')
+    }
+    function  ChangePass() {
+        document.getElementById('id01').style.display='none';
+        document.getElementById('ChangePassword').style.display='block';
+    }
+    /*function  UpdatePass() {
+        $(".error").remove();
+      if( $("#newpassword").val()!=  $("#verifiedpassword").val()){
+          $("#verifiedpassword").after("<label class='error' style='color: red'>Mật khẩu xác nhận không khớp</label>");
+      } else {
+          $.ajax({
+              url: '/update-password?phone='+$("#emailchange").val()+'&newPassword='+$("#newpassword").val()+'&oldPassword='+$("#oldpassword").val(),
+              type: 'POST',
+              dataType: 'JSON',
+              async: false,
+              cache: false,
+              contentType: 'application/json; charset=UTF-8',
+              enctype: 'multipart/form-data',
+              processData: false,
+              success: function (response) {
+                  if(response.code == '404'){
+                      $("#oldpassword").after("<label class='error' style='color: red'>Tài Khoản hoặc Mật Khẩu không đúng</label>");
+                      count++;
+                  } else {
+                      $("#verifiedpassword").after("<label class='error' style='color: red'>Đổi mật khẩu thành công</label>");
+                  }
+              }
+          });
+      }
+    }*/
+    function  ToLogIn() {
+        document.getElementById('id01').style.display='block';
+        document.getElementById('ChangePassword').style.display='none';
+    }
+</script>
+<div class="row">
+    <div id="id03" class="modal" style="z-index: 15;">
+        <div class="container popup animate">
+            <div style="padding-top: 75px;">
+                <span onclick="document.getElementById('id03').style.display='none'" class="close"
+                      title="Close Modal">&times;</span>
+                <img src="/img/LOGO.svg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
+            </div>
+            <form class="form-horizontal" action="/login" method="POST" style="padding-top: 20px">
+                <div id="cartdetail">
+
+                </div>
+
+            </form>
+            <div class="row">
+                <div class="col-xs-4 col-md-4" style="text-align: right;">
+                    <button class="btn btn-danger" type="button" onclick="document.getElementById('id03').style.display='none'" style="min-width: 150px;">
+                        Thoát
+                    </button>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <button class="btn btn-info center-block" type="button" onclick="UpdateCart()" style="min-width: 150px;">
+                        Cập Nhật Giỏ
+                    </button>
+                </div>
+                <div class="col-xs-4 col-md-4" style="text-align: left;">
+                    <a href="/checkout/cart/0" >
+                        <button class="btn btn-success" type="button" style="min-width: 150px;">
+                            Thanh Toán
+                        </button>                        
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+</script>
+<script type="text/javascript">
+     function minus(idx){
+             var value = $("#quantityCart"+idx).val();
+            value = Number(value) - 1;
+            if (value >= 1) {
+            document.getElementById('quantityCart'+idx).value = value;
+        }
+    }
+
+    function plus(idx){
+            var value = $("#quantityCart"+idx).val();
+            value = Number(value) + 1;
+            if (value >= 1) {
+            document.getElementById('quantityCart'+idx).value = value;
+        }
+    }
+    function remove(idx){
+            var formdata1 = new FormData();
+        var sizes = new Array();
+        var quantities = new Array();
+        var input = document.getElementsByClassName('booking-item-title size_id_header');
+        sizes.push(idx);
+        quantities.push(0);
+        formdata1.append('size_id',sizes);
+        formdata1.append('quantityCart',quantities);
+        $.ajax({
+            url: "/PetMart/update-cart",
+            type: 'POST',
+            dataType : 'JSON',
+            data: JSON.stringify({size_id:sizes,quantity:quantities}),
+            async: false,
+            cache: false,
+            contentType: 'application/json; charset=UTF-8',
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+
+                document.getElementById('id03').style.display='none';
+                window.location.reload();
+            }
+        });
+    }
+
+</script>
+<script>
+    var sizesArray = new Array();
+    function GetCart(idx){
+        var url ='';
+        if(idx == 0){
+            url = '/PetMart/get-cart';
+        }else{
+            url = '/PetMart/get-cart?user='+idx;
+        }
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            cache: false,
+            contentType: 'application/json; charset=UTF-8',
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                document.getElementById('cartdetail').innerHTML = '';
+                var inner = '';
+                var totalAll = 0;
+                for (var i = 0; i < response.result.length; i++) {
+                    inner += '<div class="row">\n' +
+                        '                    <h2>' + response.result[i].name + ' </h2>\n' +
+                        '                </div>'
+                    inner += '<table class="row table table-condensed form-group">\n' +
+                        '                    <tbody>\n' +
+                        '                <tr>\n' +
+                        '                    <td class="text-right"><h4 style="text-align: center;">Phân loại</h4></td>\n' +
+                        '                    <td class="text-right"><h4 style="text-align: center;">Giá</h4></td>\n' +
+                        '                    <td class="text-right"><h4 style="text-align: center;">Số Lượng</h4></td>\n' +
+                        '                    <td class="text-right"><h4 style="text-align: center;">Thành Tiền</h4></td>\n'
+                    '                </tr>';
+                    for (var j = 0; j < response.result[i].sizes.split(';').length; j++) {
+                        sizesArray.push(response.result[i].size_ids.split(';')[j]);
+                        inner += '<tr>\n' +
+                            '                            <td class="text-center">\n' +
+                            '                                <input id = \'size_id\'class="booking-item-title size_id_header" style="text-align: center;border: none; background-color: transparent" disabled value="' + response.result[i].sizes.split(';')[j] + '"></input>\n' +
+                            '                            </td>\n' +
+                            '\n' +
+                            '                            <td class="text-center">\n';
+                        if(response.result[i].discount_prices == null) {
+                            inner +=  '                            <label style=" text-align: center"><font\n';
+                            inner +=  '                                        color="black">'+response.result[i].prices.split(';')[j]+' </font></label>\n';
+                        }else {
+                            inner +=  '                            <label style="text-decoration:line-through ; text-align: center"><font\n';
+                            inner +=  '                                        color="black">'+ response.result[i].prices.split(';')[j] +'</font></label>\n' ;
+                            inner +=  '                            ->\n';
+                            inner +=  '                            <label style=" text-align: center"><font\n' ;
+                            inner +=  '                                        color="red">'+response.result[i].discount_prices.split(';')[j] +'</font></label>\n';
+                        }
+                        inner +=  '                            </td>'
+                        inner +=  '                            <td class="text-center">\n' +
+                             '<div class="row">'+
+    '<div class="col-xs-offset-4 col-xs-4 col-md-offset-2 col-md-8">'+
+'<div class="input-group">'+
+'<span class="input-group-btn">'+
+'<button class="btn btn-default" type="button" onclick="minus('+response.result[i].size_ids.split(';')[j]+')" >-</button>'+
+'</span>'+
+'<input class="form-control booking-item-title quantity_header" id="quantityCart'+response.result[i].size_ids.split(';')[j]+'"'+
+'   style="font-weight: bold; font-size: 200%; text-align: center; min-width: 60px;" value="'+response.result[i].quantities.split(';')[j]+'">'+
+'<span class="input-group-btn">'+
+'<button class="btn btn-default" type="button" onclick="plus('+response.result[i].size_ids.split(';')[j]+')" >+</button>'+
+'</span>'+
+'</div>'+
+'</div>'+
+'</div>'+
+                            '\n' +
+                            '                            </td>\n' +
+                            '                            <td class="text-center">\n' +
+                            '                                <input class="booking-item-title" style="text-align: center;border: none; background-color: transparent" disabled value="' + response.result[i].sums.split(';')[j] + '">\n' +
+                            '\n' +
+                            '                            </td>\n' +
+                            '                    <td class="text-center">'+ '<span class="glyphicon glyphicon-remove" onclick="remove('+response.result[i].size_ids.split(';')[j]+')"></span>'+
+                            '                        </td></tr>'
+                    }
+                   /* inner += '                <tr>\n' +
+                        '                    <td class="text-center"><h4 style="text-align: center;"></h4></td>\n' +
+                        '                    <td class="text-center"><h4 style="text-align: center;"></h4></td>\n' +
+                        '                    <td class="text-center"><h4 style="text-align: center;"></h4></td>\n' +
+                        '                    <td class="text-center"><h4 style="text-align: center;">Tổng Tiền</h4></td>\n' +
+                        '                    <td class="text-center"><h4 style="text-align: center;">'+response.result[i].total+'</h4></td>\n'
+                    '                </tr>';*/
+                    totalAll += response.result[i].total;
+                    if (i==response.result.length-1){
+                        inner += '                <tr>\n' +
+                        '                    <td class="text-center"><h4 style="text-align: center;"></h4></td>\n' +
+                        '                    <td class="text-center"><h4 style="text-align: center;"></h4></td>\n' +
+                        '                    <td class="text-center"><h3 style="text-align: center; font-weight: bold; float: left;">Tổng tiền:</h3><h3 style="text-align: center; font-weight: bold;" class="currencyCart">'+totalAll+'</h3></td>\n'
+                    '                </tr>';
+                    }
+                    inner += '</tbody>\n' +
+                        '                </table>';
+                }
+                document.getElementById('cartdetail').innerHTML = inner;
+                document.getElementById('id03').style.display='block';
+
+                var currents = document.getElementsByClassName("currencyCart");
+                var decimals = 0;               
+                for (i=0; i<currents.length; i++){
+                    var pnumber = currents[i].innerHTML;
+                    if (isNaN(pnumber)) { result = 0};
+                    if (pnumber=='') { result = 0};
+                    var snum = new String(pnumber);
+                    var result = '';
+                    j=snum.length-1;
+                    dem = 1;
+                    while(j>=0){
+                        if (dem%4!=0){
+                            result = snum[j] + result;
+                            j--;
+                            dem++;
+                        }else{
+                            result = '.' + result;
+                            dem=1;
+                        }                        
+                    }
+                    if (currents[i].id == "dictprice"){
+                        currents[i].innerHTML = result;
+                    } else{
+                        currents[i].innerHTML = "&nbsp;" +result+ "&nbsp";
+                    }
+                    
+                }
+            }
+        });
+    }
+
+   
+    function UpdateCart(idx){
+        var formdata1 = new FormData();
+        var sizes = new Array();
+        var quantities = new Array();
+        var input = document.getElementsByClassName('booking-item-title size_id_header');
+        for (var i = 0; i < sizesArray.length; i++) {
+            sizes.push(sizesArray[i]);
+        }
+        input = document.getElementsByClassName('form-control booking-item-title quantity_header');
+        for (var i = 0; i < input.length; i++) {
+            quantities.push(input[i].value);
+        }
+        formdata1.append('size_id',sizes);
+        formdata1.append('quantityCart',quantities);
+        $.ajax({
+            url: "/PetMart/update-cart",
+            type: 'POST',
+            dataType : 'JSON',
+            data: JSON.stringify({size_id:sizes,quantity:quantities}),
+            async: false,
+            cache: false,
+            contentType: 'application/json; charset=UTF-8',
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+
+                document.getElementById('id03').style.display='none';
+                window.location.reload();
+            }
+        });
+
+    }
+    function openNav() {
+      document.getElementById("menu-mobile").style.width = "70%";
+      document.getElementById("close-area").style.width = "30%";
+    }
+
+    function closeNav() {
+      document.getElementById("menu-mobile").style.width = "0px";
+      document.getElementById("close-area").style.width = "0px";
+    }
+    function display(input){
+        var x = document.getElementsByClassName("small-menu");
+        var y = document.getElementsByClassName("display-menu");
+        var z = document.getElementsByClassName("selected-menu");
+        for(var i = 0; i < x.length; i++){
+            if (y[i].innerHTML === "-") {
+                x[i].style.display = "none";
+                y[i].innerHTML = "+";
+                z[i].style.backgroundColor = "#EEEEEE";
+                z[i].style.fontWeight = "";  
+            } else {
+                if (x[i].id === input){
+                    x[i].style.display = "block";
+                    x[i].style.backgroundColor = "#CCCCCC";
+                    y[i].innerHTML = "-";
+                    z[i].style.backgroundColor  = "#CCCCCC";
+                    z[i].style.fontWeight = "bold";                    
+                }                
+            }
+        }
+    }
+    var mobile = function(){
+
+        return {
+
+            detect:function(){
+
+                var uagent = navigator.userAgent.toLowerCase();
+
+                var list = this.mobiles;
+
+                var ismobile = false;
+
+                for(var d=0;d<list.length;d+=1){
+
+                    if(uagent.indexOf(list[d])!=-1){
+
+                        ismobile = true;
+
+                    }
+
+                }
+
+                return ismobile;
+
+            },
+
+            mobiles:[
+
+                "midp","240x320","blackberry","netfront","nokia","panasonic",
+
+                "portalmmm","sharp","sie-","sonyericsson","symbian",
+
+                "windows ce","benq","mda","mot-","opera mini",
+
+                "philips","pocket pc","sagem","samsung","sda",
+
+                "sgh-","vodafone","xda","palm","iphone",
+
+                "ipod","android"
+
+            ]
+
+        };
+
+    }();
+</script>
+</html>

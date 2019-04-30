@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include partials/index_Header.ejs %>
+<body>
+	<div class="container">
+		<div class="row">
+			<form action = '/show-payment' method = 'get'>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="form-group">
+							<h3><span class="label label-success">Số điện thoại :</span></h3>
+						</div>
+                        <div class="form-group">
+                            <input  class=" form-control" name = 'phone' id = 'phone'   type="text" />
+                        </div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<h3><span class="label label-success">Trạng thái: </span></h3>
+						</div>
+                        <div class="form-group">
+                            <select name="statusflt" id="statusflt" class="form-control">
+                                <option value="none" selected="">----Selected-----</option>
+
+                                <option value="0" >Đặt hàng </option>
+
+                                <option value="1" >Chốt Gửi </option>
+
+                                <option value="2">Đang Giao Hàng </option>
+
+                                <option value="3" >Thành Công </option>
+
+                                <option value="4" >Boom </option>
+
+                                <option value="5" >Chuyển Hoàn </option>
+                                <option value="6" >Hủy </option>
+
+
+                            </select>
+
+                        </div>
+					</div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h3><span class="label label-success">Mã Đơn:</span></h3>
+                        </div>
+                        <div class="form-group">
+                            <input  class=" form-control" name = 'titleflt' id = 'titleflt'   type="text" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <h3><span class="label label-success">Mã vận chuyển :</span></h3>
+                        </div>
+                        <div class="form-group">
+                            <input  class=" form-control" name = 'shipflt' id = 'shipflt'   type="text" />
+                        </div>
+                    </div>
+
+				</div>
+				<div class="row">
+
+					<div class="col-md-12">
+						<div class="form-group">
+							<input class="btn btn-primary" value = 'Áp Dụng' type = 'submit'/>
+						</div>
+
+					</div>
+
+				</div>
+
+			</form>
+		</div>
+		<%if(type == '1'){%>
+		<div class="row">
+			<div class="col-md-2">
+				<a href="/payment-detail" class="btn btn-primary">Tạo Đơn Hàng</a>
+			</div>
+		</div>
+		<%}%>
+        <br>
+        <!-- <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <th class="text-right" style="text-align: center;"><h4>Tiêu đề</h4></th>
+                        <th class="text-right" style="text-align: center;"><h4>User</h4></th>
+                        <th class="text-right" style="text-align: center;"><h4>Số lượng</h4></th>
+                        <th class="text-right" style="text-align: center;"><h4>Status</h4></th>
+                        <th class="text-right" style="text-align: center;"><h4>Tổng</h4></th>
+                        <th class="text-right" style="text-align: center;"><h4>Ngày tạo</h4></th>
+                    </thead>
+                </table>
+                <% for(i = 0;i < payments.length;i++){ %>
+                    <tr>
+                        <td>
+                            <%= payments[i].title %>
+                        </td>
+                        <td>
+                            <%= payments[i].name +  ' (' + payments[i].email + ')'%>
+                        </td>
+                        <td>
+                            <%= payments[i].products %>
+                        </td>
+                        <td>
+                            <img class="img-responsive" src="/assets/img/status/status<%=payments[i].status_id%>.png">
+                        </td>
+                        <td>
+                            <%= payments[i].total_after_promote%>
+                        </td>
+                        <td>
+                            <%=payments[i].date%>
+                        </td>
+                    </tr>
+                <% } %> 
+            </div>
+        </div> -->
+        <table class="table table-bordered">
+            <thead>
+                <th class="text-right" style="text-align: center;"><h4>Người dùng</h4></th>
+                <th class="text-right" style="text-align: center;"><h4>Số lượng</h4></th>
+                <th class="text-right" style="text-align: center;"><h4>Trạng thái</h4></th>
+                <th class="text-right" style="text-align: center;"><h4>Tổng tiền</h4></th>
+                <th class="text-right" style="text-align: center;"><h4>Ngày tạo</h4></th>
+                <!-- <td ><h4 style="text-align: center;">Size</h4></td>
+                <td class="text-right"><h4 style="text-align: center;"></h4></td>
+                <td class="text-right"><h4 style="text-align: center;"></h4></td>
+                <td class="text-right"><h4 style="text-align: center;"></h4></td> -->
+            </thead>
+            <tbody>
+                <% for(i = 0;i < payments.length;i++){ %>
+
+                <tr>
+                    <td class="text-right">
+                        <a class="booking-item" href="/payment-detail?id=<%= payments[i].payment_id%>&user=<%=payments[i].user_id%>">
+                            <h3> <%= payments[i].name +  ' (' + payments[i].phone + '). ' %>
+                            <%if (type == '1'){%>
+                                <font color="red"> <%=payments[i].fail %></font>/ <font color="black"> <%=payments[i].success%></font>
+                            <%}%>
+                            </h3>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <%= payments[i].products %>
+                    </td>
+                    <td class="text-center">
+                        <img class="img-responsive center-block" src="/assets/img/status/status<%=payments[i].status_id%>.png">
+                    </td>
+                    <td class="text-center">
+                        <%= payments[i].total_after_promote%>
+                    </td>
+                    <td class="text-center">
+                        <%=payments[i].date%>
+                    </td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>	
+	</div>
+</body>
+<% include partials/index_Footer.ejs %>
+</html>

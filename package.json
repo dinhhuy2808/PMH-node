@@ -1,0 +1,27 @@
+{
+	"name": "todo",
+	"version": "0.0.1",
+	"private": true,
+	"description": "test todo list project",
+	"scripts": {
+		"start": "node app"
+	},
+	"dependencies": {
+		"@ckeditor/ckeditor5-ckfinder": "^10.0.0",
+		"MD5": "*",
+		"ckeditor": "^4.11.2",
+		"connect-redis": "1.4.7",
+		"cookie-parser": "^1.4.3",
+		"dateformat": "*",
+		"ejs": "0.8.5",
+		"ejs-locals": "1.0.2",
+		"excel-export": "*",
+		"express": "^3.21.2",
+		"formidable": "^1.2.1",
+		"just-mvc": "*",
+		"mysql": "^2.15.0",
+		"nodemailer": "^4.6.8",
+		"pad-start": "^1.0.2",
+		"request": "^2.88.0"
+	}
+}
