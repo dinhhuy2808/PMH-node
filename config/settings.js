@@ -8,7 +8,7 @@ module.exports = {
 			protocol: 'mysql',
 			user: 'root',
 			password: 'root',
-			database: 'lhc',
+			database: 'pmh',
 			connectionLimit: 100
 			}
 		},

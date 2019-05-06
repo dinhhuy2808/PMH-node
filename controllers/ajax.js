@@ -322,7 +322,7 @@ exports.updateProduct=function(req,res){
                 };
                 var j=0;
                 req.models.product.create(data,function(err,row1s){
-                    sql = 'INSERT INTO `lhc`.`discount`\n' +
+                    sql = 'INSERT INTO `pmh`.`discount`\n' +
                         '(`product_id`,\n' +
                         '`effective_date`,\n' +
                         '`expired_date`,\n' +
@@ -462,7 +462,7 @@ exports.updateProduct=function(req,res){
 
                     newAvas += avas.split(";")[k]+';';
                     if((k%8==0 || k == avas.split(";").length-1) && (k!=0)){
-                        sql = 'INSERT INTO `lhc`.`image`\n' +
+                        sql = 'INSERT INTO `pmh`.`image`\n' +
                             '(`product_id`,\n' +
                             '`url`,\n' +
                             '`type`)\n' +
@@ -477,7 +477,7 @@ exports.updateProduct=function(req,res){
 
 
             } else {
-                sql = 'INSERT INTO `lhc`.`image`\n' +
+                sql = 'INSERT INTO `pmh`.`image`\n' +
                     '(`product_id`,\n' +
                     '`url`,\n' +
                     '`type`)\n' +
@@ -599,7 +599,7 @@ exports.updateProductDV=function(req,res){
 
                     newAvas += avas.split(";")[k]+';';
                     if((k%8==0 || k == avas.split(";").length-1) && (k!=0)){
-                        sql = 'INSERT INTO `lhc`.`image`\n' +
+                        sql = 'INSERT INTO `pmh`.`image`\n' +
                             '(`product_id`,\n' +
                             '`url`,\n' +
                             '`type`)\n' +
@@ -614,7 +614,7 @@ exports.updateProductDV=function(req,res){
 
 
             } else {
-                sql = 'INSERT INTO `lhc`.`image`\n' +
+                sql = 'INSERT INTO `pmh`.`image`\n' +
                     '(`product_id`,\n' +
                     '`url`,\n' +
                     '`type`)\n' +
@@ -812,7 +812,7 @@ exports.addProduct=function(req,res){
                             } else {
                                 var sql = 'update image set product_id = '+row1s.product_id+' where product_id = 0 ;';
                                 con.query(sql);
-                                sql = 'INSERT INTO `lhc`.`image`\n' +
+                                sql = 'INSERT INTO `pmh`.`image`\n' +
                                     '(`product_id`,\n' +
                                     '`url`,\n' +
                                     '`type`)\n' +
@@ -821,7 +821,7 @@ exports.addProduct=function(req,res){
                                     '\''+avas+'\',\n' +
                                     '\'1\');\n';
                                 con.query(sql);
-                                sql = 'INSERT INTO `lhc`.`thuoctinh`\n' +
+                                sql = 'INSERT INTO `pmh`.`thuoctinh`\n' +
                                     '(`product_id`,\n' +
                                     '`mau`,\n' +
                                     '`tuoi`,\n' +
@@ -875,7 +875,7 @@ exports.addProduct=function(req,res){
                                                        /* splitImg.push(newAvas.toString().substring(0,newAvas.length-1));
                                                         newAvas = '';
 */
-                                                        sql = 'INSERT INTO `lhc`.`image`\n' +
+                                                        sql = 'INSERT INTO `pmh`.`image`\n' +
                                                             '(`product_id`,\n' +
                                                             '`url`,\n' +
                                                             '`type`)\n' +
@@ -890,7 +890,7 @@ exports.addProduct=function(req,res){
 
 
                                             } else {
-                                                sql = 'INSERT INTO `lhc`.`image`\n' +
+                                                sql = 'INSERT INTO `pmh`.`image`\n' +
                                                     '(`product_id`,\n' +
                                                     '`url`,\n' +
                                                     '`type`)\n' +
@@ -901,7 +901,7 @@ exports.addProduct=function(req,res){
                                                 con.query(sql);
                                             }
 
-                                            sql = 'INSERT INTO `lhc`.`thuoctinh`\n' +
+                                            sql = 'INSERT INTO `pmh`.`thuoctinh`\n' +
                                                 '(`product_id`,\n' +
                                                 '`mau`,\n' +
                                                 '`tuoi`,\n' +
@@ -914,7 +914,7 @@ exports.addProduct=function(req,res){
                                             con.query(sql);
                                         }
                                         prdId += row1s.product_id;
-                                        sql = 'INSERT INTO `lhc`.`discount`\n' +
+                                        sql = 'INSERT INTO `pmh`.`discount`\n' +
                                             '(`product_id`,\n' +
                                             '`effective_date`,\n' +
                                             '`expired_date`,\n' +
@@ -1151,8 +1151,8 @@ exports.add_to_payment_now=function(req,res){
                 var padStart = require('pad-start');
                 var title = rows[0].title.substring(3);
                 var newtitle = parseInt(title) + 1;
-                newtitle = 'LHC' + padStart(newtitle.toString(),6,'0');
-                var sqlIns = 'INSERT INTO `lhc`.`payment`\n' +
+                newtitle = 'pmh' + padStart(newtitle.toString(),6,'0');
+                var sqlIns = 'INSERT INTO `pmh`.`payment`\n' +
                 '(`user_id`,\n' +
                 '`sum`,\n' +
                 '`status_id`,`create_time`,`title`,`pay_type`,`promotion`,`total`,`seen_flag`,`ship`,`voucher`,`shipfee`,`note`,`address`,`name`,`phone`)\n';
@@ -1477,7 +1477,7 @@ exports.checkUser=function(req,res){
 exports.updateSettingShop=function(req,res) {
     var input = JSON.parse(JSON.stringify(req.body));
     console.log(input);
-    var sql = 'update lhc.settingshop set transportMethod = \''+ input.vanchuyen
+    var sql = 'update pmh.settingshop set transportMethod = \''+ input.vanchuyen
         + '\', paymentMethod = \'' + input.thanhtoan
         + '\', freeShip = ' + input.freeship
         + ', defaultShip = ' + input.shipdefault

@@ -975,8 +975,8 @@ module.exports.add_to_payment = function(req, res){
 
                 }
                 var newtitle = parseInt(title) + 1;
-                newtitle = 'LHC' + padStart(newtitle.toString(),6,'0');
-                var sqlIns = 'INSERT INTO `lhc`.`payment`\n' +
+                newtitle = 'PMH' + padStart(newtitle.toString(),6,'0');
+                var sqlIns = 'INSERT INTO `pmh`.`payment`\n' +
                     '(`user_id`,\n' +
                     '`sum`,\n' +
                     '`status_id`,`create_time`,`title`,`pay_type`,`promotion`,`total`,`seen_flag`,`ship`,`voucher`,`shipfee`,`note`,`address`,`name`,`phone`)\n';
@@ -1711,7 +1711,7 @@ module.exports.payment_detail = function(req, res){
                                 }
 
                             }
-                            sql = 'select * from lhc.settingshop';
+                            sql = 'select * from pmh.settingshop';
                             con.query(sql, function (err, row1setting){
                                 var data = {
                                     status: 'success', code: '200', result: rows, fname: req.session.firstname,
@@ -1725,7 +1725,7 @@ module.exports.payment_detail = function(req, res){
                             });
 
                         } else {
-                            sql = 'select * from lhc.settingshop';
+                            sql = 'select * from pmh.settingshop';
                             con.query(sql, function (err, row1setting){
                                 var data = {
                                     status: 'success', code: '200', result: rows, fname: req.session.firstname,
@@ -1751,8 +1751,8 @@ module.exports.payment_detail = function(req, res){
             con.query(sql, function (err, rows) {
                 var title = rows[0].title.substring(3);
                 var newtitle = parseInt(title) + 1;
-                newtitle = 'LHC' + padStart(newtitle.toString(),6,'0');
-                sql = 'select * from lhc.settingshop';
+                newtitle = 'pmh' + padStart(newtitle.toString(),6,'0');
+                sql = 'select * from pmh.settingshop';
                 con.query(sql, function (err, row1setting){
                     var data = {fname:req.session.firstname
                         ,type:req.session.type
@@ -2407,7 +2407,7 @@ module.exports.maintenance_prd = function(req, res){
 module.exports.maintenance_cat = function(req, res){
    if(req.session.type=='1'){
         var sql = '';
-        sql += 'select * from lhc.treefolder t order by t.index asc';
+        sql += 'select * from pmh.treefolder t order by t.index asc';
 
 
         var con = req.db.driver.db;
@@ -2418,9 +2418,9 @@ module.exports.maintenance_cat = function(req, res){
             }else{
                 sql = 'select *,\n' +
                     '(select folder_name from treefolder where folder_id = c.folder_id) as folder_name\n' +
-                    'from lhc.category c order by folder_id asc';
+                    'from pmh.category c order by folder_id asc';
                 con.query(sql, function (err, row1s) {
-                    sql = 'select * from lhc.settingshop';
+                    sql = 'select * from pmh.settingshop';
                     con.query(sql, function (err, row1set) {
                         var data = {status: 'success', code: '200', setting:row1set, tree:rows, result:row1s,fname:req.session.firstname,type:req.session.type,treefolder:req.session.treefolder};
                         res.render('categories',data);
@@ -2935,7 +2935,7 @@ module.exports.checkout = function(req, res){
                         var data = {status: 'error', code: '300',error: err};
                         res.json(data);
                     }else{
-                        sql = 'select * from lhc.settingshop';
+                        sql = 'select * from pmh.settingshop';
                         con.query(sql, function (err, row1setting){
                             array.push(rows[0]);
                             totalAll += parseFloat(rows[0].sums.replace(/,/g , ''));
@@ -2997,7 +2997,7 @@ module.exports.checkout = function(req, res){
                                 }
                                 count++;
                                 if(count == req.cookies.cart.id.split(',').length) {
-                                    sql = 'select * from lhc.settingshop';
+                                    sql = 'select * from pmh.settingshop';
                                     con.query(sql, function (err, row1setting){
                                         var data = {
                                             status: 'success', code: '200', setting:row1setting, result: array, fname: req.session.firstname,
@@ -3055,7 +3055,7 @@ module.exports.checkout = function(req, res){
                         con.query(sql, function (err, row1s) {
                             var totalAll = 0;
 
-                            sql = 'select * from lhc.settingshop';
+                            sql = 'select * from pmh.settingshop';
                             con.query(sql, function (err, row1setting){
                                 if(row1s.length > 0) {
                                     for(var i = 0 ; i < rows.length ;i++){
@@ -3120,7 +3120,7 @@ module.exports.checkout = function(req, res){
                         con.query(sql, function (err, row1s) {
                             var totalAll = 0;
 
-                            sql = 'select * from lhc.settingshop';
+                            sql = 'select * from pmh.settingshop';
                             con.query(sql, function (err, row1setting){
                                 if(row1s.length > 0) {
                                     for(var i = 0 ; i < rows.length ;i++){

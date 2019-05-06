@@ -21,7 +21,7 @@ module.exports.signup=function(req,res){
         userType = input.type;
     }
 
-    var sqlCheck = 'select * from lhc.user where phone = \''+input.phone +'\' and password <> \'akfgbksjdahfkljdash\';';
+    var sqlCheck = 'select * from pmh.user where phone = \''+input.phone +'\' and password <> \'akfgbksjdahfkljdash\';';
     var con = req.db.driver.db;
     con.query(sqlCheck, function (err, rows) {
         if(err){
@@ -44,7 +44,7 @@ module.exports.signup=function(req,res){
                     passwd=md5(input.password);
                 }
 
-                var sql = 'INSERT INTO `lhc`.`user`\n' +
+                var sql = 'INSERT INTO `pmh`.`user`\n' +
                     '(`email`,\n' +
                     '`phone`,\n' +
                     '`password`,\n' +
@@ -134,7 +134,7 @@ module.exports.signup=function(req,res){
             create_time:parseInt(year+''+month+''+day),
             type_id : parseInt(input.type)
         };
-        var sqlCheck = 'select * from lhc.user where username = \''+input.username+'\'';
+        var sqlCheck = 'select * from pmh.user where username = \''+input.username+'\'';
         var con = req.db.driver.db;
         con.query(sqlCheck, function (err, rows) {
             if(err){
@@ -145,7 +145,7 @@ module.exports.signup=function(req,res){
                     data={status:'fail',code:'300',description:"username is exist."};
                     res.json(data);
                 }else{
-                    var sql = 'INSERT INTO `lhc`.`user`\n' +
+                    var sql = 'INSERT INTO `pmh`.`user`\n' +
                         '(`email`,\n' +
                         '`dob`,\n' +
                         '`phone`,\n' +

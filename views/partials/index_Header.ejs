@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Liên Hoa Các - Nghệ thuật tâm linh</title>
+    <title>Cutiie House</title>
     <meta charset="utf-8">
     <title>HOME</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -16,14 +16,14 @@
 <div class="container-fuild" id="headerMobile" style="display: none;">
     <div class="row">        
         <div class="col-xs-3">
-            <a href="/"><img src="/img/logo.png" alt="LienHoaCac" style="width: 100%;padding: 0px;"></a>
+            <a href="/"><img src="/img/logo.jpg" alt="LienHoaCac" style="width: 100%;padding: 0px;"></a>
         </div>
         <div class="col-xs-7">
             <div class="row">
                 <div class="col-xs-12" style="padding: 30px;">
                     <form class="search" method="GET" action="/maintenance-prd/Search">
                         <div class="form-group">
-                            <input style="background-color: white; width: 80%; min-height: 70px;" type="text" name="keyword" id="keyword-search" placeholder="Tìm kiếm trên Liên Hoa Các..." value="">
+                            <input style="background-color: white; width: 80%; min-height: 70px;" type="text" name="keyword" id="keyword-search" placeholder="Tìm kiếm..." value="">
                         </div>
                         <button type="submit" class="" style="width: 20%; min-height: 70px;"><span class="glyphicon glyphicon-search"></span></button>
                     </form>
@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="col-xs-4">
                     <button class="cursor" onclick="GetCart(0)" style="background-color: transparent; border: 0px; padding: 0px; position: relative;">
-                        <img src="/img/cart.png" class="img-responsive cursor shopping-cart" style="max-width: 100px; margin: 15px 10px 15px 0px;">
+                        <img src="/img/cart.jpg" class="img-responsive cursor shopping-cart" style="max-width: 100px; margin: 15px 10px 15px 0px;">
                         <h4 id ='cartIcon' style="color: red; background-color: transparent; position: absolute; top: 0px; right: 0px;"></h4>
                     </button>
                 </div>
@@ -144,6 +144,7 @@
                     <%}%>                
                 </div>
             </div>
+            <hr style="color: #8d543a;margin-top: 0px;border-width: 3px;">
             <div id="close-area" onclick="closeNav()" class="close-area"></div>
         </div>
     </div>
@@ -154,20 +155,20 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-3 col-md-2" style="text-align: center;">
-                <a href="/"><img src="/img/logo.png" alt="LienHoaCac" style="width: 120px;padding: 0px;"></a>
+                <a href="/"><img src="/img/logo.jpg" alt="LienHoaCac" style="width: 120px;padding: 0px;"></a>
             </div>
         
             <div class="col-xs-9 col-md-6">
                 <form class="search" method="GET" action="/maintenance-prd/Search">
                     <div class="form-group">
-                        <input style="background-color: white;" type="text" name="keyword" id="keyword-search" placeholder="Tìm kiếm trên Liên Hoa Các..." value="">
+                        <input style="background-color: white;" type="text" name="keyword" id="keyword-search" placeholder="Tìm kiếm..." value="">
                     </div>
                     <button type="submit" class=""><span class="glyphicon glyphicon-search"></span></button>
                 </form>
             </div>
             <div class="col-xs-2 col-md-1 cursor">
                 <button class="cursor" onclick="GetCart(0)" style="background-color: transparent; border: 0px; padding: 0px; position: relative;">
-                    <img src="/img/cart.png" class="img-responsive cursor shopping-cart" style="max-width: 50px; margin: 15px 10px 15px 0px;">
+                    <img src="/img/cart.jpg" class="img-responsive cursor shopping-cart" style="max-width: 50px; margin: 15px 10px 15px 0px;">
                     <h4 id ='cartIcon' style="color: red; background-color: transparent; position: absolute; top: 0px; right: 0px;"></h4>
                 </button>
             </div>
@@ -209,7 +210,7 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-default">
+    <nav  style="background-color: white">
         <div class="container">
             <%for(var i = 0 ; i < treefolder.length ;i++){%>
             <%if (treefolder[i].folder_name == 'VIP') {%>
@@ -279,6 +280,7 @@
             <%}%>
 
         </div>
+        <hr style="color: #8d543a;margin-top: 0px;border-width: 3px;">
     </nav>
 </div>
 
@@ -448,7 +450,7 @@
             <div style="padding-top: 75px;">
                 <span onclick="document.getElementById('id03').style.display='none'" class="close"
                       title="Close Modal">&times;</span>
-                <img src="/img/LOGO.svg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
+                <img src="/img/logo.jpg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
             </div>
             <form class="form-horizontal" action="/login" method="POST" style="padding-top: 20px">
                 <div id="cartdetail">

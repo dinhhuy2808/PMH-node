@@ -26,7 +26,7 @@ app.use(
 		user: 'root',
 		password : '',
 		port : 3307,
-		database:'lhc'
+		database:'pmh'
 	},'request')
 );
 /*****************************************/

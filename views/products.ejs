@@ -29,8 +29,11 @@
         <form action = '<%=catflt=='undefined'?'/maintenance-prd/Search?keyword='+keyword:/maintenance-prd/+catflt%>' method = 'get'>
             <div class="row">
                 <div class="col-md-3 col-xs-6">
+
+                </div>
+                <div class="col-md-3 col-xs-6">
                     <div class="form-group">
-                        <h3 class="font-mobile"><span class="label label-success">Kích thước(mm) :</span></h3>
+                        <h3 class="font-mobile"><span class="label" style="color: #6A3723" >Kích thước(mm) :</span></h3>
                     </div>
                     <div class="form-group">
                         <input  class=" form-control" name = 'size' id = 'size'   type="number" placeholder="Chỉ nhập nếu bạn cần 1 size cụ thể!" />
@@ -38,26 +41,7 @@
                 </div>
                 <div class="col-md-3 col-xs-6">
                     <div class="form-group">
-                        <h3 class="font-mobile"><span class="label label-success">Hợp mệnh: </span></h3>
-                    </div>
-                    <div class="form-group">
-                        <select class=" form-control" name = 'menh' id = 'menh'>
-                            <option value = ''>Chỉ chọn nếu bạn cần một mạng cụ thể</option>
-                            <option value="kim"> Kim</option>
-
-                            <option value="moc"> Mộc</option>
-
-                            <option value="thuy"> Thủy</option>
-
-                            <option value="hoa"> Hỏa</option>
-
-                            <option value="tho"> Thổ</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3 col-xs-6">
-                    <div class="form-group">
-                        <h3 class="font-mobile"><span class="label label-success">Màu sắc:</span></h3>
+                        <h3 class="font-mobile"><span class="label" style="color: #6A3723">Màu sắc:</span></h3>
                     </div>
                     <div class="form-group">
                         <select class=" form-control" name = 'mau' id = 'mau'>
@@ -80,41 +64,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3 col-xs-6">
-                    <div class="form-group">
-                        <h3 class="font-mobile"><span class="label label-success">Hợp tuổi:</span></h3>
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control" name = 'tuoi' id = 'tuoi'>
-                            <option value = ''selected>Chỉ chọn nếu bạn cần một tuổi cụ thể</option>
 
-                            <option  value="tý"> Tý</option>
-
-                            <option  value="sủu"> Sửu</option>
-
-                            <option value="dần"> Dần</option>
-
-                            <option value="mẹo"> Mẹo/Mão</option>
-
-                            <option  value="thìn"> Thìn</option>
-
-                            <option  value="tỵ"> Tỵ</option>
-
-                            <option  value="ngọ"> Ngọ</option>
-
-                            <option  value="mùi"> Mùi</option>
-
-                            <option value="thân"> Thân</option>
-
-                            <option value="dậu"> Dậu</option>
-
-                            <option value="tuất"> Tuất</option>
-
-                            <option value="hợi"> Hợi</option>
-
-                        </select>
-                    </div>
-                </div>
             </div>
             <div class="row">
                 <div class="form-group">
