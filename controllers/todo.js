@@ -1793,16 +1793,19 @@ module.exports.product_detail = function(req, res){
                 var data = {status: 'error', code: '300',error: err};
                 res.json(data);
             }else{
-                var sql = 'select * from description where description_id ='+rows[0].description+';';
+                var sql = 'select * from description where description_id in ('+rows[0].description+');';
                 con.query(sql, function (err, row1s) {
                     if(!err){
-
+                        var desc = '';
+                        for(var i = 0 ; i < row1s.length ; i++){
+                            desc += row1s[i].description;
+                        }
                         sql = 'select * from image where product_id  = '+rows[0].product_id+';';
                         con.query(sql, function (err, row2s) {
                             if(!err){
                                 var data = {status: 'success', code: '200'
                                     ,result:rows
-                                    , description:row1s[0].description
+                                    , description:desc
                                     ,descriptionId:row1s[0].description_id
                                     ,image:row2s
                                     ,fname:req.session.firstname
@@ -2159,10 +2162,10 @@ module.exports.delete_cat = function(req, res){
                 res.json(data);
             }else{
                 //delete product when delete category
-                /*var image = ''
+                var image = ''
                 for(var i = 0; i < rows.length ; i++){
-                    /!*var sql = 'delete from  image where  product_id = '+rows[i].product_id+';';
-                    con.query(sql);*!/
+                    var sql = 'delete from  image where  product_id = '+rows[i].product_id+';';
+                    con.query(sql);
                     var sql = 'delete from  thuoctinh where  product_id = '+rows[i].product_id+';';
                     con.query(sql);
                     sql = 'delete from product where product_id = '+rows[i].product_id+''
@@ -2196,7 +2199,7 @@ module.exports.delete_cat = function(req, res){
 
 
                     });
-                }*/
+                }
                 sql = 'select * from category where folder_id = (select folder_id from category where cat_name = \''+req.params.name+'\');\n'
                 con.query(sql, function (err, rowsTree) {
                     if(err){
