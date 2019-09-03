@@ -282,7 +282,12 @@ exports.updateProductEntity=function(req,res){
 
     sql = 'select * from product where  product_id = ' +  input.id +';' ;
     con.query(sql, function (err, rows) {
-        var sum = parseInt(rows[0].entity) + parseInt(input.entity);
+        if(input.function == 'add'){
+            var sum = parseInt(rows[0].entity) + parseInt(input.entity);
+        } else {
+            var sum = parseInt(rows[0].entity) - parseInt(input.entity);
+        }
+
         sql = 'update product set entity = '+sum+' where product_id = '+input.id+';';
         con.query(sql);
         var data={
@@ -825,7 +830,7 @@ exports.addProduct=function(req,res){
                                     '(`product_id`,\n' +
                                     '`mau`,\n' +
                                     '`tuoi`,\n' +
-                                    '`menh`,`sizefrom`,`sizeto`)\n' +
+                                    '`menh`)\n' +
                                     'VALUES\n' +
                                     '('+row1s.product_id+',\n' +
                                     '\'\',\n' +
@@ -905,12 +910,12 @@ exports.addProduct=function(req,res){
                                                 '(`product_id`,\n' +
                                                 '`mau`,\n' +
                                                 '`tuoi`,\n' +
-                                                '`menh`,`sizefrom`,`sizeto`)\n' +
+                                                '`menh`)\n' +
                                                 'VALUES\n' +
                                                 '('+row1s.product_id+',\n' +
                                                 '\''+input.Mau+'\',\n' +
                                                 '\''+input.Tuoi+'\',\n' +
-                                                '\''+input.Menh+'\','+input.SizeFrom+','+input.SizeTo+');\n'
+                                                '\''+input.Menh+'\');\n'
                                             con.query(sql);
                                         }
                                         prdId += row1s.product_id;
@@ -1151,7 +1156,7 @@ exports.add_to_payment_now=function(req,res){
                 var padStart = require('pad-start');
                 var title = rows[0].title.substring(3);
                 var newtitle = parseInt(title) + 1;
-                newtitle = 'pmh' + padStart(newtitle.toString(),6,'0');
+                newtitle = 'PMH' + padStart(newtitle.toString(),6,'0');
                 var sqlIns = 'INSERT INTO `pmh`.`payment`\n' +
                 '(`user_id`,\n' +
                 '`sum`,\n' +
@@ -1481,6 +1486,12 @@ exports.updateSettingShop=function(req,res) {
         + '\', paymentMethod = \'' + input.thanhtoan
         + '\', freeShip = ' + input.freeship
         + ', defaultShip = ' + input.shipdefault
+        + ', noithanh = \'' + input.noithanh + '\''
+        + ', ngoaithanh = \'' + input.ngoaithanh + '\''
+        + ', gianoithanh = ' + input.gianoithanh
+        + ', giangoaithanh = ' + input.giangoaithanh
+        + ', chanhxe = ' + input.chanhxe
+        + ', thuho = ' + input.thuho
         + ' where id=0;';
     var con = req.db.driver.db;
     con.query(sql, function (err, rows) {

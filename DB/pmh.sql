@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.21, for Win64 (x86_64)
 --
 -- Host: localhost    Database: pmh
 -- ------------------------------------------------------
--- Server version	5.7.25-0ubuntu0.16.04.2
+-- Server version	5.7.21-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -15,30 +15,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `can`
---
-
-DROP TABLE IF EXISTS `can`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `can` (
-  `A` int(11) NOT NULL,
-  `CAN` varchar(45) DEFAULT NULL,
-  `AC` int(11) DEFAULT NULL,
-  PRIMARY KEY (`A`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `can`
---
-
-LOCK TABLES `can` WRITE;
-/*!40000 ALTER TABLE `can` DISABLE KEYS */;
-
-/*!40000 ALTER TABLE `can` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `cart`
@@ -69,7 +45,6 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,7 +62,7 @@ CREATE TABLE `category` (
   `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`cat_id`),
   UNIQUE KEY `cat_name_UNIQUE` (`cat_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,31 +75,6 @@ LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `chi`
---
-
-DROP TABLE IF EXISTS `chi`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `chi` (
-  `B` int(11) NOT NULL,
-  `CHI` varchar(45) DEFAULT NULL,
-  `PHATHOMENH` varchar(100) DEFAULT NULL,
-  `BC` int(11) DEFAULT NULL,
-  PRIMARY KEY (`B`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `chi`
---
-
-LOCK TABLES `chi` WRITE;
-/*!40000 ALTER TABLE `chi` DISABLE KEYS */;
-
-/*!40000 ALTER TABLE `chi` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `description`
@@ -137,7 +87,7 @@ CREATE TABLE `description` (
   `description_id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`description_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,31 +146,8 @@ CREATE TABLE `image` (
 
 LOCK TABLES `image` WRITE;
 /*!40000 ALTER TABLE `image` DISABLE KEYS */;
+
 /*!40000 ALTER TABLE `image` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `mang`
---
-
-DROP TABLE IF EXISTS `mang`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mang` (
-  `id` int(11) NOT NULL,
-  `MANG` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `mang`
---
-
-LOCK TABLES `mang` WRITE;
-/*!40000 ALTER TABLE `mang` DISABLE KEYS */;
-
-/*!40000 ALTER TABLE `mang` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -278,7 +205,7 @@ CREATE TABLE `payment` (
   `phone` varchar(11) DEFAULT '',
   `name` varchar(50) DEFAULT '',
   PRIMARY KEY (`payment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -287,6 +214,7 @@ CREATE TABLE `payment` (
 
 LOCK TABLES `payment` WRITE;
 /*!40000 ALTER TABLE `payment` DISABLE KEYS */;
+
 /*!40000 ALTER TABLE `payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -305,7 +233,7 @@ CREATE TABLE `places` (
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`place_id`),
   UNIQUE KEY `place_id_UNIQUE` (`place_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -314,6 +242,7 @@ CREATE TABLE `places` (
 
 LOCK TABLES `places` WRITE;
 /*!40000 ALTER TABLE `places` DISABLE KEYS */;
+insert into places values ('1', 'Việt Nam', 'Ho Chi Minh', 'address', '1');
 /*!40000 ALTER TABLE `places` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -332,7 +261,7 @@ CREATE TABLE `product` (
   `name` varchar(255) DEFAULT NULL,
   `size` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `description` varchar(3) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
   `code` varchar(20) DEFAULT NULL,
   `menh` varchar(255) DEFAULT NULL,
   `tuoi` varchar(255) DEFAULT NULL,
@@ -341,7 +270,7 @@ CREATE TABLE `product` (
   `entity` int(11) DEFAULT NULL,
   `validFlag` varchar(1) DEFAULT '1',
   PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -350,6 +279,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
+
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -370,7 +300,7 @@ CREATE TABLE `promotion` (
   `seen_flag` varchar(1) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`promotion_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -379,6 +309,7 @@ CREATE TABLE `promotion` (
 
 LOCK TABLES `promotion` WRITE;
 /*!40000 ALTER TABLE `promotion` DISABLE KEYS */;
+
 /*!40000 ALTER TABLE `promotion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -500,7 +431,7 @@ CREATE TABLE `treefolder` (
   `index` int(11) DEFAULT NULL,
   PRIMARY KEY (`folder_id`),
   UNIQUE KEY `cat_name_UNIQUE` (`folder_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -562,7 +493,7 @@ CREATE TABLE `user` (
   `gender` varchar(1) DEFAULT NULL,
   `checked` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`user_id`,`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -571,7 +502,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'huyt71@gmail.com',19930828,'1663036577','admin','Tran',20181110,1,'21232f297a57a5a743894a0e4a801fc3','','admin','Vinh Long','123456','bank address','HSBC','M','Y'),(44,'',19951027,'0962190841','Nguyễn Hữu Bảo','',20190212,2,'9395b0b56e6be3814f8f9b90054b839a',NULL,'0962190841',NULL,NULL,NULL,NULL,'M','Y'),(48,'',0,'0962190849','Nguyễn Hữu Bảo',NULL,20190306,2,'akfgbksjdahfkljdash',NULL,'0962190849',NULL,NULL,NULL,NULL,'M',NULL),(49,'',19951027,'0962190848','Nguyễn Hữu Bảo',NULL,20190306,2,'9395b0b56e6be3814f8f9b90054b839a',NULL,'0962190848',NULL,NULL,NULL,NULL,'M',NULL),(50,'',19951027,'0866146613','Bảo',NULL,20190330,2,'9395b0b56e6be3814f8f9b90054b839a',NULL,'0866146613',NULL,NULL,NULL,NULL,'M',NULL),(51,'',0,'0962190899','Bảo',NULL,20190330,2,'akfgbksjdahfkljdash',NULL,'0962190899',NULL,NULL,NULL,NULL,'M',NULL);
+INSERT INTO `user` VALUES (1,'huyt71@gmail.com',19930828,'1663036577','admin','Tran',20181110,1,'21232f297a57a5a743894a0e4a801fc3','','admin','Vinh Long','123456','bank address','HSBC','M','Y'),(44,'',19951027,'0962190841','Nguyễn Hữu Bảo','',20190212,2,'9395b0b56e6be3814f8f9b90054b839a',NULL,'0962190841',NULL,NULL,NULL,NULL,'M','Y'),(48,'',0,'0962190849','Nguyễn Hữu Bảo',NULL,20190306,2,'akfgbksjdahfkljdash',NULL,'0962190849',NULL,NULL,NULL,NULL,'M',NULL),(49,'',19951027,'0962190848','Nguyễn Hữu Bảo',NULL,20190306,2,'9395b0b56e6be3814f8f9b90054b839a',NULL,'0962190848',NULL,NULL,NULL,NULL,'M',NULL),(50,'',19951027,'0866146613','Bảo',NULL,20190330,2,'9395b0b56e6be3814f8f9b90054b839a',NULL,'0866146613',NULL,NULL,NULL,NULL,'M',NULL),(51,'',0,'0962190899','Bảo',NULL,20190330,2,'akfgbksjdahfkljdash',NULL,'0962190899',NULL,NULL,NULL,NULL,'M',NULL),(52,'',0,'123456789','huy',NULL,20190516,2,'akfgbksjdahfkljdash',NULL,'123456789',NULL,NULL,NULL,NULL,'M',NULL),(53,'',19930828,'12345678','huy','',20190516,2,'202cb962ac59075b964b07152d234b70',NULL,'12345678',NULL,NULL,NULL,NULL,'M',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -592,7 +523,7 @@ CREATE TABLE `voucher` (
   `min` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`voucher_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -630,6 +561,16 @@ LOCK TABLES `wishlist` WRITE;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 UNLOCK TABLES;
+
+alter table settingshop add column noithanh varchar(2000) null;
+alter table settingshop add column ngoaithanh varchar(2000) null;
+alter table settingshop add column gianoithanh int null;
+alter table settingshop add column giangoaithanh int null;
+alter table settingshop add column chanhxe int null;
+alter table settingshop add column thuho int null;
+alter table payment add column tinhthanh varchar(20) null;
+alter table payment add column quanhuyen varchar(20) null;
+alter table payment add column hinhthuc varchar(20) null;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -640,6 +581,6 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-27  5:48:31
-INSERT INTO `treefolder` VALUES (1,'Liên Hệ',1);
-INSERT INTO `category` VALUES (1,1,'Liên Hệ',NULL);
+-- Dump completed on 2019-07-09  2:20:20
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Cutii3H0us3!@#';
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));

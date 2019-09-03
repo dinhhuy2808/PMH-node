@@ -4,9 +4,9 @@
     <title>Cutiie House</title>
     <meta charset="utf-8">
     <title>HOME</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/flickity.css" media="screen">
     <script src="/js/flickity.pkgd.min.js"></script>
@@ -16,14 +16,14 @@
 <div class="container-fuild" id="headerMobile" style="display: none;">
     <div class="row">        
         <div class="col-xs-3">
-            <a href="/"><img src="/img/logo.jpg" alt="LienHoaCac" style="width: 100%;padding: 0px;"></a>
+            <a href="/"><img src="/img/logo.png" alt="CutiieHouse" style="width: 100%;padding: 0px;"></a>
         </div>
         <div class="col-xs-7">
             <div class="row">
                 <div class="col-xs-12" style="padding: 30px;">
                     <form class="search" method="GET" action="/maintenance-prd/Search">
                         <div class="form-group">
-                            <input style="background-color: white; width: 80%; min-height: 70px;" type="text" name="keyword" id="keyword-search" placeholder="Tìm kiếm..." value="">
+                            <input style="background-color: white; width: 80%; min-height: 70px;" type="text" name="keyword" id="keyword-search" placeholder="Tìm kiếm trên Cutiie House" value="">
                         </div>
                         <button type="submit" class="" style="width: 20%; min-height: 70px;"><span class="glyphicon glyphicon-search"></span></button>
                     </form>
@@ -97,7 +97,7 @@
                         <%} else if (treefolder[i].folder_name == 'Khuyến Mãi'){%>
                             <div class="col-xs-12">
                                 <div class="" style="border-bottom: 1px solid #000000;">
-                                    <a class="font-menu-mobile" ref="/promotions">Khuyến Mãi</a>
+                                    <a class="font-menu-mobile" href="/promotions">Khuyến Mãi</a>
                                 </div>
                             </div>
                         <%} else if (treefolder[i].folder_name == 'Xem Tuổi'){%>
@@ -107,11 +107,20 @@
                                 </div>
                             </div>
                          <%} else {%>
+                            <%if(treefolder[i].folder_name.trim() == treefolder[i].cat_names.trim()){%>
                             <div class="col-xs-12">
+                                <div class="" style="border-bottom: 1px solid #000000;">
+                                    <a class="font-menu-mobile" href="/maintenance-prd/<%=treefolder[i].cat_names.split(";")[0].trim().replace(/ /g,"-")%>" data-filter=".folder2" >
+                                        <%=treefolder[i].cat_names.split(";")[0]%>
+                                    </a>
+                                </div>
+                            </div>
+                            <%}else{%>
+                                <div class="col-xs-12">
                                     <div class="selected-menu" style="border-bottom: 1px solid #000000;">
                                         <a class="font-menu-mobile" data-filter=".folder2" onclick="display('<%=treefolder[i].folder_name%>')"><%=treefolder[i].folder_name%></a>
                                     </div>
-                                    
+
                                     <a class="font-menu-mobile display-menu" style="font-weight: bold; position: absolute; right: 50px; top: 0px;" onclick="display('<%=treefolder[i].folder_name%>')">+</a>
                                     <a class=" font-menu-mobile hide-menu" style="font-weight: bold; display: none; position: absolute; right: 0px; top: 0px;">-</a>
                                     <div class="small-menu" id="<%=treefolder[i].folder_name%>" style="display: none;">
@@ -120,8 +129,10 @@
                                             <%=treefolder[i].cat_names.split(";")[j]%>
                                         </a>
                                         <%}%>
-                                    </div>    
-                            </div>
+                                    </div>
+                                </div>
+                            <%}%>
+
                         <%}%>
 
                     <%}%>
@@ -144,7 +155,6 @@
                     <%}%>                
                 </div>
             </div>
-            <hr style="color: #8d543a;margin-top: 0px;border-width: 3px;">
             <div id="close-area" onclick="closeNav()" class="close-area"></div>
         </div>
     </div>
@@ -155,13 +165,13 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-3 col-md-2" style="text-align: center;">
-                <a href="/"><img src="/img/logo.jpg" alt="LienHoaCac" style="width: 120px;padding: 0px;"></a>
+                <a href="/"><img src="/img/logo.png" alt="CutiieHouse" style="width: 120px;padding: 0px;"></a>
             </div>
         
             <div class="col-xs-9 col-md-6">
                 <form class="search" method="GET" action="/maintenance-prd/Search">
                     <div class="form-group">
-                        <input style="background-color: white;" type="text" name="keyword" id="keyword-search" placeholder="Tìm kiếm..." value="">
+                        <input style="background-color: white;" type="text" name="keyword" id="keyword-search" placeholder="Tìm kiếm trên Cutiie House..." value="">
                     </div>
                     <button type="submit" class=""><span class="glyphicon glyphicon-search"></span></button>
                 </form>
@@ -210,7 +220,7 @@
         </div>
     </div>
 
-    <nav  style="background-color: white">
+    <nav class="navbar navbar-default">
         <div class="container">
             <%for(var i = 0 ; i < treefolder.length ;i++){%>
             <%if (treefolder[i].folder_name == 'VIP') {%>
@@ -242,23 +252,34 @@
                     </ul>
                 </div>
             <%} else {%>
-            <div class="dropdown">
-                <ul class="nav navbar-nav navbar-left sm">
 
-                    <li class="menu-hover"> <a data-filter=".folder2" ><h3><font color="black"><%=treefolder[i].folder_name%></font></h3></a>
-                        <ul class="dropdown-menu">
-                            <%for(var j = 0 ; j < treefolder[i].cat_names.split(";").length ; j++){%>
-                            <li> <a href="/maintenance-prd/<%=treefolder[i].cat_names.split(";")[j].trim().replace(/ /g,"-")%>"><h3><%=treefolder[i].cat_names.split(";")[j]%></h3></a></li>
-                            <%}%>
+                    <%if(treefolder[i].folder_name.trim() == treefolder[i].cat_names.trim()){%>
+                    <div class="dropdown">
+                        <ul class="nav navbar-nav navbar-left sm">
+                            <li class="menu-hover"> <a href="/maintenance-prd/<%=treefolder[i].cat_names.trim().replace(/ /g,"-")%>" data-filter=".folder2" ><h3><font color="black"><%=treefolder[i].cat_names%></font></h3></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <%}else{%>
+                    <div class="dropdown">
+                        <ul class="nav navbar-nav navbar-left sm">
+
+                            <li class="menu-hover"> <a data-filter=".folder2" ><h3><font color="black"><%=treefolder[i].folder_name%></font></h3></a>
+                                <ul class="dropdown-menu">
+                                    <%for(var j = 0 ; j < treefolder[i].cat_names.split(";").length ; j++){%>
+                                    <li> <a href="/maintenance-prd/<%=treefolder[i].cat_names.split(";")[j].trim().replace(/ /g,"-")%>"><h3><%=treefolder[i].cat_names.split(";")[j]%></h3></a></li>
+                                    <%}%>
+
+                                </ul>
+                            </li>
+
 
                         </ul>
-                    </li>
 
 
-                </ul>
+                    </div>
+                    <%}%>
 
-
-            </div>
             <%}%>
 
             <%}%>
@@ -280,7 +301,6 @@
             <%}%>
 
         </div>
-        <hr style="color: #8d543a;margin-top: 0px;border-width: 3px;">
     </nav>
 </div>
 
@@ -290,7 +310,7 @@
             <div style="padding-top: 75px;">
                     <span onclick="document.getElementById('id01').style.display='none'" class="close"
                           title="Close Modal">&times;</span>
-                <img src="/img/LOGO.svg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
+                <img src="/img/logo.png" alt="Avatar" class="avatar center-block" style="max-width: 75px">
             </div>
                 <div class="form-group has-success" style="text-align: center;">
                     <label for="inputEmail3" class="control-label center-block">Tài khoản</label>
@@ -382,7 +402,7 @@
     function Submit() {
         $(".error").remove();
         if(count > 5){
-            $("#password").after("<label class='error' style='color: red'>Nếu bạn quên mật khẩu, hãy gọi ngay cho Tổng đài chăm sóc khách hàng Liên Hoa Các: 0868.240.120 để nhận mật khẩu mới!</label>");
+            $("#password").after("<label class='error' style='color: red'>Nếu bạn quên mật khẩu, hãy gọi ngay cho Tổng đài chăm sóc khách hàng Cutie House: 090.1466.165 để nhận mật khẩu mới!</label>");
         }
         $.ajax({
             url: '/login?email='+$("#email").val()+'&password='+$("#password").val(),
@@ -450,7 +470,7 @@
             <div style="padding-top: 75px;">
                 <span onclick="document.getElementById('id03').style.display='none'" class="close"
                       title="Close Modal">&times;</span>
-                <img src="/img/logo.jpg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
+                <img src="/img/logo.png" alt="Avatar" class="avatar center-block" style="max-width: 75px">
             </div>
             <form class="form-horizontal" action="/login" method="POST" style="padding-top: 20px">
                 <div id="cartdetail">
@@ -580,7 +600,8 @@
                             '                            </td>\n' +
                             '\n' +
                             '                            <td class="text-center">\n';
-                        if(response.result[i].discount_prices == null) {
+                        if(response.result[i].discount_prices == null
+                                || response.result[i].discount_prices == '0') {
                             inner +=  '                            <label style=" text-align: center"><font\n';
                             inner +=  '                                        color="black">'+response.result[i].prices.split(';')[j]+' </font></label>\n';
                         }else {

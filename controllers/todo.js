@@ -99,7 +99,7 @@ module.exports.add_category = function(req, res){
     form.parse(req);
 */
 
-   var sql = 'select folder_id from treefolder where folder_name = \''+input.newFolder+'\'';
+   var sql = 'select folder_id,(select max(`index`) from treefolder) as idx from treefolder where folder_name = \''+input.newFolder+'\'';
     var con = req.db.driver.db;
     con.query(sql, function (err, rows) {
         if(err){
@@ -122,25 +122,36 @@ module.exports.add_category = function(req, res){
                     }
                 });
             } else {
-                sql = 'insert into treefolder(folder_name) values (\''+input.newFolder+'\');';
+                sql = 'select max(`index`)+1 as idx from treefolder;';
                 con.query(sql, function (err, row1s) {
                     if(err){
                         var data = {status: 'error', code: '300',error: err};
                         res.json(data);
                     }else{
-                        var data={
-                            cat_name:input.newCat,
-                            /*image:req.files.upfile.path.split("\\")[ req.files.upfile.path.split("\\").length-1],*/
-                            folder_id: row1s.insertId
-                        };
-                        req.models.category.create(data,function(err,row1s) {
-                            if (err) {
-                                var data = {status: 'fail', code: '300', description : err.message};
+
+                        sql = 'insert into treefolder(folder_name,`index`) values (\''+input.newFolder+'\','+row1s[0].idx+');';
+                        con.query(sql, function (err, row2s) {
+                            if(err){
+                                var data = {status: 'error', code: '300',error: err};
                                 res.json(data);
-                            } else {
-                                res.json(200
-                                );
+                            }else{
+
+                                var data={
+                                    cat_name:input.newCat,
+                                    /*image:req.files.upfile.path.split("\\")[ req.files.upfile.path.split("\\").length-1],*/
+                                    folder_id: row2s.insertId
+                                };
+                                req.models.category.create(data,function(err,row3s) {
+                                    if (err) {
+                                        var data = {status: 'fail', code: '300', description : err.message};
+                                        res.json(data);
+                                    } else {
+                                        res.json(200
+                                        );
+                                    }
+                                });
                             }
+
                         });
                     }
 
@@ -979,9 +990,9 @@ module.exports.add_to_payment = function(req, res){
                 var sqlIns = 'INSERT INTO `pmh`.`payment`\n' +
                     '(`user_id`,\n' +
                     '`sum`,\n' +
-                    '`status_id`,`create_time`,`title`,`pay_type`,`promotion`,`total`,`seen_flag`,`ship`,`voucher`,`shipfee`,`note`,`address`,`name`,`phone`)\n';
+                    '`status_id`,`create_time`,`title`,`pay_type`,`promotion`,`total`,`seen_flag`,`ship`,`voucher`,`shipfee`,`note`,`address`,`name`,`phone`,`quanhuyen`,`tinhthanh`,`hinhthuc`)\n';
                 sqlIns +='VALUES ('+user+','+Sum+',0,'+parseInt(year+''+month+''+day)+',\''+newtitle+'\',\''+input.type+'\','+promotion+','+totalAfterPromot+',\'N\',\''+input.ship+'\'' +
-                    ',\''+input.voucher+'\','+input.shipfee+',\''+input.note+'\',\''+input.address+'\',\''+input.name+'\',\''+input.phone+'\')';
+                    ',\''+input.voucher+'\','+input.shipfee+',\''+input.note+'\',\''+input.address+'\',\''+input.name+'\',\''+input.phone+'\''+',\''+input.quanhuyen+'\''+',\''+input.tinhthanh+'\''+',\''+input.hinhthuc+'\''+')';
                 con.query(sqlIns, function (err, row1s) {
                     if(err){
                         var data = {status: 'error', code: '300',error: err};
@@ -1700,7 +1711,7 @@ module.exports.payment_detail = function(req, res){
                     var data = {status: 'error', code: '300', error: err};
                     res.json(data);
                 } else {
-                    sql = 'select name as firstname, phone, address from payment where payment_id = '+req.query.id+';';
+                    sql = 'select name as firstname, phone, address, quanhuyen, tinhthanh, hinhthuc from payment where payment_id = '+req.query.id+';';
                     var con = req.db.driver.db;
                     con.query(sql, function (err, row1s) {
                         var totalAll = 0;
@@ -1751,7 +1762,7 @@ module.exports.payment_detail = function(req, res){
             con.query(sql, function (err, rows) {
                 var title = rows[0].title.substring(3);
                 var newtitle = parseInt(title) + 1;
-                newtitle = 'pmh' + padStart(newtitle.toString(),6,'0');
+                newtitle = 'PMH' + padStart(newtitle.toString(),6,'0');
                 sql = 'select * from pmh.settingshop';
                 con.query(sql, function (err, row1setting){
                     var data = {fname:req.session.firstname
@@ -2318,32 +2329,13 @@ module.exports.maintenance_prd = function(req, res){
         if(req.query.prdflt != undefined && req.query.prdflt != '' ){
             where += ' name like \'%'+req.query.prdflt+'%\' and';
         }
-    if(req.query.menh != undefined && req.query.menh != '' && req.query.menh != 'undefined' ){
-        where += ' t.menh like \'%'+req.query.menh+'%\' and';
-    }
-    if(req.query.tuoi != undefined && req.query.tuoi != ''  && req.query.tuoi != 'undefined'){
-        where += ' t.tuoi like \'%'+req.query.tuoi+'%\' and';
-    }
-    if(req.query.mau != undefined && req.query.mau != ''  && req.query.mau != 'undefined'){
-        where += ' t.mau like \'%'+req.query.mau+'%\' and';
-    }
-    if(req.query.size != undefined && req.query.size != ''  && req.query.size != 'undefined'){
-        where += ' t.sizefrom <= '+req.query.size+' and t.sizeto >= '+req.query.size+' and';
-    }
-    var keyword='keyword='+req.query.keyword+'&size='+req.query.size+'&menh='+req.query.menh+'&mau='+req.query.mau+'&tuoi='+req.query.tuoi+'';
+
+    var keyword='keyword='+req.query.keyword;
     if(req.query.keyword != 'undefined' && req.query.keyword != '' && req.query.keyword != undefined ){
-        where += ' (t.mau REGEXP \''+req.query.keyword.replace(",","|")+'\'\n' +
-            'or t.menh REGEXP \''+req.query.keyword.replace(",","|")+'\' \n' +
-            'or t.tuoi REGEXP \''+req.query.keyword.replace(/mao/g,'mẹo').replace(/mão/g,'mẹo').replace(/thình/g,'thìn').replace(/thinh/g,'thìn').replace(",","|")+'\' \n' +
-            'or d.description REGEXP \''+req.query.keyword.replace(",","|")+'\' \n' +
-            'or p.name REGEXP \''+req.query.keyword.replace(",","|")+'\' \n' +
-            'or p.size REGEXP \''+req.query.keyword.replace(",","|")+'\') and';
-
-
+        where += ' (t.mau REGEXP \''+req.query.keyword.replace(",","|")+'\') and'
     } else {
         keyword = '';
     }
-
     res.cookie("keyword", keyword);;
     if (req.session.type == 1){
         if(where.trim() == ''){
@@ -2537,7 +2529,7 @@ module.exports.show_promote=function(req,res) {
         '(select concat(SUBSTRING(p.effective_date, 7, 2),\'/\',SUBSTRING(p.effective_date, 5, 2),\'/\',SUBSTRING(p.effective_date, 1, 4))) as effective_date,\n' +
         '(select concat(SUBSTRING(p.expired_date, 7, 2),\'/\',SUBSTRING(p.expired_date, 5, 2),\'/\',SUBSTRING(p.expired_date, 1, 4))) as expired_date,\n' +
         'title \n' +
-        ' from promotion p '
+        ' from promotion p'
 
     var where  = 'where ';
     if(req.query.effdate != undefined && req.query.effdate.trim() != ''){
@@ -2576,33 +2568,34 @@ module.exports.promote_register=function(req,res){
 
 
 module.exports.add_promote=function(req,res){
-    var input=JSON.parse(JSON.stringify(req.body));
-    var date = new Date();
-    var month = date.getMonth() + 1;
-    month = (month < 10 ? "0" : "") + month;
+    if(req.session.type == '1') {
+        var input = JSON.parse(JSON.stringify(req.body));
+        var date = new Date();
+        var month = date.getMonth() + 1;
+        month = (month < 10 ? "0" : "") + month;
 
-    var day  = date.getDate();
-    day = (day < 10 ? "0" : "") + day;
-    var year = date.getUTCFullYear();
-    var formidable = require('formidable');
-    var form = new formidable.IncomingForm({
-        keepExtensions: true
-    });
-    form.parse(req);
+        var day = date.getDate();
+        day = (day < 10 ? "0" : "") + day;
+        var year = date.getUTCFullYear();
+        var formidable = require('formidable');
+        var form = new formidable.IncomingForm({
+            keepExtensions: true
+        });
+        form.parse(req);
 
-    var i = 0;
+        var i = 0;
 
         var oldpath = req.files.newImg.path;
 
-    if(__dirname.split('/').length <= 1){
-        var newpath = __dirname.replace(__dirname.split('\\')[__dirname.split('\\').length-1],'public\\assets\\img\\'+oldpath.split("\\")[ oldpath.split("\\").length-1]);
-    }else{
-        var newpath = __dirname.replace(__dirname.split('/')[__dirname.split('/').length-1],'public/assets/img/'+oldpath.split("/")[ oldpath.split("/").length-1]);
-    }
-    console.log(__dirname);
-    console.log(oldpath);
-    console.log(newpath);
-        console.log(__dirname.replace(__dirname.split('/')[__dirname.split('/').length-1],'public/assets/img/'+oldpath.split("/")[ oldpath.split("/").length-1]));
+        if (__dirname.split('/').length <= 1) {
+            var newpath = __dirname.replace(__dirname.split('\\')[__dirname.split('\\').length - 1], 'public\\assets\\img\\' + oldpath.split("\\")[oldpath.split("\\").length - 1]);
+        } else {
+            var newpath = __dirname.replace(__dirname.split('/')[__dirname.split('/').length - 1], 'public/assets/img/' + oldpath.split("/")[oldpath.split("/").length - 1]);
+        }
+        console.log(__dirname);
+        console.log(oldpath);
+        console.log(newpath);
+        console.log(__dirname.replace(__dirname.split('/')[__dirname.split('/').length - 1], 'public/assets/img/' + oldpath.split("/")[oldpath.split("/").length - 1]));
         fs.readFile(oldpath, function (err, data) {
             if (err) throw err;
             console.log('File read!');
@@ -2623,32 +2616,54 @@ module.exports.add_promote=function(req,res){
         });
 
 
+        var con = req.db.driver.db;
+        var desc = input.editor.replace(/(\r\n|\n|\r)/gm,"");
+        var k = 0;
+        var sql = '';
+        var image = req.files.newImg.path.split('/').length <= 1 ? req.files.newImg.path.split('\\')[req.files.newImg.path.split('\\').length - 1] : req.files.newImg.path.split('/')[req.files.newImg.path.split('/').length - 1];
+        while (desc.length > 2000){
 
+            sql = 'INSERT INTO `pmh`.`promotion`\n' +
+                '(`title`,\n' +
+                '`description`,\n' +
+                '`effective_date`,\n' +
+                '`expired_date`,\n' +
+                '`image`,\n' +
+                '`seen_flag`,\n' +
+                '`user_id`)\n' +
+                'VALUES\n' +
+                '(\''+input.name+'\',\n' +
+                '\''+desc.substring(0,2000)+'\',\n' +
+                ''+input.effdate.replace(/-/g, '')+',\n' +
+                ''+input.expiredDate.replace(/-/g, '')+',\n' +
+                '\''+image+'\',\n' +
+                '\'N\',\n' +
+                '0);\n';
+            con.query(sql);
+            desc = desc.substring(2000,desc.length);
+        }
+        sql = 'INSERT INTO `pmh`.`promotion`\n' +
+        '(`title`,\n' +
+        '`description`,\n' +
+        '`effective_date`,\n' +
+        '`expired_date`,\n' +
+        '`image`,\n' +
+        '`seen_flag`,\n' +
+        '`user_id`)\n' +
+        'VALUES\n' +
+        '(\''+input.name+'\',\n' +
+        '\''+desc.substring(0,2000)+'\',\n' +
+        ''+input.effdate.replace(/-/g, '')+',\n' +
+        ''+input.expiredDate.replace(/-/g, '')+',\n' +
+        '\''+image+'\',\n' +
+            '\'N\',\n' +
+            '0);\n';
+        con.query(sql);
 
-
-    var con = req.db.driver.db;
-    var data={
-        title:input.name,
-        description:input.editor.replace(/(\r\n|\n|\r)/gm,""),
-        effective_date:input.effdate.replace(/-/g,''),
-        expired_date:input.expiredDate.replace(/-/g,''),
-        image:req.files.newImg.path.split('/').length<=1?req.files.newImg.path.split('\\')[req.files.newImg.path.split('\\').length-1]:req.files.newImg.path.split('/')[req.files.newImg.path.split('/').length-1],
-        user_id:0,
-        seen_flag:'N'
-    };
-    if(req.session.type == '1'){
-        req.models.promotion.create(data,function(err,rows){
-            if(err){
-                console.log(err);
-            }
-            else{
-            }
-
-        });
+        res.redirect('promotions');
+    } else {
+        res.redirect('/');
     }
-
-    res.redirect('promotions');
-
     function convertDate(inputDate){
         var day = inputDate.split('/')[0];
         var month = inputDate.split('/')[1];
@@ -2672,6 +2687,9 @@ module.exports.edit_promote=function(req,res){
 
             }
             else {
+                for(var i = 1 ; i < rows.length ; i++){
+                    rows[0].description += rows[i].description;
+                }
                 data = {result: rows,fname:req.session.firstname,dateFormat:dateFormat,pic:req.session.pic,type:req.session.type,treefolder:req.session.treefolder};
                 res.render('promote-edit', data);
             }
@@ -3215,7 +3233,7 @@ module.exports.app_phongthuy = function (req, res) {
 }
 module.exports.promotions = function(req, res){
         var sql = '';
-        sql += 'select * from promotion order by effective_date asc';
+        sql += 'select * from promotion group by title order by effective_date asc ';
         var con = req.db.driver.db;
         con.query(sql, function (err, rows) {
             if(err){
@@ -3251,12 +3269,34 @@ module.exports.promotions_detail = function(req, res){
             var data = {status: 'error', code: '300',error: err};
             res.json(data);
         }else{
-
+            for(var i = 1 ; i < rows.length ; i++){
+                rows[0].description += rows[i].description;
+            }
             var data = {status: 'success', code: '200', result:rows,fname:req.session.firstname,type:req.session.type,treefolder:req.session.treefolder};
             res.render('promotion-detail',data);
 
         }
 
     });
+
+};
+module.exports.huongdan = function(req, res){
+    var data = {status: 'success', code: '200',fname:req.session.firstname,type:req.session.type,treefolder:req.session.treefolder};
+    res.render('huongdan',data);
+
+};
+module.exports.khachsi = function(req, res){
+    var data = {status: 'success', code: '200',fname:req.session.firstname,type:req.session.type,treefolder:req.session.treefolder};
+    res.render('khachsi',data);
+
+};
+module.exports.giaonhan = function(req, res){
+    var data = {status: 'success', code: '200',fname:req.session.firstname,type:req.session.type,treefolder:req.session.treefolder};
+    res.render('giaonhan',data);
+
+};
+module.exports.doitra = function(req, res){
+    var data = {status: 'success', code: '200',fname:req.session.firstname,type:req.session.type,treefolder:req.session.treefolder};
+    res.render('doitra',data);
 
 };

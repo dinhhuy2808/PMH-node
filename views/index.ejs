@@ -1,34 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <% include partials/index_Header.ejs %>
+<style>
+    * {box-sizing: border-box;}
+
+	.center {
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	}
+    .middle {
+        transition: .5s ease;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+    }
+    .text {
+        background-color: transparent;
+        color: #6A3723;
+        font-size: 50px;
+        padding: 16px 32px;
+    }
+    .container:hover .image {
+        opacity: 0.3;
+    }
+
+    .container:hover .middle {
+        opacity: 1;
+    }
+
+</style>
 <body>
 <!-- PORTFOLIO -->
 <div class="portfolio">
-
-
     <!-- Flickity HTML init -->
-<div class="carousel js-flickity" data-flickity-options='{ "autoPlay" : 4000 }'>
+<div class="carousel js-flickity container-fluid" data-flickity-options='{ "autoPlay" : 4000 }'>
   <!-- images from unsplash.com -->
     <%for(var i = 0 ; i < promotions.length ; i++) {%>
         <div class="carousel-cell">
             <a href="/promotion-detail/<%=promotions[i].title.replace(/ /g,'-')%>"><img class="center-block" src="/assets/img/<%=promotions[i].image%>" alt="..."></a>
         </div>
     <%}%>
-    <div class="carousel-cell">
-        <a href="/app-phongthuy"><img class="center-block" src="assets/img/test.jpg" alt="..."></a>
-    </div>
-    <div class="carousel-cell">
-        <a href="/app-phongthuy"><img class="center-block" src="assets/img/test.jpg" alt="..."></a>
-    </div>
+    <%if( promotions.length <= 1){%>
+        <div class="carousel-cell">
+            <a href="#"><img class="center-block" src="assets/img/slide1.png" alt="..."></a>
+        </div>
+        <div class="carousel-cell">
+            <a href="#"><img class="center-block" src="assets/img/slide1.png" alt="..."></a>
+        </div>
+    <%} else if (promotions.length == 2){%>
+        <div class="carousel-cell">
+            <a href="/#"><img class="center-block" src="assets/img/slide1.png" alt="..."></a>
+        </div>
+    <%}%>
 </div>
 
 <br>
+
 <br>
 </div>
     
     <div class="container-fluid">
-
         <div class="container" id="mobile">
+			<div id = "bestnew-mobile">
+				<div class="row ">
+					<div class = "col-xs-6 col-md-6" >
+
+						<a href="/maintenance-prd/Best-Seller">  <img src="assets/img/best.jpg" alt="Avatar" class="center-block" ></a>
+						<div class="center text">
+							Best Seller
+						</div>
+
+					</div>
+
+					<div class = "col-xs-6 col-md-6" >
+
+						<a href="/maintenance-prd/New-Arrival" >  <img src="assets/img/new.jpg" class="center-block"  alt="Avatar" ></a>
+						<div class="center text">
+							New Arrival
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+			<div id = "bestnew-desktop">
+				<div class="row ">
+					<div class = "col-xs-6 col-md-6" >
+
+						<a href="/maintenance-prd/Best-Seller">  <img src="assets/img/best.jpg" alt="Avatar" class="center-block" ></a>
+						<div class="middle 1">
+							<div class="text">Best Seller</div>
+						</div>
+
+					</div>
+
+					<div class = "col-xs-6 col-md-6" >
+
+						<a href="/maintenance-prd/New-Arrival" >  <img src="assets/img/new.jpg" class="center-block"  alt="Avatar" ></a>
+						<div class="middle 2">
+							<div class="text">New Arrival</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+            
+        </div>
+        <div class="container" id="mobile">
+
+            <div class="row ">
+                <div class = "col-xs-12 col-md-12" ><h3 style="text-align: center">SHOP THEO SẢN PHẨM</h3></div>
+            </div>
+            <div class="row ">
+                <div class = " col-xs-4 col-md-4" style="align-items:center">
+
+                    <a href="/maintenance-prd/Search?keyword=Áo" style="align-self: center"><img src="assets/img/ao.png"  class="center-block" alt="Avatar" ></a>
+                    <h4 style="text-align: center;font-weight: bold" >Áo</h4>
+
+                </div>
+                <div class = "col-xs-4 col-md-4" >
+
+                    <a href="/maintenance-prd/Search?keyword=Đầm"><img src="assets/img/dam.png" class="center-block" alt="Avatar" ></a>
+                    <h4 style="text-align: center;font-weight: bold" >Đầm</h4>
+
+                </div>
+                <div class = "col-xs-4 col-md-4" >
+
+                    <a href="/maintenance-prd/Search?keyword=Phụ Kiện"><img src="assets/img/phukien.png" class="center-block" alt="Avatar" ></a>
+                    <h4 style="text-align: center;font-weight: bold" >Phụ Kiện</h4>
+
+                </div>
+
+            </div>
             <!-- all works -->
             <div class="row">
                 <div class="row">

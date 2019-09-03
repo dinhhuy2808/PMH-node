@@ -145,7 +145,7 @@
                     <div style="padding-top: 75px;">
                     <span onclick="document.getElementById('signup').style.display='none'" class="close"
                           title="Close Modal">&times;</span>
-                        <img src="/img/LOGO.svg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
+                        <img src="/img/logo.png" alt="Avatar" class="avatar center-block" style="max-width: 75px">
                         <div class="row" style="text-align: center">
                             <label>
                                 Quý vị hãy Đăng kí tài khoản để kết nối lâu dài với chúng tôi nhé!
@@ -226,7 +226,7 @@
                     <div style="padding-top: 75px;">
                     <span onclick="document.getElementById('id01').style.display='none'" class="close"
                           title="Close Modal">&times;</span>
-                        <img src="/img/LOGO.svg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
+                        <img src="/img/logo.png" alt="Avatar" class="avatar center-block" style="max-width: 75px">
                         <div class="row" style="text-align: center">
                             <label>
                                 Số điện thoại này đã được đăng kí tài khoản.
@@ -354,7 +354,42 @@
             <h3>Địa Chỉ: </h3><input class="form-control" id="address">
             <h3 style="display: none">Email: </h3><input style="display: none" class="form-control" id="email">
             <%}%>
+            <h3>Tỉnh thành: </h3>
 
+            <select class="form-control" id = "tinhthanh" name = "tinhthanh"> <option value="HNI">Hà Nội</option> <option value="HCM" selected>Hồ Chí Minh</option> <option value="HPG">Hải Phòng</option> <option value="DNG">Đà Nẵng</option> <option value="CTO">Cần Thơ</option> <option value="TGG">Tiền Giang</option> <option value="HUG">Hậu Giang</option> <option value="DKG">Đăk Nông</option> <option value="VPC">Vĩnh Phúc</option> <option value="BNH">Bắc Ninh</option> <option value="HDG">Hải Dương</option> <option value="HYN">Hưng Yên</option> <option value="HNM">Hà Nam</option> <option value="NDH">Nam Ðịnh</option> <option value="TBH">Thái Bình</option> <option value="NBH">Ninh Bình</option> <option value="HGG">Hà Giang</option> <option value="CBG">Cao Bằng</option> <option value="LCI">Lào Cai</option> <option value="BKN">Bắc Kạn</option> <option value="LSN">Lạng Sơn</option> <option value="TQG">Tuyên Quang</option> <option value="YBN">Yên Bái</option> <option value="TNN">Thái Nguyên</option> <option value="PHO">Phú Thọ</option> <option value="BGG">Bắc Giang</option> <option value="QNH">Quảng Ninh</option> <option value="LCU">Lai Châu</option> <option value="SLA">Sơn La</option> <option value="HBH">Hòa Bình</option> <option value="THA">Thanh Hóa</option> <option value="NAN">Nghệ An</option> <option value="HTH">Hà Tĩnh</option> <option value="QBH">Quảng Bình</option> <option value="QTI">Quảng Trị</option> <option value="HUE">Thừa Thiên - Huế</option> <option value="QNM">Quảng Nam</option> <option value="QNI">Quảng Ngãi</option> <option value="BDH">Bình Ðịnh</option> <option value="PYN">Phú Yên</option> <option value="KHA">Khánh Hòa</option> <option value="KTM">Kon Tum</option> <option value="GLI">Gia Lai</option> <option value="DLK">Đăk Lăk
+                </option> <option value="LDG">Lâm Ðồng</option> <option value="NTN">Ninh Thuận</option> <option value="BPC">Bình Phước</option> <option value="TNH">Tây Ninh</option> <option value="BDG">Bình Dương</option> <option value="DNI">Đồng Nai</option> <option value="BTN">Bình Thuận</option> <option value="VTU">Bà rịa - Vũng tàu
+                </option> <option value="LAN">Long An</option> <option value="DTP">Đồng Tháp</option> <option value="AGG">An Giang</option> <option value="VLG">Vĩnh Long</option> <option value="BTE">Bến Tre</option> <option value="KGG">Kiên Giang</option> <option value="TVH">Trà Vinh</option> <option value="STG">Sóc Trăng</option> <option value="BLU">Bạc Liêu</option> <option value="CMU">Cà Mau</option> <option value="DBN">Điện Biên</option></select>
+            <div id = "noithanh">
+                <h3>Quận huyện: </h3>
+
+                <select class="form-control" id = "quanhuyen" name = "quanhuyen">
+                    <%for(var i = 0; i < setting[0].noithanh.split(',').length ; i++){%>
+                    <option value="<%=setting[0].noithanh.split(',')[i]%>"><%=setting[0].noithanh.split(',')[i]%></option>
+                    <%}%>
+                    <%for(var i = 0; i < setting[0].ngoaithanh.split(',').length ; i++){%>
+                    <option value="<%=setting[0].ngoaithanh.split(',')[i]%>"><%=setting[0].ngoaithanh.split(',')[i]%></option>
+                    <%}%>
+                </select>
+            </div>
+
+
+            <div class="row"  id = "ngoaithanh" style="display: none">
+                    <div class="col-md-6">
+                        <div>
+                            <h3 for="louie">Chành xe</h3>
+                            <input type="radio" id="chanhxerad" name="hinhthuc" value="chanhxe" checked>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <h3 for="louie">Thu hộ</h3>
+                            <input type="radio" id="thuhorad" name="hinhthuc" value="thuho">
+
+                        </div>
+                    </div>
+
+            </div>
             <h3>Tổng giá sản phẩm: </h3>
             <h2 id="totalLabel" class="fa-money currency"><%= totalAll %></h2>
             <h3>Tổng giá đơn hàng: </h3>
@@ -370,11 +405,11 @@
             <div class="row">
                 <span onclick="document.getElementById('id03').style.display='none'" class="close"
                       title="Close Modal">&times;</span>
-                <img src="/img/logo.jpg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
+                <img src="/img/logo.png" alt="Avatar" class="avatar center-block" style="max-width: 75px">
             </div>
             <div class="row">
                 <h4 class="center" style="max-width: 100%;text-align: center">
-                    Chúng tôi sẽ xử lý và giao hàng nhanh nhất có thể.
+                    Cutiie House đã tiếp nhận đơn hàng của bạn. Chúng tôi sẽ xử lý và giao hàng nhanh nhất có thể.
                     Xin trân trọng cảm ơn.
                 </h4>
             </div>
@@ -386,29 +421,61 @@
                 </a>
                 <div class="col-sm-5"></div>
             </div>
-            <!--<div style="padding-top: 75px;">
-                <span onclick="document.getElementById('id03').style.display='none'" class="close"
-                      title="Close Modal">&times;</span>
-                <img src="/img/LOGO.svg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
-            </div>-->
-            <!--<div style="padding-top: 75px;">
 
-                <h4 class="center" style="max-width: 100%">
-                    Liên Hoa Các đã tiếp nhận đơn hàng của bạn. Chúng tôi sẽ xử lý và giao hàng nhanh nhất có thể.
-                    Xin trân trọng cảm ơn.
-                </h4>
-            </div>
-            <div style="padding-top: 75px;">
-                <a href="/" class="btn btn-success col-sm-2">
-                    <img src="/assets/img/success.jpg" alt="Avatar" class="avatar center-block" style="max-width: 75px">
-                </a>
-            </div>-->
 
         </div>
     </div>
 </div>
 </body>
 <% include partials/index_Footer.ejs %>
+<script>
+    $('#tinhthanh').change(function() {
+        // $(this).val() will work here
+        if($(this).val() == 'HCM'){
+            document.getElementById('noithanh').style.display = 'block';
+            document.getElementById('ngoaithanh').style.display = 'none';
+        } else {
+            document.getElementById('noithanh').style.display = 'none';
+            document.getElementById('ngoaithanh').style.display = 'block';
+        }
+        tinhShip();
+    });
+    $('#quanhuyen').change(function() {
+        tinhShip();
+    });
+</script>
+<script>
+    tinhShip();
+    $('input:radio[name="hinhthuc"]').change(function() {
+       tinhShip()
+    });
+    function tinhShip(){
+        if($('#tinhthanh').val() == 'HCM'){
+            var quan = $('#quanhuyen').val();
+            var dsnoithanh = '<%=setting[0].noithanh%>'
+            var flag = false;
+            for(i = 0 ; i < dsnoithanh.split(',').length ; i++) {
+                if(quan == dsnoithanh.split(',')[i]){
+                    document.getElementById('shipfee').value = '<%=setting[0].gianoithanh%>';
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag){
+                document.getElementById('shipfee').value = '<%=setting[0].giangoaithanh%>';
+            }
+        } else {
+            if(document.getElementsByName('hinhthuc')[0].checked == true){
+                document.getElementById('shipfee').value = '<%=setting[0].chanhxe%>';
+            } else if(document.getElementsByName('hinhthuc')[1].checked == true){
+                document.getElementById('shipfee').value = '<%=setting[0].thuho%>';
+            }
+        }
+
+        var result = parseFloat('<%=totalAll%>') + parseFloat( document.getElementById('shipfee').value);
+        document.getElementById('totalship').innerHTML = result;
+    }
+</script>
 <script>
     var signup = 'N';
     var total = '<%= totalAll %>';
@@ -717,6 +784,10 @@
             formdata.append('note', $("#note").val());
             formdata.append('name', $("#name").val());
             formdata.append('phone', $("#phone").val());
+            var radioValue = $("input[name='hinhthuc']:checked").val();
+            formdata.append('hinhthuc', radioValue);
+            formdata.append('quanhuyen', $("#quanhuyen").val());
+            formdata.append('tinhthanh', $("#tinhthanh").val());
             $.ajax({
                 url: '/../PetMart/add-to-payment',
                 type: 'POST',

@@ -19,86 +19,8 @@
                     <a class="btn btn-primary font-mobile" href="/create-prd?cat=<%= catflt %>&catId=<%= catId %>">Thêm Sản Phẩm</a>
                 </div>
             </div>
-    <%}%>
-   <%if(catflt != 'Tin Tức') {%>
-    <div class="row" id="buttonFilter">
-        <button class="btn btn-info center-block font-mobile" onclick="displayFilter()">Lọc sản phẩm</button>
-    </div>   
-    <div class = "row" id="filter" style="display: block;">
-        <div class="col-xs-12 col-md-12">
-        <form action = '<%=catflt=='undefined'?'/maintenance-prd/Search?keyword='+keyword:/maintenance-prd/+catflt%>' method = 'get'>
-            <div class="row">
-                <div class="col-md-3 col-xs-6">
-
-                </div>
-                <div class="col-md-3 col-xs-6">
-                    <div class="form-group">
-                        <h3 class="font-mobile"><span class="label" style="color: #6A3723" >Kích thước(mm) :</span></h3>
-                    </div>
-                    <div class="form-group">
-                        <input  class=" form-control" name = 'size' id = 'size'   type="number" placeholder="Chỉ nhập nếu bạn cần 1 size cụ thể!" />
-                    </div>
-                </div>
-                <div class="col-md-3 col-xs-6">
-                    <div class="form-group">
-                        <h3 class="font-mobile"><span class="label" style="color: #6A3723">Màu sắc:</span></h3>
-                    </div>
-                    <div class="form-group">
-                        <select class=" form-control" name = 'mau' id = 'mau'>
-                            <option value = ''>Chỉ chọn nếu bạn cần một màu cụ thể</option>
-                            <option value="đỏ"> Đỏ</option>
-                            <option value="tím"> Tím</option>
-                            <option value="hồng"> Hồng</option>
-                            <option value="vàng"> Vàng</option>
-                            <option value="nâu"> Nâu</option>
-                            <option value="cam"> Cam</option>
-                            <option value="xám"> Xám</option>
-                            <option value="ánh vàng"> Ánh vàng</option>
-                            <option value="ánh bạc"> Ánh bạc</option>
-                            <option value="xanh biển"> Xanh biển</option>
-                            <option value="đen"> Đen</option>
-                            <option value="xanh lá"> Xanh lá</option>
-                            <option value="xanh ngọc"> Xanh ngọc</option>
-                            <option value="trong suốt"> Trong suốt</option>
-                            <option value="trắng"> Trắng</option>
-                        </select>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="form-group">
-                    <input  class=" form-control" name = 'keyword' id = 'keyword' style="display: none" value="<%=keyword%>" type="text" />
-                </div>
-                <div class="col-md-3">
-
-
-                </div>
-                <div class="col-md-3">
-
-                </div>
-                <div class="col-md-3">
-
-                </div>
-                <div class="col-md-3">
-
-                </div>
-
-                <div class="col-md-12">
-                    <div class = "row">
-                        <div class="col-md-offset-5 col-md-2 col-xs-offset-5 col-xs-3">
-                            <div class="form-group">
-                                <input class="btn btn-primary font-mobile" value = 'Áp Dụng' type = 'submit'>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </form>
-        </div>
-    </div>
     <%}}%>
+   
 
         <div class="row">
             <%if(catflt == 'All'){%>
@@ -109,6 +31,7 @@
                 <th class="text-right" style="text-align: center;"><h3>Phân loại</h3></th>
                 <th class="text-right" style="text-align: center;"><h3>Số Lượng</h3></th>
                 <th class="text-right" style="text-align: center;"><h3>Nhập thêm</h3></th>
+                <th class="text-right" style="text-align: center;"><h3>Trừ ra</h3></th>
                 </thead>
                 <tbody>
                 <% for(i = 0;i < result.length;i++){ %>
@@ -132,10 +55,23 @@
                     <td style="text-align: center;">
                         <div class="row" style="text-align: center;">
                             <div class="col-md-3">
-                                <input class="form-control" id="product<%=result[i].size_id.split(',')[j]%>" value = '0'>
+                                <input class="form-control" id="productadd<%=result[i].size_id.split(',')[j]%>" value = '0'>
                             </div>
                             <div class="col-md-3">
                                 <button class="form-control btn-success" onclick="add(<%=result[i].size_id.split(',')[j]%>)">OK</button>
+                            </div>
+
+                        </div>
+
+
+                    </td>
+                    <td style="text-align: center;">
+                        <div class="row" style="text-align: center;">
+                            <div class="col-md-3">
+                                <input class="form-control" id="product<%=result[i].size_id.split(',')[j]%>" value = '0'>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="form-control btn-success" onclick="minus(<%=result[i].size_id.split(',')[j]%>)">OK</button>
                             </div>
 
                         </div>
@@ -160,10 +96,23 @@
                     <td style="text-align: center;">
                         <div class="row" style="text-align: center;">
                             <div class="col-md-3">
-                                <input class="form-control" id="product<%=result[i].size_id.split(',')[j]%>" value = '0'>
+                                <input class="form-control" id="productadd<%=result[i].size_id.split(',')[j]%>" value = '0'>
                             </div>
                             <div class="col-md-3">
                                 <button class="form-control btn-success" onclick="add(<%=result[i].size_id.split(',')[j]%>)">OK</button>
+                            </div>
+
+                        </div>
+
+
+                    </td>
+                    <td style="text-align: center;">
+                        <div class="row" style="text-align: center;">
+                            <div class="col-md-3">
+                                <input class="form-control" id="product<%=result[i].size_id.split(',')[j]%>" value = '0'>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="form-control btn-success" onclick="minus(<%=result[i].size_id.split(',')[j]%>)">OK</button>
                             </div>
 
                         </div>
@@ -293,10 +242,11 @@
     document.getElementById('keyword-search').value = '<%=keyword%>'
     <%}%>
     function add(idx){
-        var val = document.getElementById('product'+idx).value;
+        var val = document.getElementById('productadd'+idx).value;
         var formdata = new FormData();
         formdata.append('id', idx);
         formdata.append('entity', val);
+        formdata.append('function', 'add');
         $.ajax({
             url: '/ajax/updateProductEntity',
             type: 'POST',
@@ -308,6 +258,27 @@
             processData: false,
             success: function (response) {
                 document.getElementById('entity'+idx).innerText = parseInt(document.getElementById('entity'+idx).innerText) + parseInt(val);
+                document.getElementById('productadd'+idx).value = '0';
+            }
+        });
+    }
+    function minus(idx){
+        var val = document.getElementById('product'+idx).value;
+        var formdata = new FormData();
+        formdata.append('id', idx);
+        formdata.append('entity', val);
+        formdata.append('function', 'minus');
+        $.ajax({
+            url: '/ajax/updateProductEntity',
+            type: 'POST',
+            data: formdata,
+            async: false,
+            cache: false,
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+            success: function (response) {
+                document.getElementById('entity'+idx).innerText = parseInt(document.getElementById('entity'+idx).innerText) - parseInt(val);
                 document.getElementById('product'+idx).value = '0';
             }
         });

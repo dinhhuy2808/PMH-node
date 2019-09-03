@@ -255,9 +255,7 @@
             <button class="btn btn-info col-xs-4 col-md-3" type="button" onclick="UpdateCart()">
                 Cập Nhật Đơn Hàng
             </button>
-            <a class="btn btn-success col-xs-4 col-md-3" type="button" href="/bill/<%=result[0].payment_id%>">
-                Hóa Đơn
-            </a>
+
             <%}%>
 
             <!--<button onclick="CheckOut()"  class="btn btn-success col-sm-2">
@@ -270,7 +268,10 @@
         <%if(userdetail != undefined){%>
         <h4>Tên: <%=userdetail[0].firstname%></h4>
         <h4>Số điện thoại: <%=userdetail[0].phone%></h4>
-        <h4>Địa Chỉ: <%=userdetail[0].address%></h4>
+        <h4>Địa Chỉ: <%=userdetail[0].address%> ,  <%=userdetail[0].tinhthanh%>,
+        <%if(userdetail[0].tinhthanh == 'HCM'){%>
+          quận <%=userdetail[0].quanhuyen%><%}%>
+        </h4>
         <%}%>
 
         <h3>Tổng giá sản phẩm: </h3>

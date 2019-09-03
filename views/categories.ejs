@@ -10,7 +10,7 @@
     </div>
     <div class="row">
         <div class="col-md-8">
-            <h3><span class="label" style="background-color: #6A3723">Phương thức vận chuyển</span></h3>
+            <h3><span class="label label-danger" style="background-color: #6A3723;">Phương thức vận chuyển</span></h3>
         </div>
         <div class="col-md-8">
             <label class="checkbox-inline">
@@ -30,7 +30,7 @@
     <br>
     <div class="row">
         <div class="col-md-8">
-            <h3><span class="label"  style="background-color: #6A3723">Phương thức thanh toán</span></h3>
+            <h3><span class="label label-danger" style="background-color: #6A3723;">Phương thức thanh toán</span></h3>
         </div>
         <div class="col-md-8">
             <label class="checkbox-inline">
@@ -50,7 +50,7 @@
     <br>
     <div class="row">
         <div class="col-md-10">
-            <h3><span class="label"  style="background-color: #6A3723">Đơn hàng sẽ được miễn phí vận chuyển khi giá sau khuyến mãi lớn hơn:</span></h3>
+            <h3><span class="label label-danger" style="background-color: #6A3723;">Đơn hàng sẽ được miễn phí vận chuyển khi giá sau khuyến mãi lớn hơn:</span></h3>
         </div>
         <div class="col-md-3">
             <input class="form-control" id="freeship">
@@ -59,7 +59,7 @@
     <br>
     <div class="row">
         <div class="col-md-10">
-            <h3><span class="label"  style="background-color: #6A3723">Dưới số này đơn hàng có phí dịch vụ vận chuyển mặc định là:</span></h3>
+            <h3><span class="label label-danger" style="background-color: #6A3723;">Dưới số này đơn hàng có phí dịch vụ vận chuyển mặc định là:</span></h3>
         </div>
         <div class="col-md-3">
             <input class="form-control" id="shipdefault">
@@ -67,13 +67,88 @@
     </div>
     <div class="row">
         <br>
+        <div class="col-md-12">
+            <table style="border-collapse: collapse; border: none;">
+                <tbody>
+                <tr style="height: 20.65pt;">
+                    <td style="width: 155.8pt; border: solid #BFBFBF 1.0pt; padding: 0in 5.4pt 0in 5.4pt; height: 20.65pt;" width="208">
+                        <p style="margin-bottom: .0001pt; text-align: center; line-height: normal;"><strong><span style="font-size: 10.5pt; font-family: 'Helvetica',sans-serif; color: #333333; background: white;">Khu vực</span></strong></p>
+                    </td>
+                    <td style="width: 155.85pt; border: solid #BFBFBF 1.0pt; border-left: none; padding: 0in 5.4pt 0in 5.4pt; height: 20.65pt;" width="208">
+                        <p style="margin-bottom: .0001pt; text-align: center; line-height: normal;"><strong><span style="font-size: 10.5pt; font-family: 'Helvetica',sans-serif; color: #333333; background: white;">Quận/ Huyện</span></strong></p>
+                    </td>
+                    <td style="width: 155.85pt; border: solid #BFBFBF 1.0pt; border-left: none; padding: 0in 5.4pt 0in 5.4pt; height: 20.65pt;" width="208">
+                        <p style="margin-bottom: .0001pt; text-align: center; line-height: normal;"><strong><span style="font-size: 10.5pt; font-family: 'Helvetica',sans-serif; color: #333333; background: white;">Ph&iacute; Ship</span></strong></p>
+                    </td>
+                </tr>
+                <tr style="height: 49.45pt;">
+                    <td style="width: 155.8pt; border: solid #BFBFBF 1.0pt; border-top: none; padding: 0in 5.4pt 0in 5.4pt; height: 49.45pt;" width="208">
+                        <p style="margin-bottom: .0001pt; text-align: center; line-height: normal;"><span style="font-size: 10.5pt; font-family: 'Helvetica',sans-serif; color: #333333; background: white;">Ship nội th&agrave;nh</span> TPHCM</p>
+                    </td>
+                    <td style="width: 155.85pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; padding: 0in 5.4pt 0in 5.4pt; height: 49.45pt;" width="208">
+                        <p style="margin-bottom: .0001pt; text-align: center; line-height: normal;"><span style="font-size: 10.5pt; font-family: 'Helvetica',sans-serif; color: #333333; background: white;">
+                            <textarea class="form-control" id="noithanh">
+                            </textarea >
+                            </span></p>
+                    </td>
+                    <td style="width: 155.85pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; padding: 0in 5.4pt 0in 5.4pt; height: 49.45pt;" width="208">
+                        <p style="margin-bottom: .0001pt; text-align: center; line-height: normal;"><span style="font-size: 12.0pt; font-family: 'Times New Roman',serif; color: #111111;">
+                                <input class="form-control" id = "gianoithanh" value = "">
+                            </span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 155.8pt; border: solid #BFBFBF 1.0pt; border-top: none; padding: 0in 5.4pt 0in 5.4pt;" width="208">
+                        <p style="margin-bottom: .0001pt; text-align: center; line-height: normal;"><span style="font-size: 10.5pt; font-family: 'Helvetica',sans-serif; color: #333333; background: white;">Ship quận v&agrave; huyện ngoại th&agrave;nh</span></p>
+                    </td>
+                    <td style="width: 155.85pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; padding: 0in 5.4pt 0in 5.4pt;" width="208">
+                        <p style="margin-bottom: .0001pt; text-align: center; line-height: normal;"><span style="font-size: 10.5pt; font-family: 'Helvetica',sans-serif; color: #333333; background: white;">
+                                <textarea class="form-control" id="ngoaithanh">
+                                </textarea >
+                            </span></p>
+                    </td>
+                    <td style="width: 155.85pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; padding: 0in 5.4pt 0in 5.4pt;" width="208">
+                        <p style="margin-bottom: .0001pt; text-align: center; line-height: normal;"><span style="font-size: 12.0pt; font-family: 'Times New Roman',serif; color: #111111;">
+                                 <input class="form-control" id = "giangoaithanh" value = "">
+                            </span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 155.8pt; border: solid #BFBFBF 1.0pt; border-top: none; padding: 0in 5.4pt 0in 5.4pt;" rowspan="2" width="208">
+                        <p style="margin-bottom: .0001pt; text-align: center; line-height: normal;"><span style="font-size: 12.0pt; font-family: 'Times New Roman',serif; color: #111111;">Tỉnh</span></p>
+                    </td>
+                    <td style="width: 155.85pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; padding: 0in 5.4pt 0in 5.4pt;" width="208">
+                        <p style="margin-bottom: .0001pt; text-align: center; line-height: normal;"><span style="font-size: 12.0pt; font-family: 'Times New Roman',serif; color: #111111;">Ship ch&agrave;nh xe (kh&aacute;ch chuyển khoản trước)</span></p>
+                    </td>
+                    <td style="width: 155.85pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; padding: 0in 5.4pt 0in 5.4pt;" width="208">
+                        <p style="margin-bottom: .0001pt; text-align: center; line-height: normal;"><span style="font-size: 12.0pt; font-family: 'Times New Roman',serif; color: #111111;">
+                                <input class="form-control" id = "chanhxe" value = "">
+                            </span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 155.85pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; padding: 0in 5.4pt 0in 5.4pt;" width="208">
+                        <p style="margin-bottom: .0001pt; text-align: center; line-height: normal;"><span style="font-size: 12.0pt; font-family: 'Times New Roman',serif; color: #111111;">Ship thu hộ</span></p>
+                    </td>
+                    <td style="width: 155.85pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; padding: 0in 5.4pt 0in 5.4pt;" width="208">
+                        <p style="margin-bottom: .0001pt; text-align: center; line-height: normal;"><span style="font-size: 12.0pt; font-family: 'Times New Roman',serif; color: #111111;">
+                                <input class="form-control" id = "thuho" value = "">
+                            </span></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <br>
         <div class="col-md-8">
-            <button class="btn btn-success"  id='' onclick="Update()">Update Setting Shop</button>
+            <button class="btn btn-danger" style="background-color: #6A3723;" id='' onclick="Update()">Update Setting Shop</button>
         </div>
     </div>
     <br>
     <div class="row">
-        <button class="btn btn-danger" id='InsertBtn' onclick="insert()">Add Category</button>
+        <button class="btn btn-danger" style="background-color: #6A3723;" id='InsertBtn' onclick="insert()">Add Category</button>
     </div>
 
     <br/>
@@ -172,7 +247,7 @@
     <div class="row">
         <div class="row">
             <div class="col-md-10">
-                <h3><span class="label label-danger">Sắp xếp Header: </span></h3>
+                <h3><span class="label label-danger" style="background-color: #6A3723;">Sắp xếp Header: </span></h3>
             </div>
         </div>
         <div class="row">
@@ -242,6 +317,13 @@
     var paymentMethod = "<%=setting[0].paymentMethod%>".split(";");
     var freeShip = "<%=setting[0].freeShip%>";
     var defaultShip = "<%=setting[0].defaultShip%>";
+
+    document.getElementById('noithanh').innerHTML = "<%=setting[0].noithanh%>";
+    document.getElementById('ngoaithanh').innerHTML = "<%=setting[0].ngoaithanh%>";
+    document.getElementById('gianoithanh').value = "<%=setting[0].gianoithanh%>";
+    document.getElementById('giangoaithanh').value = "<%=setting[0].giangoaithanh%>";
+    document.getElementById('chanhxe').value = "<%=setting[0].chanhxe%>";
+    document.getElementById('thuho').value = "<%=setting[0].thuho%>";
     for (i=0; i<transportMethod.length; i++){
         if (transportMethod[i] == "ghtk"){
             document.getElementById("vanchuyen0").checked = true;
@@ -361,6 +443,12 @@
         formdata.append('thanhtoan', thanhtoan);
         formdata.append('freeship', freeship);
         formdata.append('shipdefault', shipdefault);
+        formdata.append('noithanh', document.getElementById('noithanh').value);
+        formdata.append('ngoaithanh', document.getElementById('ngoaithanh').value);
+        formdata.append('giangoaithanh', document.getElementById('giangoaithanh').value);
+        formdata.append('gianoithanh', document.getElementById('gianoithanh').value);
+        formdata.append('chanhxe', document.getElementById('chanhxe').value);
+        formdata.append('thuho', document.getElementById('thuho').value);
         $.ajax({
             url: './ajax/updateSettingShop',
             type: 'POST',

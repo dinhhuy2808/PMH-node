@@ -33,30 +33,25 @@
                             <div class="row center-block">
                                 <input class="col-md-8 form-control" type="text" id="name" onkeyup="CheckPrd()" value=""></input>
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-8"><h3>Size</h3></div>
+                            <!--<div class="row">
+                                <div class="col-md-8"><h3>Mã sản phẩm</h3></div>
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <div class="row">
-                                        <label class="col-md-4">
-                                            Từ: 
-                                        </label>
-                                        <div class="col-md-8"><input class="form-control" id = "minsize" value = ""></div>
-                                    </div>
+                                    <input class="form-control" type="text" id="newCode" value=""></input>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="row">
-                                        <label class="col-md-4">
-                                            Đến: 
-                                        </label>
-                                        <div class="col-md-8"><input class="form-control" id = "maxsize" value = ""></div>                                        
-                                    </div>
-                                    
-                                </div>
-                            </div>    
-                            
+                            </div>-->
+
+                            <div class="row">
+                                <div class="col-md-8"><h3>Từ Khóa</h3></div>
+                            </div>
+
+
+                            <div class="row center-block">
+                                <input class="col-md-8 form-control" type="text" id="key" value=""></input>
+                            </div>
+
+
                             <div class="row">
                                 <div class="col-md-8"><h3>Phân loại sản phẩm</h3></div>
                             </div>
@@ -411,30 +406,13 @@ CKEDITOR.replace('editor')
             formdata.append('Infos', infos);
             var menh = '';
             var tuoi = '';
-            var mau = '';
-            var menhs = document.getElementsByClassName("checkmenh");
-            for (var i = 0; i < menhs.length; i++) {
-                if(menhs[i].checked){
-                    menh +=menhs[i].value +";";
-                }
-            }
-            var tuois = document.getElementsByClassName("checktuoi");
-            for (var i = 0; i < tuois.length; i++) {
-                if(tuois[i].checked){
-                    tuoi +=tuois[i].value +";";
-                }
-            }
-            var maus = document.getElementsByClassName("checkmau");
-            for (var i = 0; i < maus.length; i++) {
-                if(maus[i].checked){
-                    mau +=maus[i].value +";";
-                }
-            }
+            var mau = document.getElementById('key').value;
+
+
             formdata.append('Menh', menh);
             formdata.append('Tuoi', tuoi);
             formdata.append('Mau', mau);
-            formdata.append('SizeFrom', document.getElementById('minsize').value);
-            formdata.append('SizeTo', document.getElementById('maxsize').value);
+
             $.ajax({
                 url: './ajax/addProduct',
                 type: 'POST',

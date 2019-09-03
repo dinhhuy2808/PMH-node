@@ -1,4 +1,4 @@
-var http=require('http');
+var https=require('https');
 var express=require('express');
 var redisStore=require('connect-redis')(express);
 var iniparser=require('iniparser');
@@ -47,6 +47,6 @@ app.use(function(req,res){
 		res.send('File Not Found');
 	});
 app.use(cookieParser());
-http.createServer(app).listen(config.port,function(){
+https.createServer(app).listen(config.port,function(){
 		console.log('App started on port '+config.port)
 	});

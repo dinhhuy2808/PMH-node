@@ -49,14 +49,14 @@ module.exports = function (app, controllers) {
     app.post('/ajax/checkUser', controllers.ajax.checkUser);
     app.post('/signup', controllers.account.signup_admin);
     app.get('/maintenance', controllers.account.show_account);
-    app.get('/maintenance-prd/:catflt', controllers.todo.maintenance_prd);
+    app.get('/maintenance-prd/:catflt', controllers.validate.check).get('/maintenance-prd/:catflt', controllers.todo.maintenance_prd);
     app.get('/create-prd', controllers.todo.create_prd);
     app.get('/edit-account', controllers.account.edit_account);
     app.get('/maintenance-cat', controllers.todo.maintenance_cat);
     app.post('/ajax/getEmail', controllers.ajax.getEmail);
     app.post('/ajax/getCat', controllers.ajax.getCat);
     app.post('/ajax/getPrd', controllers.ajax.getPrd);
-    app.get('/product-detail/:catflt/:prdname', controllers.todo.product_detail);
+    app.get('/product-detail/*', controllers.validate.check).get('/product-detail/:catflt/:prdname', controllers.todo.product_detail);
     app.post('/ajax/updateProduct', controllers.ajax.updateProduct);
     app.post('/ajax/updateProductDV', controllers.ajax.updateProductDV);
     app.post('/ajax/updateProductEntity', controllers.ajax.updateProductEntity);
@@ -102,6 +102,10 @@ module.exports = function (app, controllers) {
     app.get('/bill/:id', controllers.todo.showBill);
     app.post('/ajax/add-to-payment-now', controllers.ajax.add_to_payment_now);
     app.post('/ajax/update-treefolder/:id', controllers.ajax.update_folder);
+    app.get('/huongdan', controllers.todo.huongdan);
+    app.get('/khachsi', controllers.todo.khachsi);
+    app.get('/giaonhan', controllers.todo.giaonhan);
+    app.get('/doitra', controllers.todo.doitra);
 
     /*app.get('/register',controllers.account.register);
 

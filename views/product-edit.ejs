@@ -61,152 +61,15 @@
                             <div class="row center-block">
                                 <input class="col-md-8 form-control" type="text" id="name" onkeyup="CheckPrd()" value="<%=result[0].name%>"></input>
                             </div>
-                            
                             <div class="row">
-                                <div class="col-md-8"><h3 class="font-mobile">Hợp mệnh</h3></div>
+                                <div class="col-md-8"><h3>Từ Khóa</h3></div>
                             </div>
-                            <div class="row center-block font-mobile">
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmenh" onclick="uncheck('menh')" id="Kim" value="Kim"> Kim
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmenh" onclick="uncheck('menh')" id="Mộc" value="Mộc"> Mộc
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmenh" onclick="uncheck('menh')" id="Thủy" value="Thủy"> Thủy
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmenh"  onclick="uncheck('menh')" id="Hỏa" value="Hỏa"> Hỏa
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmenh"  onclick="uncheck('menh')" id="Thổ" value="Thổ"> Thổ
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmenh" id="AllMenh" value="All" onclick="selectAll('checkmenh')"> Tất cả các mệnh
-                                </label>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8"><h3 class="font-mobile">Hợp Tuổi</h3></div>
-                            </div>
-                            <div class="row center-block font-mobile">
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checktuoi"  onclick="uncheck('tuoi')" id="Tý" value="Tý"> Tý
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checktuoi" onclick="uncheck('tuoi')" id="Sửu" value="Sửu"> Sửu
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checktuoi" onclick="uncheck('tuoi')" id="Dần" value="Dần"> Dần
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checktuoi" onclick="uncheck('tuoi')" id="Mẹo" value="Mẹo"> Mẹo
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checktuoi" onclick="uncheck('tuoi')" id="Thình" value="Thình"> Thình
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checktuoi" onclick="uncheck('tuoi')" id="Tỵ" value="Tỵ"> Tỵ
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checktuoi" onclick="uncheck('tuoi')" id="Ngọ" value="Ngọ"> Ngọ
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checktuoi" onclick="uncheck('tuoi')" id="Mùi" value="Mùi"> Mùi
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checktuoi" onclick="uncheck('tuoi')" id="Thân" value="Thân"> Thân
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checktuoi" onclick="uncheck('tuoi')" id="Dậu" value="Dậu"> Dậu
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checktuoi" onclick="uncheck('tuoi')" id="Tuất" value="Tuất"> Tuất
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checktuoi" onclick="uncheck('tuoi')" id="Hợi" value="Hợi"> Hợi
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checktuoi" id="AllTuoi" value="All" onclick="selectAll('checktuoi')"> Tất cả các tuổi
-                                </label>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8"><h3 class="font-mobile">Màu sắc</h3></div>
-                            </div>
-                            <div class="row center-block font-mobile">
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmau" onclick="uncheck('mau')" id="Đỏ" value="Đỏ"> Đỏ
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmau" onclick="uncheck('mau')" id="Tím" value="Tím"> Tím
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmau" onclick="uncheck('mau')" id="Hồng" value="Hồng"> Hồng
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmau" onclick="uncheck('mau')" id="Vàng" value="Vàng"> Vàng
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmau" onclick="uncheck('mau')" id="Nâu" value="Nâu"> Nâu
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmau" onclick="uncheck('mau')" id="Cam" value="Cam"> Cam
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmau" onclick="uncheck('mau')" id="Xám" value="Xám"> Xám
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmau" onclick="uncheck('mau')" id="Ánh vàng" value="Ánh vàng"> Ánh vàng
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmau" onclick="uncheck('mau')" id="Ánh bạc" value="Ánh bạc"> Ánh bạc
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmau" onclick="uncheck('mau')" id="Xanh biển" value="Xanh biển"> Xanh biển
-                                </label>
 
-                            </div>
-                            <div class="row center-block font-mobile">
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmau" onclick="uncheck('mau')" id="Đen" value="Đen"> Đen
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmau" onclick="uncheck('mau')" id="Xanh lá" value="Xanh lá"> Xanh lá
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmau" onclick="uncheck('mau')" id="Xanh ngọc" value="Xanh ngọc"> Xanh ngọc
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmau" onclick="uncheck('mau')" id="Trong suốt" value="Trong suốt"> Trong suốt
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmau" onclick="uncheck('mau')" id="Trắng" value="Trắng"> Trắng
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="checkmau" id="AllMau" value="All" onclick="selectAll('checkmau')"> Tất cả các màu
-                                </label>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8"><h3 class="font-mobile">Size</h3></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="row font-mobile">
-                                        <label class="col-md-4">
-                                            Từ:
-                                        </label>
-                                        <div class="col-md-8"><input class="form-control" id = "minsize" value = "<%=result[0].sizefrom%>"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="row font-mobile">
-                                        <label class="col-md-4">
-                                            Đến:
-                                        </label>
-                                        <div class="col-md-8"><input class="form-control" id = "maxsize" value = "<%=result[0].sizeto%>"></div>
-                                    </div>
 
-                                </div>
+                            <div class="row center-block">
+                                <input class="col-md-8 form-control" type="text" id="key" value="<%=result[0].mau%>"></input>
                             </div>
+
 
                             <div class="row">
                                 <div class="col-md-8"><h3>Phân loại sản phẩm</h3></div>
@@ -456,47 +319,10 @@
         }
 
     }
-    function uncheck(idx){
-        if(idx == 'menh'){
-            document.getElementById('AllMenh').checked = false;
-        }
-        if(idx == 'tuoi'){
-            document.getElementById('AllTuoi').checked = false;
-        }
-        if(idx == 'mau'){
-            document.getElementById('AllMau').checked = false;
-        }
 
-    }
 </script>
 <script>
-    var menh = "<%=result[0].menh%>"
-    for(var j=0;j<document.getElementsByClassName("checkmenh").length;j++){
-        if(menh.includes(document.getElementsByClassName("checkmenh")[j].value)){
-            document.getElementsByClassName("checkmenh")[j].checked = true;
-        }
-    }
-    var tuoi = "<%=result[0].tuoi%>"
-    for(var j=0;j<document.getElementsByClassName("checktuoi").length;j++){
-        if(tuoi.includes(document.getElementsByClassName("checktuoi")[j].value)){
-            document.getElementsByClassName("checktuoi")[j].checked = true;
-        }
-    }
-    var mau = "<%=result[0].mau%>"
-    for(var j=0;j<document.getElementsByClassName("checkmau").length;j++){
-        if(mau.includes(document.getElementsByClassName("checkmau")[j].value)){
-            document.getElementsByClassName("checkmau")[j].checked = true;
-        }
-    }
-    function TickMenh(indx){
-        menh += indx+";";
-    }
-    function TickTuoi(indx){
-        tuoi += indx+";";
-    }
-    function TickMau(indx){
-        mau += indx+";";
-    }
+
     function CloseModalExpired(){
         document.getElementById('modalExpired').style.display = 'none';
     }
@@ -707,30 +533,11 @@
         formdata.append('OldIds', oldids);
         var menh = '';
         var tuoi = '';
-        var mau = '';
-        var menhs = document.getElementsByClassName("checkmenh");
-        for (var i = 0; i < menhs.length; i++) {
-            if(menhs[i].checked){
-                menh +=menhs[i].value +";";
-            }
-        }
-        var tuois = document.getElementsByClassName("checktuoi");
-        for (var i = 0; i < tuois.length; i++) {
-            if(tuois[i].checked){
-                tuoi +=tuois[i].value +";";
-            }
-        }
-        var maus = document.getElementsByClassName("checkmau");
-        for (var i = 0; i < maus.length; i++) {
-            if(maus[i].checked){
-                mau +=maus[i].value +";";
-            }
-        }
+        var mau = document.getElementById('key').value;
+
         formdata.append('Menh', menh);
         formdata.append('Tuoi', tuoi);
         formdata.append('Mau', mau);
-        formdata.append('SizeFrom', document.getElementById('minsize').value);
-        formdata.append('SizeTo', document.getElementById('maxsize').value);
         $.ajax({
             url: '../ajax/updateProduct',
             type: 'POST',

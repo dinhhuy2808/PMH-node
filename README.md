@@ -16,10 +16,10 @@ npm install --save pad-start
 npm install request
 $ node server
 
-and go to your browser and open http://localhost:8080
+and go to your browser and open https://localhost:8080
 
 reference:
 
-https://github.com/netai/just-mvc<br/>
-http://netai-nayek.blogspot.com/<br/>
-http://netai-nayek.blogspot.in/2014/09/create-application-using-mvc-structure.html
+httpss://github.com/netai/just-mvc<br/>
+https://netai-nayek.blogspot.com/<br/>
+https://netai-nayek.blogspot.in/2014/09/create-application-using-mvc-structure.html
